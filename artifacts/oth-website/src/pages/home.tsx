@@ -736,9 +736,15 @@ export default function Home() {
                 return (
                   <div
                     key={i}
-                    className="border border-white/10 p-6 hover:border-[#C9A227]/50 transition-all group cursor-pointer"
+                    className="border border-white/10 hover:border-[#C9A227]/50 transition-all group cursor-pointer overflow-hidden"
                     style={{ backgroundColor: "rgba(255,255,255,0.04)" }}
                   >
+                    {event.tag === "Food & Sport" && (
+                      <div className="h-36 overflow-hidden">
+                        <img src="/sunday-roast.jpg" alt="Sunday Roast" className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                    )}
+                    <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
                       <span className="text-[10px] font-bold tracking-widest uppercase px-2.5 py-1" style={{ backgroundColor: tag.bg, color: tag.color }}>
                         {event.tag}
@@ -759,6 +765,7 @@ export default function Home() {
                       <a href="#book" className="text-[11px] font-bold tracking-widest uppercase flex items-center gap-1 hover:gap-2 transition-all" style={{ color: GOLD }}>
                         Request a Booking <ChevronRight size={11} />
                       </a>
+                    </div>
                     </div>
                   </div>
                 );
@@ -903,6 +910,17 @@ export default function Home() {
                   Print / Download PDF
                 </button>
               </div>
+
+              {/* Sunday roast hero image */}
+              {activeMenuType === "sunday" && (
+                <div className="mb-8 overflow-hidden" style={{ height: 220 }}>
+                  <img
+                    src="/sunday-roast.jpg"
+                    alt="Sunday roast at The Old Tigers Head"
+                    className="w-full h-full object-cover object-center"
+                  />
+                </div>
+              )}
 
               {/* All menu sections listed vertically */}
               <div className="space-y-10">
