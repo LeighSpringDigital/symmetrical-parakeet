@@ -574,7 +574,7 @@ export default function Home() {
         <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, rgba(0,10,20,0.82) 0%, rgba(0,10,20,0.78) 50%, rgba(0,10,20,0.96) 100%)` }} />
 
         <div className="relative z-10 flex flex-col items-center justify-center flex-1 text-center px-6 pt-40 pb-16">
-          <p className="text-base md:text-lg max-w-2xl font-semibold mb-8 leading-relaxed" style={{ color: "white" }}>
+          <p className="max-w-4xl font-semibold mb-8 leading-tight" style={{ color: GOLD, fontSize: "5rem" }}>
             British Heritage and Modern Hospitality intersect at The Old Tigers Head, the beating heart of Lee.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
