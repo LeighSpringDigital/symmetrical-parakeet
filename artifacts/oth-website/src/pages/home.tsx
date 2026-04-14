@@ -437,7 +437,7 @@ export default function Home() {
           {/* CENTRE: Pub name */}
           <div className="flex flex-col items-center flex-shrink-0 mx-6 select-none cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
             <div className="text-[22px] font-black tracking-[0.06em] uppercase leading-tight" style={{ color: GOLD, fontFamily: FONT }}>
-              Old Tigers Head
+              The Old Tigers Head
             </div>
             <div className="text-white/50 text-[9px] tracking-[0.4em] uppercase mt-0.5">
               Est. 1750 · Lee, London
