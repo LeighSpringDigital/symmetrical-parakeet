@@ -102,8 +102,8 @@ export default function CommunityPage() {
         <div className="mb-16 p-8" style={{ backgroundColor: GOLD }}>
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="flex-shrink-0 flex flex-col items-center">
-              <div className="w-20 h-20 flex items-center justify-center font-black text-4xl border-4" style={{ backgroundColor: NAVY, color: GOLD, borderColor: NAVY }}>
-                🐯
+              <div className="w-28 h-28 overflow-hidden border-4" style={{ borderColor: NAVY }}>
+                <img src="/casper.jpg" alt="Casper the Chi Chon" className="w-full h-full object-cover object-top" />
               </div>
               <div className="text-[9px] font-black tracking-widest uppercase mt-2" style={{ color: NAVY }}>Tiger of the Month</div>
             </div>
@@ -130,7 +130,9 @@ export default function CommunityPage() {
 
             {step === "success" ? (
               <div className="border border-white/10 p-10 text-center" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
-                <div className="text-5xl mb-5">🐯</div>
+                <div className="w-20 h-20 overflow-hidden mx-auto mb-5 border-4" style={{ borderColor: GOLD }}>
+                  <img src="/casper.jpg" alt="Casper" className="w-full h-full object-cover object-top" />
+                </div>
                 <div className="text-2xl font-black uppercase tracking-wide text-white mb-3" style={{ fontFamily: FONT }}>
                   Welcome to the Pride
                 </div>

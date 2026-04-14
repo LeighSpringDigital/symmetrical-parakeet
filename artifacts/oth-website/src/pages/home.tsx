@@ -575,10 +575,10 @@ export default function Home() {
               {/* Badge */}
               <div className="flex-shrink-0 flex flex-col items-center">
                 <div
-                  className="w-20 h-20 flex items-center justify-center font-black text-3xl border-4"
-                  style={{ backgroundColor: NAVY, color: GOLD, borderColor: NAVY }}
+                  className="w-24 h-24 overflow-hidden border-4"
+                  style={{ borderColor: NAVY }}
                 >
-                  🐯
+                  <img src="/casper.jpg" alt="Casper the Chi Chon" className="w-full h-full object-cover object-top" />
                 </div>
                 <div className="text-[9px] font-black tracking-widest uppercase mt-2" style={{ color: NAVY }}>
                   Tiger of the Month
