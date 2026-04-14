@@ -27,6 +27,65 @@ const hardcodedWhatsOn = [
   { day: "Saturday 17 May", time: "7pm", title: "Spring Charity Dinner", desc: "A four-course dinner raising money for Lee's local foodbank. Limited places — book now.", tag: "Community" },
 ];
 
+const pastEvents = [
+  { day: "Sat 22 Mar", time: "7pm", title: "Spring Comedy Night", desc: "A sell-out evening with headliner Tom Mayhew. Huge night.", tag: "Comedy" },
+  { day: "Sun 30 Mar", time: "1pm", title: "Mother's Day Sunday Roast", desc: "Fully booked weeks in advance. Paolo's best roast yet — the beef was extraordinary.", tag: "Food & Sport" },
+  { day: "Tue 1 Apr", time: "7:30pm", title: "Quiz Night", desc: "Winners: The Three Musketeers (again). Second place: Close But No Cigar.", tag: "Quiz" },
+  { day: "Fri 4 Apr", time: "8pm", title: "Friday Night Jazz", desc: "Standing room only. The quartet from Greenwich were a revelation.", tag: "Music" },
+  { day: "Tue 8 Apr", time: "7:30pm", title: "Quiz Night", desc: "Photo finish. New team 'Quiz Khalifa' beat the Musketeers by one point.", tag: "Quiz" },
+  { day: "Fri 11 Apr", time: "8pm", title: "Friday Night Jazz", desc: "A night of soul and swing — packed out from 7:30.", tag: "Music" },
+];
+
+const weeklyGroups = [
+  {
+    label: "This Week",
+    dates: "14 – 20 Apr",
+    events: [
+      { day: "Tue 15 Apr", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
+      { day: "Fri 18 Apr", time: "8pm – late", title: "Friday Night Jazz", tag: "Music", desc: "Live jazz from local musicians. No booking required.", recurring: true },
+      { day: "Sun 20 Apr", time: "12pm – 5pm", title: "Sunday Roast & Live Rugby", tag: "Food & Sport", desc: "Book a table to guarantee your spot.", recurring: true },
+    ],
+  },
+  {
+    label: "Next Week",
+    dates: "21 – 27 Apr",
+    events: [
+      { day: "Tue 22 Apr", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
+      { day: "Fri 25 Apr", time: "8pm – late", title: "Friday Night Jazz", tag: "Music", desc: "Live jazz from local musicians. No booking required.", recurring: true },
+      { day: "Sun 27 Apr", time: "12pm – 5pm", title: "Sunday Roast & Live Rugby", tag: "Food & Sport", desc: "Book a table to guarantee your spot.", recurring: true },
+    ],
+  },
+  {
+    label: "28 Apr – 4 May",
+    dates: "28 Apr – 4 May",
+    events: [
+      { day: "Tue 29 Apr", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
+      { day: "Fri 2 May", time: "8pm – late", title: "Friday Night Jazz", tag: "Music", desc: "Live jazz from local musicians. No booking required.", recurring: true },
+      { day: "Sat 3 May", time: "3pm kick-off", title: "Cup Final Screening", tag: "Sport", desc: "Watch the Cup Final on our big screen. Arrive early to get a seat.", recurring: false },
+      { day: "Sun 4 May", time: "12pm – 5pm", title: "Sunday Roast & Live Rugby", tag: "Food & Sport", desc: "Book a table to guarantee your spot.", recurring: true },
+    ],
+  },
+  {
+    label: "5 – 11 May",
+    dates: "5 – 11 May",
+    events: [
+      { day: "Tue 6 May", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
+      { day: "Fri 9 May", time: "8pm – late", title: "Friday Night Jazz", tag: "Music", desc: "Live jazz from local musicians. No booking required.", recurring: true },
+      { day: "Sun 11 May", time: "12pm – 5pm", title: "Sunday Roast & Live Rugby", tag: "Food & Sport", desc: "Book a table to guarantee your spot.", recurring: true },
+    ],
+  },
+  {
+    label: "12 – 18 May",
+    dates: "12 – 18 May",
+    events: [
+      { day: "Tue 13 May", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
+      { day: "Fri 16 May", time: "8pm – late", title: "Friday Night Jazz", tag: "Music", desc: "Live jazz from local musicians. No booking required.", recurring: true },
+      { day: "Sat 17 May", time: "7pm", title: "Spring Charity Dinner", tag: "Community", desc: "A four-course dinner raising money for Lee's local foodbank. Limited places — book now.", recurring: false },
+      { day: "Sun 18 May", time: "12pm – 5pm", title: "Sunday Roast & Live Rugby", tag: "Food & Sport", desc: "Book a table to guarantee your spot.", recurring: true },
+    ],
+  },
+];
+
 const hardcodedMenuSections = [
   {
     name: "Starters",
@@ -133,6 +192,14 @@ export default function Home() {
   const [activeMenuTab, setActiveMenuTab] = useState("Mains");
   const [slideIndex, setSlideIndex] = useState(0);
   const slideTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [eventsView, setEventsView] = useState<"upcoming" | "past">("upcoming");
+  const [eventsLayout, setEventsLayout] = useState<"grid" | "week">("grid");
+  const [expandedWeek, setExpandedWeek] = useState<string | null>("This Week");
+  const [bookingForm, setBookingForm] = useState({
+    name: "", phone: "", email: "", date: "", time: "", guests: "", notes: "", keepUpdated: false,
+  });
+  const [bookingErrors, setBookingErrors] = useState<Record<string, string>>({});
+  const [bookingSubmitted, setBookingSubmitted] = useState(false);
 
   const sheetId = import.meta.env.VITE_GOOGLE_SHEET_ID;
 
@@ -272,7 +339,7 @@ export default function Home() {
               className="text-xs font-bold tracking-[0.2em] uppercase px-6 py-3 transition-all hover:brightness-90"
               style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
             >
-              Book a Table
+              Request a Booking
             </a>
             <button
               onClick={() => setSearchOpen(!searchOpen)}
@@ -296,7 +363,7 @@ export default function Home() {
               Menu
             </a>
             <a href="#book" className="text-[10px] font-bold tracking-widest uppercase px-4 py-2" style={{ backgroundColor: GOLD, color: NAVY }}>
-              Book
+              Request
             </a>
             <button onClick={() => setMenuOpen(!menuOpen)} className="text-white p-1">
               <Menu size={20} />
@@ -360,7 +427,7 @@ export default function Home() {
               style={{ backgroundColor: GOLD, color: NAVY }}
               onClick={() => setMenuOpen(false)}
             >
-              Book a Table
+              Request a Booking
             </a>
           </div>
         </div>
@@ -398,7 +465,7 @@ export default function Home() {
               Private Hire
             </a>
             <a href="#book" className="text-sm font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all border border-white/40 hover:border-white/80" style={{ color: "white", fontFamily: FONT }}>
-              Book a Table
+              Request a Booking
             </a>
           </div>
         </div>
@@ -461,7 +528,9 @@ export default function Home() {
       {/* ── WHAT'S ON ──────────────────────────────────────── */}
       <section id="whats-on" className="py-20 px-6" style={{ backgroundColor: NAVY }}>
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
+
+          {/* Section header */}
+          <div className="text-center mb-10">
             <p className="text-xs tracking-[0.5em] uppercase font-semibold mb-3" style={{ color: GOLD }}>
               Live, local &amp; legendary
             </p>
@@ -471,12 +540,110 @@ export default function Home() {
             <div className="mt-4 w-16 h-0.5 mx-auto" style={{ backgroundColor: GOLD }} />
           </div>
 
+          {/* Controls row */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-10">
+            {/* Upcoming / Past tabs */}
+            <div className="flex border border-white/15">
+              <button
+                onClick={() => setEventsView("upcoming")}
+                className="px-6 py-2.5 text-xs font-bold tracking-widest uppercase transition-all"
+                style={{
+                  backgroundColor: eventsView === "upcoming" ? GOLD : "transparent",
+                  color: eventsView === "upcoming" ? NAVY : "rgba(255,255,255,0.6)",
+                  fontFamily: FONT,
+                }}
+              >
+                Upcoming
+              </button>
+              <button
+                onClick={() => setEventsView("past")}
+                className="px-6 py-2.5 text-xs font-bold tracking-widest uppercase transition-all border-l border-white/15"
+                style={{
+                  backgroundColor: eventsView === "past" ? GOLD : "transparent",
+                  color: eventsView === "past" ? NAVY : "rgba(255,255,255,0.6)",
+                  fontFamily: FONT,
+                }}
+              >
+                Past Events
+              </button>
+            </div>
+
+            {/* Grid / Week view toggle — only for upcoming */}
+            {eventsView === "upcoming" && (
+              <div className="flex items-center gap-3">
+                <span className="text-white/30 text-[10px] tracking-widest uppercase">View:</span>
+                <div className="flex border border-white/15">
+                  <button
+                    onClick={() => setEventsLayout("grid")}
+                    className="px-4 py-2.5 text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-1.5"
+                    style={{
+                      backgroundColor: eventsLayout === "grid" ? "rgba(255,255,255,0.12)" : "transparent",
+                      color: eventsLayout === "grid" ? "white" : "rgba(255,255,255,0.45)",
+                    }}
+                    title="Grid view"
+                  >
+                    <Calendar size={13} /> Grid
+                  </button>
+                  <button
+                    onClick={() => setEventsLayout("week")}
+                    className="px-4 py-2.5 text-xs font-bold tracking-widest uppercase transition-all border-l border-white/15 flex items-center gap-1.5"
+                    style={{
+                      backgroundColor: eventsLayout === "week" ? "rgba(255,255,255,0.12)" : "transparent",
+                      color: eventsLayout === "week" ? "white" : "rgba(255,255,255,0.45)",
+                    }}
+                    title="Week-by-week view"
+                  >
+                    <Clock size={13} /> Week by Week
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
           {whatsOnLoading && (
             <div className="flex justify-center items-center py-20">
               <Spinner className="w-8 h-8 text-[#C9A227]" />
             </div>
           )}
-          {!whatsOnLoading && (
+
+          {/* PAST EVENTS — grid */}
+          {!whatsOnLoading && eventsView === "past" && (
+            <div>
+              <p className="text-white/40 text-sm mb-8 text-center">A look back at recent nights at the Tiger.</p>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {pastEvents.map((event, i) => {
+                  const tag = tagColors[event.tag] ?? { bg: "rgba(255,255,255,0.1)", color: "white" };
+                  return (
+                    <div
+                      key={i}
+                      className="border border-white/10 p-6"
+                      style={{ backgroundColor: "rgba(255,255,255,0.03)", opacity: 0.85 }}
+                    >
+                      <div className="flex items-start justify-between mb-4">
+                        <span className="text-[10px] font-bold tracking-widest uppercase px-2.5 py-1" style={{ backgroundColor: tag.bg, color: tag.color, opacity: 0.7 }}>
+                          {event.tag}
+                        </span>
+                        <span className="text-white/20 text-[10px] tracking-widest uppercase">Past</span>
+                      </div>
+                      <h3 className="text-white/70 text-[17px] font-black uppercase tracking-wide mb-2" style={{ fontFamily: FONT }}>
+                        {event.title}
+                      </h3>
+                      <div className="flex gap-4 mb-3">
+                        <span className="text-[11px] tracking-wider uppercase font-semibold" style={{ color: `${GOLD}88` }}>
+                          {event.day}
+                        </span>
+                        <span className="text-white/30 text-[11px]">{event.time}</span>
+                      </div>
+                      <p className="text-white/45 text-sm leading-relaxed">{event.desc}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* UPCOMING — GRID VIEW */}
+          {!whatsOnLoading && eventsView === "upcoming" && eventsLayout === "grid" && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
               {whatsOnEvents.map((event, i) => {
                 const tag = tagColors[event.tag] ?? { bg: "rgba(255,255,255,0.1)", color: "white" };
@@ -504,9 +671,86 @@ export default function Home() {
                     <p className="text-white/60 text-sm leading-relaxed">{event.desc}</p>
                     <div className="mt-5 pt-4 border-t border-white/10">
                       <a href="#book" className="text-[11px] font-bold tracking-widest uppercase flex items-center gap-1 hover:gap-2 transition-all" style={{ color: GOLD }}>
-                        Book a Table <ChevronRight size={11} />
+                        Request a Booking <ChevronRight size={11} />
                       </a>
                     </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {/* UPCOMING — WEEK-BY-WEEK VIEW */}
+          {!whatsOnLoading && eventsView === "upcoming" && eventsLayout === "week" && (
+            <div className="space-y-3">
+              {weeklyGroups.map((week) => {
+                const isOpen = expandedWeek === week.label;
+                return (
+                  <div key={week.label} className="border border-white/10" style={{ backgroundColor: "rgba(255,255,255,0.03)" }}>
+                    {/* Week header — clickable accordion */}
+                    <button
+                      className="w-full flex items-center justify-between px-6 py-4 text-left transition-all hover:bg-white/5"
+                      onClick={() => setExpandedWeek(isOpen ? null : week.label)}
+                    >
+                      <div className="flex items-center gap-4">
+                        <div
+                          className="text-[11px] font-black tracking-widest uppercase px-3 py-1"
+                          style={{ backgroundColor: isOpen ? GOLD : "rgba(255,255,255,0.08)", color: isOpen ? NAVY : "white", fontFamily: FONT }}
+                        >
+                          {week.label}
+                        </div>
+                        <span className="text-white/40 text-sm">{week.dates}</span>
+                        <span className="text-white/25 text-xs">{week.events.length} events</span>
+                      </div>
+                      <ChevronDown
+                        size={16}
+                        className="text-white/40 transition-transform"
+                        style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+                      />
+                    </button>
+
+                    {/* Week events */}
+                    {isOpen && (
+                      <div className="border-t border-white/10">
+                        {week.events.map((event, i) => {
+                          const tag = tagColors[event.tag] ?? { bg: "rgba(255,255,255,0.1)", color: "white" };
+                          return (
+                            <div
+                              key={i}
+                              className="flex items-center gap-4 px-6 py-4 border-b border-white/5 last:border-b-0 hover:bg-white/5 transition-colors group"
+                            >
+                              {/* Day */}
+                              <div className="w-24 flex-shrink-0">
+                                <div className="text-white font-bold text-sm" style={{ fontFamily: FONT }}>{event.day}</div>
+                                <div className="text-white/40 text-[11px]">{event.time}</div>
+                              </div>
+                              {/* Tag */}
+                              <span className="text-[9px] font-bold tracking-widest uppercase px-2 py-0.5 flex-shrink-0 hidden sm:inline" style={{ backgroundColor: tag.bg, color: tag.color }}>
+                                {event.tag}
+                              </span>
+                              {/* Title + desc */}
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-white font-black text-sm uppercase tracking-wide group-hover:text-[#C9A227] transition-colors" style={{ fontFamily: FONT }}>
+                                    {event.title}
+                                  </span>
+                                  {event.recurring && (
+                                    <span className="text-[9px] text-white/25 tracking-widest uppercase hidden md:inline">Weekly</span>
+                                  )}
+                                </div>
+                                <p className="text-white/45 text-xs leading-relaxed truncate">{event.desc}</p>
+                              </div>
+                              {/* Book link */}
+                              {!event.recurring && (
+                                <a href="#book" className="text-[10px] font-bold tracking-widest uppercase flex-shrink-0 transition-colors hover:text-white hidden sm:flex items-center gap-1" style={{ color: GOLD }}>
+                                  Book <ChevronRight size={10} />
+                                </a>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -573,9 +817,229 @@ export default function Home() {
               className="inline-block text-white text-sm font-bold tracking-[0.2em] uppercase px-10 py-4 transition-all hover:brightness-110"
               style={{ backgroundColor: NAVY, fontFamily: FONT }}
             >
-              Book a Table
+              Request a Booking
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* ── REQUEST A BOOKING ──────────────────────────────── */}
+      <section id="book" className="py-24 px-6" style={{ backgroundColor: NAVY }}>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-xs tracking-[0.5em] uppercase font-semibold mb-3" style={{ color: GOLD }}>
+              Reserve your spot
+            </p>
+            <h2 className="text-white text-4xl md:text-5xl font-black uppercase tracking-wide" style={{ fontFamily: FONT }}>
+              Request a Booking
+            </h2>
+            <div className="mt-4 w-16 h-0.5 mx-auto" style={{ backgroundColor: GOLD }} />
+            <p className="text-white/50 text-sm mt-5 leading-relaxed max-w-md mx-auto">
+              Fill in your details and we'll confirm your booking via WhatsApp — usually within a few hours.
+            </p>
+          </div>
+
+          {bookingSubmitted ? (
+            /* ── CONFIRMATION STATE ── */
+            <div className="max-w-xl mx-auto border border-white/10 p-12 text-center" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+              <div
+                className="w-16 h-16 flex items-center justify-center mx-auto mb-6 font-black text-2xl"
+                style={{ backgroundColor: GOLD, color: NAVY }}
+              >
+                ✓
+              </div>
+              <div className="text-2xl font-black uppercase tracking-wide text-white mb-3" style={{ fontFamily: FONT }}>
+                Booking Pending
+              </div>
+              <p className="text-white/65 text-sm leading-relaxed mb-6">
+                Thanks, {bookingForm.name.split(" ")[0]}. We've received your request and will confirm your booking via WhatsApp shortly.
+              </p>
+              <div
+                className="border-l-4 px-5 py-4 text-left mb-6"
+                style={{ borderColor: GOLD, backgroundColor: "rgba(201,162,39,0.08)" }}
+              >
+                <div className="text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>Your request</div>
+                <div className="text-white/70 text-sm space-y-1">
+                  <div><span className="text-white/40">Date:</span> {bookingForm.date}</div>
+                  <div><span className="text-white/40">Time:</span> {bookingForm.time}</div>
+                  <div><span className="text-white/40">Guests:</span> {bookingForm.guests}</div>
+                </div>
+              </div>
+              <p className="text-white/40 text-xs">
+                If you need to reach us urgently, call us on{" "}
+                <a href="tel:02083186000" className="underline hover:text-white transition-colors">020 8318 6000</a>
+              </p>
+            </div>
+          ) : (
+            /* ── BOOKING FORM ── */
+            <form
+              className="max-w-2xl mx-auto"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const errs: Record<string, string> = {};
+                if (!bookingForm.name.trim()) errs.name = "Please enter your name";
+                if (!bookingForm.phone.trim() && !bookingForm.email.trim()) errs.contact = "Please provide a phone number or email";
+                if (!bookingForm.date.trim()) errs.date = "Please choose a date";
+                if (!bookingForm.guests.trim()) errs.guests = "Please tell us how many guests";
+                setBookingErrors(errs);
+                if (Object.keys(errs).length === 0) setBookingSubmitted(true);
+              }}
+            >
+              <div className="grid sm:grid-cols-2 gap-5 mb-5">
+                {/* Name */}
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
+                    Your Name *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Full name"
+                    value={bookingForm.name}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, name: e.target.value }))}
+                    className="w-full bg-transparent border px-4 py-3 text-white text-sm placeholder:text-white/30 outline-none transition-colors focus:border-[#C9A227]"
+                    style={{ borderColor: bookingErrors.name ? "#ef4444" : "rgba(255,255,255,0.15)" }}
+                  />
+                  {bookingErrors.name && <p className="text-red-400 text-xs mt-1">{bookingErrors.name}</p>}
+                </div>
+
+                {/* Phone */}
+                <div>
+                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    placeholder="Your mobile number"
+                    value={bookingForm.phone}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, phone: e.target.value }))}
+                    className="w-full bg-transparent border px-4 py-3 text-white text-sm placeholder:text-white/30 outline-none transition-colors focus:border-[#C9A227]"
+                    style={{ borderColor: bookingErrors.contact ? "#ef4444" : "rgba(255,255,255,0.15)" }}
+                  />
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    value={bookingForm.email}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, email: e.target.value }))}
+                    className="w-full bg-transparent border px-4 py-3 text-white text-sm placeholder:text-white/30 outline-none transition-colors focus:border-[#C9A227]"
+                    style={{ borderColor: bookingErrors.contact ? "#ef4444" : "rgba(255,255,255,0.15)" }}
+                  />
+                  {bookingErrors.contact && <p className="text-red-400 text-xs mt-1">{bookingErrors.contact}</p>}
+                </div>
+
+                {/* Date */}
+                <div>
+                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
+                    Date of Visit *
+                  </label>
+                  <input
+                    type="date"
+                    value={bookingForm.date}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, date: e.target.value }))}
+                    className="w-full bg-transparent border px-4 py-3 text-white text-sm outline-none transition-colors focus:border-[#C9A227]"
+                    style={{
+                      borderColor: bookingErrors.date ? "#ef4444" : "rgba(255,255,255,0.15)",
+                      colorScheme: "dark",
+                    }}
+                  />
+                  {bookingErrors.date && <p className="text-red-400 text-xs mt-1">{bookingErrors.date}</p>}
+                </div>
+
+                {/* Time */}
+                <div>
+                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
+                    Preferred Time
+                  </label>
+                  <select
+                    value={bookingForm.time}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, time: e.target.value }))}
+                    className="w-full bg-[#002942] border px-4 py-3 text-white text-sm outline-none transition-colors focus:border-[#C9A227] appearance-none cursor-pointer"
+                    style={{ borderColor: "rgba(255,255,255,0.15)" }}
+                  >
+                    <option value="">Select a time...</option>
+                    <option value="12:00">12:00pm – Lunch</option>
+                    <option value="13:00">1:00pm</option>
+                    <option value="14:00">2:00pm</option>
+                    <option value="17:00">5:00pm</option>
+                    <option value="18:00">6:00pm</option>
+                    <option value="19:00">7:00pm – Dinner</option>
+                    <option value="19:30">7:30pm</option>
+                    <option value="20:00">8:00pm</option>
+                  </select>
+                </div>
+
+                {/* Guests */}
+                <div>
+                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
+                    Number of Guests *
+                  </label>
+                  <select
+                    value={bookingForm.guests}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, guests: e.target.value }))}
+                    className="w-full bg-[#002942] border px-4 py-3 text-white text-sm outline-none transition-colors focus:border-[#C9A227] appearance-none cursor-pointer"
+                    style={{ borderColor: bookingErrors.guests ? "#ef4444" : "rgba(255,255,255,0.15)" }}
+                  >
+                    <option value="">Select...</option>
+                    {[1,2,3,4,5,6,7,8,"9+"].map((n) => (
+                      <option key={n} value={String(n)}>{n} {n === 1 ? "guest" : "guests"}</option>
+                    ))}
+                  </select>
+                  {bookingErrors.guests && <p className="text-red-400 text-xs mt-1">{bookingErrors.guests}</p>}
+                </div>
+
+                {/* Notes */}
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
+                    Anything else we should know?
+                  </label>
+                  <textarea
+                    placeholder="Dietary requirements, allergies, high chairs, occasion, specific seating request..."
+                    rows={3}
+                    value={bookingForm.notes}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, notes: e.target.value }))}
+                    className="w-full bg-transparent border px-4 py-3 text-white text-sm placeholder:text-white/30 outline-none transition-colors focus:border-[#C9A227] resize-none"
+                    style={{ borderColor: "rgba(255,255,255,0.15)" }}
+                  />
+                </div>
+              </div>
+
+              {/* Event updates checkbox */}
+              <div className="mb-7 border border-white/10 px-5 py-4" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={bookingForm.keepUpdated}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, keepUpdated: e.target.checked }))}
+                    className="mt-0.5 flex-shrink-0 accent-[#C9A227]"
+                  />
+                  <span className="text-white/65 text-sm leading-relaxed group-hover:text-white/80 transition-colors">
+                    Keep me updated about events, special nights, and what's on at the Old Tigers Head.
+                  </span>
+                </label>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full text-sm font-bold tracking-[0.25em] uppercase py-4 transition-all hover:brightness-90"
+                style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
+              >
+                Request a Booking
+              </button>
+
+              <p className="text-white/25 text-xs text-center mt-4">
+                We'll confirm your booking via WhatsApp. For larger parties or private hire, please{" "}
+                <a href="mailto:hello@oldtigershead.co.uk" className="underline hover:text-white/50 transition-colors">
+                  email us directly
+                </a>.
+              </p>
+            </form>
+          )}
         </div>
       </section>
 
