@@ -7,6 +7,7 @@ import Home from "@/pages/home";
 import Community from "@/pages/community";
 import Staff from "@/pages/staff";
 import Privacy from "@/pages/privacy";
+import Contact from "@/pages/contact";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ function Router() {
       <Route path="/community" component={Community} />
       <Route path="/staff" component={Staff} />
       <Route path="/privacy" component={Privacy} />
+      <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>
   );

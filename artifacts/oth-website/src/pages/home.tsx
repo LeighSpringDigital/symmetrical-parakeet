@@ -477,8 +477,16 @@ export default function Home() {
             </button>
           </div>
           <div className="flex-1 overflow-y-auto px-10 py-10">
-            <div className="space-y-6 mb-12">
-              {navLinksLeft.map((link, i) => (
+            <div className="space-y-5">
+              {[
+                { label: "What's On", href: "#whats-on" },
+                { label: "Visit", href: "#visit" },
+                { label: "About", href: "#about" },
+                { label: "Menu", href: "#food" },
+                { label: "Venue Hire", href: "#hire" },
+                { label: "Contact", href: "/contact" },
+                { label: "Staff Portal", href: "/staff" },
+              ].map((link, i, arr) => (
                 <div key={link.label}>
                   <a
                     href={link.href}
@@ -488,36 +496,9 @@ export default function Home() {
                     <span>{link.label}</span>
                     <ChevronRight size={18} className="text-white/20 group-hover:text-[#C9A227] transition-colors" />
                   </a>
-                  {i < navLinksLeft.length - 1 && <div className="mt-5 border-b border-white/10" />}
+                  {i < arr.length - 1 && <div className="mt-4 border-b border-white/10" />}
                 </div>
               ))}
-            </div>
-
-            {/* Contact section */}
-            <div className="border-t border-white/10 pt-8">
-              <div className="text-[10px] font-bold tracking-[0.4em] uppercase mb-5" style={{ color: GOLD }}>Contact</div>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { label: "Book a Table", href: "#book", solid: true },
-                  { label: "Venue Hire", href: "#hire", solid: false },
-                  { label: "Get in Touch", href: `mailto:enquiries@theoldtigershead.com`, solid: false },
-                  { label: "FAQs", href: "#faq", solid: false },
-                  { label: "Staff Portal", href: "/staff", solid: false },
-                ].map((btn) => (
-                  <a
-                    key={btn.label}
-                    href={btn.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="text-center text-xs font-bold tracking-widest uppercase py-3.5 transition-all"
-                    style={btn.solid
-                      ? { backgroundColor: GOLD, color: NAVY }
-                      : { border: `1px solid rgba(255,255,255,0.2)`, color: "rgba(255,255,255,0.75)" }
-                    }
-                  >
-                    {btn.label}
-                  </a>
-                ))}
-              </div>
             </div>
           </div>
           <div className="px-10 py-6 border-t border-white/10 flex gap-3">
