@@ -258,7 +258,7 @@ const stationDirections = [
 // Tiger of the Month — hardcoded for now, updatable via Google Sheets later
 const tigerOfMonth = {
   name: "Casper the Chi Chon",
-  bio: "Self-appointed Head of Security at the Old Tiger's Head, Casper operates under the firm belief he's a towering apex predator. Prone to outbursts of bravado, Casper is mad, bad and dangerous. Until someone pets him and the tough-guy facade evaporates into thin air.",
+  bio: "Congratulations to April's winner, self-appointed Head of Security Casper! He's a towering apex predator, prone to outbursts of bravado. Until someone pets him, and then the tough-guy act falls apart.",
   month: "April 2026",
   isActive: true,
 };
