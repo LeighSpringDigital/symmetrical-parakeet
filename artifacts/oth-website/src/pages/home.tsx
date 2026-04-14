@@ -581,7 +581,7 @@ export default function Home() {
                   <img src="/casper.jpg" alt="Casper the Chi Chon" className="w-full h-full object-cover object-top" />
                 </div>
                 <div className="text-[9px] font-black tracking-widest uppercase mt-2" style={{ color: NAVY }}>
-                  Tiger of the Month
+                  {tigerOfMonth.name}
                 </div>
               </div>
               {/* Text */}
@@ -590,7 +590,7 @@ export default function Home() {
                   {tigerOfMonth.month}
                 </div>
                 <div className="text-2xl font-black uppercase tracking-wide mb-1" style={{ color: NAVY, fontFamily: FONT }}>
-                  {tigerOfMonth.name}
+                  Tiger of the Month
                 </div>
                 <p className="text-sm leading-relaxed max-w-xl" style={{ color: `${NAVY}cc` }}>
                   {tigerOfMonth.bio}

@@ -105,11 +105,11 @@ export default function CommunityPage() {
               <div className="w-28 h-28 overflow-hidden border-4" style={{ borderColor: NAVY }}>
                 <img src="/casper.jpg" alt="Casper the Chi Chon" className="w-full h-full object-cover object-top" />
               </div>
-              <div className="text-[9px] font-black tracking-widest uppercase mt-2" style={{ color: NAVY }}>Tiger of the Month</div>
+              <div className="text-[9px] font-black tracking-widest uppercase mt-2" style={{ color: NAVY }}>{tigerOfMonth.name}</div>
             </div>
             <div className="flex-1 text-center md:text-left">
               <div className="text-[10px] font-bold tracking-widest uppercase mb-1" style={{ color: `${NAVY}88` }}>{tigerOfMonth.month}</div>
-              <div className="text-2xl font-black uppercase tracking-wide mb-1" style={{ color: NAVY, fontFamily: FONT }}>{tigerOfMonth.name}</div>
+              <div className="text-2xl font-black uppercase tracking-wide mb-1" style={{ color: NAVY, fontFamily: FONT }}>Tiger of the Month</div>
               <p className="text-sm leading-relaxed mb-2" style={{ color: `${NAVY}cc` }}>{tigerOfMonth.bio}</p>
             </div>
           </div>
