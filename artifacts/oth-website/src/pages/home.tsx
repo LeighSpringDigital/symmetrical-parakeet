@@ -21,7 +21,7 @@ const navLinksLeft = [
 const hardcodedWhatsOn = [
   { day: "Every Friday", time: "8pm – late", title: "Friday Night Jazz", desc: "Live jazz from local musicians in the bar. No booking required — just show up and soak it in.", tag: "Music" },
   { day: "Every Sunday", time: "12pm – 5pm", title: "Sunday Roast & Live Rugby", desc: "Our legendary Sunday roast served while the big game plays. Book a table to guarantee your spot.", tag: "Food & Sport" },
-  { day: "Every Tuesday", time: "7:30pm", title: "Quiz Night", desc: "The best pub quiz in Lee. Teams of up to 6. Prizes, laughs, and a pint or two.", tag: "Quiz" },
+  { day: "Every Sunday", time: "7:30pm", title: "Quiz Night", desc: "The best pub quiz in Lee. Teams of up to 6. Prizes, laughs, and a pint or two.", tag: "Quiz" },
   { day: "Monthly", time: "Various", title: "Comedy Night", desc: "Stand-up comedy from rising and established acts. Tickets available at the bar.", tag: "Comedy" },
   { day: "Saturday 3 May", time: "3pm kick-off", title: "Cup Final Screening", desc: "Watch the Cup Final on our big screen with the whole community. Arrive early to get a seat.", tag: "Sport" },
   { day: "Saturday 17 May", time: "7pm", title: "Spring Charity Dinner", desc: "A four-course dinner raising money for Lee's local foodbank. Limited places — book now.", tag: "Community" },
@@ -30,9 +30,9 @@ const hardcodedWhatsOn = [
 const pastEvents = [
   { day: "Sat 22 Mar", time: "7pm", title: "Spring Comedy Night", desc: "A sell-out evening with headliner Tom Mayhew. Huge night.", tag: "Comedy" },
   { day: "Sun 30 Mar", time: "1pm", title: "Mother's Day Sunday Roast", desc: "Fully booked weeks in advance. Paolo's best roast yet — the beef was extraordinary.", tag: "Food & Sport" },
-  { day: "Tue 1 Apr", time: "7:30pm", title: "Quiz Night", desc: "Winners: The Three Musketeers (again). Second place: Close But No Cigar.", tag: "Quiz" },
+  { day: "Sun 6 Apr", time: "7:30pm", title: "Quiz Night", desc: "Winners: The Three Musketeers (again). Second place: Close But No Cigar.", tag: "Quiz" },
   { day: "Fri 4 Apr", time: "8pm", title: "Friday Night Jazz", desc: "Standing room only. The quartet from Greenwich were a revelation.", tag: "Music" },
-  { day: "Tue 8 Apr", time: "7:30pm", title: "Quiz Night", desc: "Photo finish. New team 'Quiz Khalifa' beat the Musketeers by one point.", tag: "Quiz" },
+  { day: "Sun 13 Apr", time: "7:30pm", title: "Quiz Night", desc: "Photo finish. New team 'Quiz Khalifa' beat the Musketeers by one point.", tag: "Quiz" },
   { day: "Fri 11 Apr", time: "8pm", title: "Friday Night Jazz", desc: "A night of soul and swing — packed out from 7:30.", tag: "Music" },
 ];
 
@@ -41,47 +41,47 @@ const weeklyGroups = [
     label: "This Week",
     dates: "14 – 20 Apr",
     events: [
-      { day: "Tue 15 Apr", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
       { day: "Fri 18 Apr", time: "8pm – late", title: "Friday Night Jazz", tag: "Music", desc: "Live jazz from local musicians. No booking required.", recurring: true },
       { day: "Sun 20 Apr", time: "12pm – 5pm", title: "Sunday Roast & Live Rugby", tag: "Food & Sport", desc: "Book a table to guarantee your spot.", recurring: true },
+      { day: "Sun 20 Apr", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
     ],
   },
   {
     label: "Next Week",
     dates: "21 – 27 Apr",
     events: [
-      { day: "Tue 22 Apr", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
       { day: "Fri 25 Apr", time: "8pm – late", title: "Friday Night Jazz", tag: "Music", desc: "Live jazz from local musicians. No booking required.", recurring: true },
       { day: "Sun 27 Apr", time: "12pm – 5pm", title: "Sunday Roast & Live Rugby", tag: "Food & Sport", desc: "Book a table to guarantee your spot.", recurring: true },
+      { day: "Sun 27 Apr", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
     ],
   },
   {
     label: "28 Apr – 4 May",
     dates: "28 Apr – 4 May",
     events: [
-      { day: "Tue 29 Apr", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
       { day: "Fri 2 May", time: "8pm – late", title: "Friday Night Jazz", tag: "Music", desc: "Live jazz from local musicians. No booking required.", recurring: true },
       { day: "Sat 3 May", time: "3pm kick-off", title: "Cup Final Screening", tag: "Sport", desc: "Watch the Cup Final on our big screen. Arrive early to get a seat.", recurring: false },
       { day: "Sun 4 May", time: "12pm – 5pm", title: "Sunday Roast & Live Rugby", tag: "Food & Sport", desc: "Book a table to guarantee your spot.", recurring: true },
+      { day: "Sun 4 May", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
     ],
   },
   {
     label: "5 – 11 May",
     dates: "5 – 11 May",
     events: [
-      { day: "Tue 6 May", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
       { day: "Fri 9 May", time: "8pm – late", title: "Friday Night Jazz", tag: "Music", desc: "Live jazz from local musicians. No booking required.", recurring: true },
       { day: "Sun 11 May", time: "12pm – 5pm", title: "Sunday Roast & Live Rugby", tag: "Food & Sport", desc: "Book a table to guarantee your spot.", recurring: true },
+      { day: "Sun 11 May", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
     ],
   },
   {
     label: "12 – 18 May",
     dates: "12 – 18 May",
     events: [
-      { day: "Tue 13 May", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
       { day: "Fri 16 May", time: "8pm – late", title: "Friday Night Jazz", tag: "Music", desc: "Live jazz from local musicians. No booking required.", recurring: true },
       { day: "Sat 17 May", time: "7pm", title: "Spring Charity Dinner", tag: "Community", desc: "A four-course dinner raising money for Lee's local foodbank. Limited places — book now.", recurring: false },
       { day: "Sun 18 May", time: "12pm – 5pm", title: "Sunday Roast & Live Rugby", tag: "Food & Sport", desc: "Book a table to guarantee your spot.", recurring: true },
+      { day: "Sun 18 May", time: "7:30pm", title: "Quiz Night", tag: "Quiz", desc: "Teams of up to 6. Prizes, laughs, and a pint or two.", recurring: true },
     ],
   },
 ];
@@ -228,8 +228,11 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [activeMenuTab, setActiveMenuTab] = useState("Mains");
   const [activeMenuType, setActiveMenuType] = useState<"today" | "sunday">("today");
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [cookiesAccepted, setCookiesAccepted] = useState<boolean | null>(() => {
+    try { return localStorage.getItem("oth_cookies") === "true" ? true : localStorage.getItem("oth_cookies") === "false" ? false : null; } catch { return null; }
+  });
   const [slideIndex, setSlideIndex] = useState(0);
   const slideTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const [eventsView, setEventsView] = useState<"upcoming" | "past">("upcoming");
@@ -293,16 +296,52 @@ export default function Home() {
     ? hardcodedWhatsOn
     : whatsOnData.events.map((e) => ({ day: e.Day, time: e.Time, title: e.Title, desc: e.Description, tag: e.Tag }));
 
-  const rawMenuSections = (!sheetId || menuError || !menuData)
+  const mappedMenuSections = (!sheetId || menuError || !menuData)
     ? (activeMenuType === "today" ? todaysMenuSections : sundayMenuSections)
     : Object.entries(menuData.sections).map(([name, items]) => ({ name, items }));
-
-  const mappedMenuSections = rawMenuSections;
-  const activeSection = mappedMenuSections.find((s) => s.name === activeMenuTab) || mappedMenuSections[0] || { name: "", items: [] };
   const slide = historySlides[slideIndex];
 
   return (
     <div style={{ fontFamily: FONT }} className="min-h-screen">
+      {/* ── COOKIE CONSENT BANNER (GDPR) ─── */}
+      {cookiesAccepted === null && (
+        <div
+          className="fixed bottom-0 left-0 right-0 z-[100] px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-white/10"
+          style={{ backgroundColor: "#001520" }}
+          role="region"
+          aria-label="Cookie consent"
+        >
+          <p className="text-white/70 text-sm leading-relaxed max-w-2xl">
+            We use cookies to improve your experience on this site. We never sell your data. By continuing to browse, you accept our use of essential cookies.{" "}
+            <a href="/privacy" className="underline hover:text-white transition-colors" style={{ color: GOLD }}>Privacy Policy</a>
+          </p>
+          <div className="flex gap-3 flex-shrink-0">
+            <button
+              onClick={() => { setCookiesAccepted(false); try { localStorage.setItem("oth_cookies", "false"); } catch {} }}
+              className="text-xs font-bold tracking-widest uppercase px-5 py-2.5 border transition-colors hover:border-white/40"
+              style={{ borderColor: "rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.6)" }}
+            >
+              Decline
+            </button>
+            <button
+              onClick={() => { setCookiesAccepted(true); try { localStorage.setItem("oth_cookies", "true"); } catch {} }}
+              className="text-xs font-bold tracking-widest uppercase px-5 py-2.5 transition-all hover:brightness-90"
+              style={{ backgroundColor: GOLD, color: NAVY }}
+            >
+              Accept
+            </button>
+          </div>
+        </div>
+      )}
+      {/* ── SKIP TO CONTENT (Accessibility) ── */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-6 focus:py-3 focus:text-sm focus:font-bold focus:uppercase focus:tracking-widest"
+        style={{ backgroundColor: GOLD, color: NAVY }}
+      >
+        Skip to main content
+      </a>
+
       <style>{`
         @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         html { scroll-behavior: smooth; }
@@ -315,13 +354,13 @@ export default function Home() {
           {[
             "FRIDAY NIGHT JAZZ @ 8PM",
             "SUNDAY ROAST & LIVE RUGBY",
-            "QUIZ NIGHT EVERY TUESDAY",
+            "QUIZ NIGHT EVERY SUNDAY",
             "PRIVATE HIRE FUNCTION ROOM AVAILABLE",
             "JOIN THE TIGERS HEAD COMMUNITY",
             "15-YEAR LEASE SECURED — THE FUTURE IS BRIGHT",
             "FRIDAY NIGHT JAZZ @ 8PM",
             "SUNDAY ROAST & LIVE RUGBY",
-            "QUIZ NIGHT EVERY TUESDAY",
+            "QUIZ NIGHT EVERY SUNDAY",
             "PRIVATE HIRE FUNCTION ROOM AVAILABLE",
             "JOIN THE TIGERS HEAD COMMUNITY",
             "15-YEAR LEASE SECURED — THE FUTURE IS BRIGHT",
@@ -334,7 +373,7 @@ export default function Home() {
       </div>
 
       {/* ── NAVBAR ─────────────────────────────────────────── */}
-      <nav className="sticky top-0 z-20 transition-all duration-300" style={{ backgroundColor: scrolled ? NAVY : "transparent" }}>
+      <nav className="sticky top-0 z-20 transition-all duration-300" style={{ backgroundColor: scrolled ? NAVY : "transparent" }} aria-label="Main navigation">
         <div
           className="absolute inset-0 transition-opacity duration-300 pointer-events-none"
           style={{ backgroundColor: NAVY, opacity: scrolled ? 1 : 0 }}
@@ -438,22 +477,51 @@ export default function Home() {
               <X size={24} />
             </button>
           </div>
-          <div className="flex-1 overflow-y-auto px-10 py-10 space-y-8">
-            {navLinksLeft.map((link, i) => (
-              <div key={link.label}>
-                <a
-                  href={link.href}
-                  className="text-white text-3xl font-black tracking-widest uppercase hover:text-[#C9A227] transition-colors flex items-center gap-3 group"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  <span>{link.label}</span>
-                  <ChevronRight size={20} className="text-white/20 group-hover:text-[#C9A227] transition-colors" />
-                </a>
-                {i < navLinksLeft.length - 1 && <div className="mt-6 border-b border-white/10" />}
+          <div className="flex-1 overflow-y-auto px-10 py-10">
+            <div className="space-y-6 mb-12">
+              {navLinksLeft.map((link, i) => (
+                <div key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-white text-2xl font-black tracking-widest uppercase hover:text-[#C9A227] transition-colors flex items-center gap-3 group"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <span>{link.label}</span>
+                    <ChevronRight size={18} className="text-white/20 group-hover:text-[#C9A227] transition-colors" />
+                  </a>
+                  {i < navLinksLeft.length - 1 && <div className="mt-5 border-b border-white/10" />}
+                </div>
+              ))}
+            </div>
+
+            {/* Contact section */}
+            <div className="border-t border-white/10 pt-8">
+              <div className="text-[10px] font-bold tracking-[0.4em] uppercase mb-5" style={{ color: GOLD }}>Contact</div>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { label: "Book a Table", href: "#book", solid: true },
+                  { label: "Venue Hire", href: "#hire", solid: false },
+                  { label: "Get in Touch", href: `mailto:enquiries@theoldtigershead.com`, solid: false },
+                  { label: "FAQs", href: "#faq", solid: false },
+                  { label: "Staff Portal", href: "/staff", solid: false },
+                ].map((btn) => (
+                  <a
+                    key={btn.label}
+                    href={btn.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="text-center text-xs font-bold tracking-widest uppercase py-3.5 transition-all"
+                    style={btn.solid
+                      ? { backgroundColor: GOLD, color: NAVY }
+                      : { border: `1px solid rgba(255,255,255,0.2)`, color: "rgba(255,255,255,0.75)" }
+                    }
+                  >
+                    {btn.label}
+                  </a>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-          <div className="px-10 py-8 border-t border-white/10 flex gap-3">
+          <div className="px-10 py-6 border-t border-white/10 flex gap-3">
             <a
               href="#food"
               className="flex-1 text-center text-sm font-bold tracking-[0.25em] uppercase py-4 border border-white/30 transition-all hover:border-[#C9A227]"
@@ -475,7 +543,7 @@ export default function Home() {
       )}
 
       {/* ── HERO ───────────────────────────────────────────── */}
-      <div className="relative -mt-20 min-h-screen flex flex-col overflow-hidden">
+      <div id="main-content" className="relative -mt-20 min-h-screen flex flex-col overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -829,7 +897,6 @@ export default function Home() {
                       key={type}
                       onClick={() => {
                         setActiveMenuType(type);
-                        setActiveMenuTab(type === "today" ? "Starters" : "Starters");
                       }}
                       className="px-7 py-3 text-xs font-bold tracking-widest uppercase transition-all"
                       style={{
@@ -860,34 +927,27 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* Section sub-tabs */}
-              <div className="flex justify-center gap-2 mb-8 flex-wrap">
+              {/* All menu sections listed vertically */}
+              <div className="space-y-10">
                 {mappedMenuSections.map((section) => (
-                  <button
-                    key={section.name}
-                    onClick={() => setActiveMenuTab(section.name)}
-                    className="px-6 py-2.5 text-xs font-bold tracking-widest uppercase transition-all border"
-                    style={{
-                      backgroundColor: activeMenuTab === section.name ? NAVY : "transparent",
-                      color: activeMenuTab === section.name ? GOLD : `${NAVY}99`,
-                      borderColor: activeMenuTab === section.name ? NAVY : `${NAVY}44`,
-                      fontFamily: FONT,
-                    }}
-                  >
-                    {section.name}
-                  </button>
-                ))}
-              </div>
-
-              {/* Menu items */}
-              <div className="space-y-px">
-                {activeSection.items.map((item, i) => (
-                  <div key={i} className="flex items-start justify-between py-5 px-6 border-b border-[#002942]/10 hover:bg-[#002942]/5 transition-colors">
-                    <div className="flex-1 pr-8">
-                      <h4 className="font-bold uppercase tracking-wide text-sm" style={{ color: NAVY, fontFamily: FONT }}>{item.name}</h4>
-                      {item.desc && <p style={{ color: `${NAVY}88` }} className="text-sm mt-1 leading-relaxed">{item.desc}</p>}
+                  <div key={section.name}>
+                    <div className="flex items-center gap-4 mb-3">
+                      <div className="text-[10px] font-black tracking-[0.4em] uppercase px-3 py-1 border" style={{ color: GOLD, borderColor: `${GOLD}55` }}>
+                        {section.name}
+                      </div>
+                      <div className="flex-1 h-px" style={{ backgroundColor: `${NAVY}18` }} />
                     </div>
-                    <span className="font-black text-lg flex-shrink-0" style={{ color: GOLD }}>{item.price}</span>
+                    <div className="space-y-px">
+                      {section.items.map((item, i) => (
+                        <div key={i} className="flex items-start justify-between py-5 px-6 border-b border-[#002942]/10 hover:bg-[#002942]/5 transition-colors">
+                          <div className="flex-1 pr-8">
+                            <h4 className="font-bold uppercase tracking-wide text-sm" style={{ color: NAVY, fontFamily: FONT }}>{item.name}</h4>
+                            {item.desc && <p style={{ color: `${NAVY}88` }} className="text-sm mt-1 leading-relaxed">{item.desc}</p>}
+                          </div>
+                          <span className="font-black text-lg flex-shrink-0" style={{ color: GOLD }}>{item.price}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -950,7 +1010,7 @@ export default function Home() {
               </div>
               <p className="text-white/40 text-xs">
                 If you need to reach us urgently, call us on{" "}
-                <a href="tel:02083186000" className="underline hover:text-white transition-colors">020 8318 6000</a>
+                <a href="tel:02045680111" className="underline hover:text-white transition-colors">020 4568 0111</a>
               </p>
             </div>
           ) : (
@@ -1117,12 +1177,43 @@ export default function Home() {
 
               <p className="text-white/25 text-xs text-center mt-4">
                 We'll confirm your booking via WhatsApp. For larger parties or private hire, please{" "}
-                <a href="mailto:hello@oldtigershead.co.uk" className="underline hover:text-white/50 transition-colors">
+                <a href="mailto:enquiries@theoldtigershead.com" className="underline hover:text-white/50 transition-colors">
                   email us directly
                 </a>.
               </p>
             </form>
           )}
+
+          {/* FAQ teaser on book page */}
+          <div
+            className="mt-12 border-l-4 px-8 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+            style={{ borderColor: GOLD, backgroundColor: "rgba(201,162,39,0.07)" }}
+          >
+            <div>
+              <div className="text-white font-bold mb-1" style={{ fontFamily: FONT }}>
+                Special dietary requirements? Need a high chair or parking?
+              </div>
+              <p className="text-white/60 text-sm">
+                Chat with us before you visit, or check our FAQ for quick answers.
+              </p>
+            </div>
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <a
+                href="mailto:enquiries@theoldtigershead.com"
+                className="text-[11px] font-bold tracking-widest uppercase px-6 py-3 transition-all hover:brightness-90"
+                style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
+              >
+                Chat with Us
+              </a>
+              <a
+                href="#faq"
+                className="text-[11px] font-bold tracking-widest uppercase px-6 py-3 border transition-colors hover:border-[#C9A227] hover:text-[#C9A227]"
+                style={{ borderColor: "rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.7)", fontFamily: FONT }}
+              >
+                FAQs
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1164,17 +1255,21 @@ export default function Home() {
 
             <div className="flex-1 border border-white/10 p-8" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
               <div className="text-[10px] font-bold tracking-widest uppercase mb-5" style={{ color: GOLD }}>Opening Hours</div>
-              <div className="space-y-2 text-sm">
+              <div className="space-y-2 text-sm mb-4">
                 {[
                   { days: "Mon – Thu", hours: "12pm – 11pm" },
                   { days: "Fri – Sat", hours: "12pm – 12am" },
-                  { days: "Sunday", hours: "12pm – 10:30pm" },
+                  { days: "Sunday", hours: "12pm – 10pm" },
                 ].map((row) => (
                   <div key={row.days} className="flex justify-between">
                     <span className="text-white/60">{row.days}</span>
                     <span className="text-white font-semibold">{row.hours}</span>
                   </div>
                 ))}
+              </div>
+              <div className="border-t border-white/10 pt-3 space-y-1 text-sm">
+                <div className="flex justify-between"><span className="text-white/40">Lunch</span><span className="text-white/70">12pm – 4pm</span></div>
+                <div className="flex justify-between"><span className="text-white/40">Dinner</span><span className="text-white/70">5pm – 9pm</span></div>
               </div>
             </div>
 
@@ -1183,11 +1278,11 @@ export default function Home() {
               <div className="space-y-3">
                 <div className="flex items-center gap-3 text-white/60 text-sm">
                   <Phone size={14} style={{ color: GOLD }} />
-                  <a href="tel:02083186000" className="hover:text-white transition-colors">020 8318 6000</a>
+                  <a href="tel:02045680111" className="hover:text-white transition-colors">020 4568 0111</a>
                 </div>
                 <div className="flex items-center gap-3 text-white/60 text-sm">
                   <Mail size={14} style={{ color: GOLD }} />
-                  <a href="mailto:hello@oldtigershead.co.uk" className="hover:text-white transition-colors">hello@oldtigershead.co.uk</a>
+                  <a href="mailto:enquiries@theoldtigershead.com" className="hover:text-white transition-colors">enquiries@theoldtigershead.com</a>
                 </div>
               </div>
             </div>
@@ -1288,7 +1383,7 @@ export default function Home() {
             </div>
             <div className="flex items-center gap-3 flex-shrink-0">
               <a
-                href="mailto:hello@oldtigershead.co.uk"
+                href="mailto:enquiries@theoldtigershead.com"
                 className="text-[11px] font-bold tracking-widest uppercase px-6 py-3 transition-all hover:brightness-90"
                 style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
               >
@@ -1302,6 +1397,71 @@ export default function Home() {
                 FAQs
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ────────────────────────────────────────────── */}
+      <section id="faq" className="py-24 px-6" style={{ backgroundColor: "#001a2e" }}>
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-xs tracking-[0.5em] uppercase font-semibold mb-3" style={{ color: GOLD }}>Good to know</p>
+            <h2 className="text-white text-4xl md:text-5xl font-black uppercase tracking-wide" style={{ fontFamily: FONT }}>
+              Frequently Asked Questions
+            </h2>
+            <div className="mt-4 w-16 h-0.5 mx-auto" style={{ backgroundColor: GOLD }} />
+          </div>
+
+          <div className="space-y-2">
+            {[
+              { q: "Can I book a table?", a: "Yes — use our online booking form or call us on 020 4568 0111. We recommend booking for Sunday roasts and Friday evenings, when we get very busy. Walk-ins are always welcome for smaller groups." },
+              { q: "What are your opening hours?", a: "We're open Monday to Thursday 12pm–11pm, Friday and Saturday 12pm–midnight, and Sunday 12pm–10pm. The kitchen serves lunch 12pm–4pm and dinner 5pm–9pm daily." },
+              { q: "Do you cater for dietary requirements?", a: "Absolutely. We have vegetarian, vegan, and gluten-free options on both our regular and Sunday menus. Please mention any allergies or requirements when you book, or speak to your server — we'll do everything we can to accommodate you." },
+              { q: "Is the pub dog-friendly?", a: "Yes! Well-behaved dogs are welcome in the bar area. We keep water bowls at the bar and the bar staff love meeting them." },
+              { q: "Are children welcome?", a: "Children are very welcome. We have high chairs available — just let us know when you book. Under-18s must be accompanied by an adult and are welcome until 9pm." },
+              { q: "Is there parking nearby?", a: "There is free street parking on side roads around Lee Green. The pub is also very well served by bus (routes 122, 178, 202, 261, 321 stop directly outside) and is about 25 minutes' walk from Hither Green station." },
+              { q: "Can I hire the venue for a private event?", a: "Yes — our private function room holds up to 80 guests and can be tailored for birthdays, wakes, corporate events, film screenings, and more. Email enquiries@theoldtigershead.com or use the Venue Hire section on this site to get in touch." },
+              { q: "Do you have a beer garden or outdoor space?", a: "We have a small patio area to the rear, available in warmer weather. Seating is limited so we recommend arriving early in summer." },
+              { q: "Do you show live sport?", a: "Yes — we have multiple screens throughout the pub showing live sport, including Premier League football, Six Nations rugby, and major events. Check our What's On section for upcoming fixtures." },
+              { q: "Do you have WiFi?", a: "Yes, free WiFi is available for guests. Ask a member of staff for the password." },
+              { q: "Is there wheelchair access?", a: "The pub has step-free access from the street through our main entrance. The bar, dining area, and accessible WC are all on the ground floor. Please call ahead if you have specific requirements and we'll ensure everything is ready." },
+              { q: "Can I bring a birthday cake?", a: "Of course — just let us know when you book. We can arrange candles and a brief celebration. There's no corkage charge for cakes brought in for special occasions." },
+              { q: "Do you have a loyalty scheme or community membership?", a: "Yes — join the Tiger's Den community via our Community page. It's free, and members receive early access to events, exclusive offers, and a chance to be featured as Tiger of the Month." },
+              { q: "What is your privacy and data policy?", a: "We take your data seriously. Any information you share with us (via the booking form, community signup, or email) is used solely to manage your visit and keep you updated if you've asked us to. We never sell your data. See our Privacy Policy for full details." },
+            ].map((item, i) => (
+              <div key={i} className="border border-white/10 overflow-hidden" style={{ backgroundColor: "rgba(255,255,255,0.03)" }}>
+                <button
+                  className="w-full flex items-center justify-between px-6 py-5 text-left group"
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  aria-expanded={openFaq === i}
+                >
+                  <span className="font-bold text-sm tracking-wide pr-4 group-hover:text-[#C9A227] transition-colors" style={{ color: openFaq === i ? GOLD : "white", fontFamily: FONT }}>
+                    {item.q}
+                  </span>
+                  <ChevronDown
+                    size={16}
+                    className="flex-shrink-0 transition-transform duration-200"
+                    style={{ color: GOLD, transform: openFaq === i ? "rotate(180deg)" : "rotate(0deg)" }}
+                  />
+                </button>
+                {openFaq === i && (
+                  <div className="px-6 pb-5">
+                    <p className="text-white/65 text-sm leading-relaxed">{item.a}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <p className="text-white/40 text-sm mb-4">Still have a question? We're happy to help.</p>
+            <a
+              href="mailto:enquiries@theoldtigershead.com"
+              className="inline-block text-xs font-bold tracking-widest uppercase px-8 py-3 border transition-colors hover:border-[#C9A227] hover:text-[#C9A227]"
+              style={{ borderColor: "rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.7)", fontFamily: FONT }}
+            >
+              Email Us
+            </a>
           </div>
         </div>
       </section>
@@ -1665,7 +1825,9 @@ export default function Home() {
               <div className="space-y-1 text-white/60 text-sm">
                 <div className="flex justify-between"><span>Mon – Thu</span><span>12pm – 11pm</span></div>
                 <div className="flex justify-between"><span>Fri – Sat</span><span>12pm – 12am</span></div>
-                <div className="flex justify-between"><span>Sunday</span><span>12pm – 10:30pm</span></div>
+                <div className="flex justify-between"><span>Sunday</span><span>12pm – 10pm</span></div>
+                <div className="flex justify-between mt-2 text-white/35"><span>Kitchen lunch</span><span>12pm – 4pm</span></div>
+                <div className="flex justify-between text-white/35"><span>Kitchen dinner</span><span>5pm – 9pm</span></div>
               </div>
             </div>
             <div>
@@ -1677,18 +1839,23 @@ export default function Home() {
                 </div>
                 <div className="flex items-center gap-2 text-white/60 text-sm">
                   <Phone size={14} className="flex-shrink-0" style={{ color: GOLD }} />
-                  <a href="tel:02083186000" className="hover:text-white transition-colors">020 8318 6000</a>
+                  <a href="tel:02045680111" className="hover:text-white transition-colors">020 4568 0111</a>
                 </div>
                 <div className="flex items-center gap-2 text-white/60 text-sm">
                   <Mail size={14} className="flex-shrink-0" style={{ color: GOLD }} />
-                  <a href="mailto:hello@oldtigershead.co.uk" className="hover:text-white transition-colors">hello@oldtigershead.co.uk</a>
+                  <a href="mailto:enquiries@theoldtigershead.com" className="hover:text-white transition-colors">enquiries@theoldtigershead.com</a>
                 </div>
               </div>
             </div>
           </div>
           <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-white/25 text-xs tracking-widest">© 2026 The Old Tigers Head. All rights reserved.</p>
-            <p className="text-white/25 text-xs">Please drink responsibly. Think 25.</p>
+            <div className="flex items-center gap-5 flex-wrap justify-center">
+              <a href="/privacy" className="text-white/25 text-xs hover:text-white/50 transition-colors">Privacy Policy</a>
+              <a href="/privacy#cookies" className="text-white/25 text-xs hover:text-white/50 transition-colors">Cookie Policy</a>
+              <a href="/accessibility" className="text-white/25 text-xs hover:text-white/50 transition-colors">Accessibility</a>
+              <span className="text-white/20 text-xs">Please drink responsibly. Think 25.</span>
+            </div>
           </div>
         </div>
       </footer>

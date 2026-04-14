@@ -51,13 +51,39 @@ Set `VITE_GOOGLE_SHEET_ID` environment variable to the Google Sheet ID to enable
 - `artifacts/api-server` — Express API server, preview path `/api`
 - `artifacts/mockup-sandbox` — design prototype (not deployed)
 
-## Sections
+## Pages / Routes
+
+- `/` — Main home page (all sections)
+- `/community` — Community signup, Tiger of the Month, member wall
+- `/staff` — Staff portal (login: test / test) with Team Notes, Staff Rota, Digital Marketing Creator
+- `/privacy` — Privacy Policy + Cookie Policy (GDPR)
+
+## Sections (Home page)
 
 1. Announcement ticker (gold bar)
 2. Sticky navbar: left nav | centred name | right: Book + Search + Hamburger
+   - Hamburger includes Contact section (Book, Hire, Get in Touch, FAQs, Staff Portal)
 3. Hero: full-screen with "At the Beating Heart of Lee" tagline
-4. What's On (Google Sheets driven)
-5. Food Menu (Google Sheets driven)
-6. About (pub history Est. 1750 + Rob & team bios)
-7. Private Hire / Venue Hire
-8. Footer with opening hours, address, contact
+4. What's On (Google Sheets driven) — Upcoming/Past tabs + Grid/Week view
+5. Food Menu (Google Sheets driven) — "Today's Menu" / "Sample Sunday Menu" + Print button
+6. Book a Table — WhatsApp confirmation flow + FAQ teaser callout
+7. Visit — Address, opening hours, directions, bus routes, FAQ teaser
+8. FAQ — 14-question accordion (GDPR, accessibility, dietary, parking, etc.)
+9. About — Past (slideshow + history directory), Present, Future
+10. Venue Hire — Function room enquiry CTA
+11. Footer — Opening hours, contact, Privacy Policy / Cookie Policy / Accessibility links
+12. GDPR cookie consent banner (localStorage-persisted)
+13. Skip-to-content accessibility link
+
+## Contact Details
+
+- Phone: 020 4568 0111
+- Email: enquiries@theoldtigershead.com
+- Address: 351 Lee High Road, London SE12 8RU
+
+## Opening Hours
+
+- Mon–Thu: 12pm–11pm
+- Fri–Sat: 12pm–12am (midnight)
+- Sunday: 12pm–10pm
+- Kitchen lunch: 12pm–4pm | Dinner: 5pm–9pm
