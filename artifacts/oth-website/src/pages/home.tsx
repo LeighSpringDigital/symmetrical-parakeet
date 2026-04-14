@@ -198,6 +198,11 @@ const historySlides = [
     img: "/hist-1950s-lee-high-road.jpg",
   },
   {
+    era: "c. 1975 — The Old Tiger's Head",
+    caption: "The Tiger in its warm 1970s livery — festooned with flags and street-level signage. Inside, the saloon bar hums with the sounds of a South London Saturday.",
+    img: "/hist-oth-1970s-painting.jpg",
+  },
+  {
     era: "Early 2000s",
     caption: "The Old Tigers Head in its blue livery — a familiar corner of SE12 for thousands of regulars. The building's Victorian bones endure beneath every repaint.",
     img: "/hist-oth-2000s-blue.jpg",
@@ -208,9 +213,14 @@ const historySlides = [
     img: "/hist-oth-2015.jpg",
   },
   {
-    era: "Today",
-    caption: "Back in its red-brick glory under Rob's stewardship. A 15-year lease, a proper refurbishment and the beating heart of Lee Green once more.",
+    era: "2023 — Refurbishment",
+    caption: "Back in its red-brick glory. Rob takes on a 15-year lease and begins the work of restoring the Tiger — stripping it back, doing it properly, and putting the community first.",
     img: "/hist-oth-modern-red.jpg",
+  },
+  {
+    era: "Today — Under Rob's Stewardship",
+    caption: "Spring blossom at Lee Green crossroads. Under Rob's watch the Tiger has found its feet — a pub that belongs to the neighbourhood, open for business and proud of it.",
+    img: "/oth-king-celebration.jpg",
   },
 ];
 
@@ -557,11 +567,11 @@ export default function Home() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('https://oldtigershead.springdigitalstudio.co.uk/wp-content/uploads/2024/10/oth_hero_homepage.jpg'), linear-gradient(160deg, #001520 0%, #002942 50%, #001a10 100%)",
+            backgroundImage: "url('/oth-king-celebration.jpg')",
             backgroundColor: "#001e30",
           }}
         />
-        <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, rgba(0,41,66,0.55) 0%, rgba(0,20,35,0.6) 60%, rgba(0,41,66,0.92) 100%)` }} />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, rgba(0,20,35,0.72) 0%, rgba(0,20,35,0.65) 50%, rgba(0,20,35,0.93) 100%)` }} />
 
         <div className="relative z-10 flex flex-col items-center justify-center flex-1 text-center px-6 pt-40 pb-16">
           <p className="text-xs tracking-[0.7em] uppercase font-semibold mb-5" style={{ color: GOLD }}>
