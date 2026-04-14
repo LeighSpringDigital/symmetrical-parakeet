@@ -309,7 +309,7 @@ export default function CommunityPage() {
 
       {/* FOOTER STRIP */}
       <div className="mt-20 py-6 px-6 border-t border-white/10 text-center" style={{ backgroundColor: "#001520" }}>
-        <p className="text-white/25 text-xs tracking-widest">© 2026 The Old Tigers Head · 2 Lee Road, London SE12 8RG</p>
+        <p className="text-white/25 text-xs tracking-widest">© 2026 The Old Tigers Head · 351 Lee High Road, London SE12 8RU</p>
       </div>
     </div>
   );

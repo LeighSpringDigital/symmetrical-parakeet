@@ -149,30 +149,30 @@ const stationDirections = [
   {
     station: "Lee Station",
     line: "National Rail · Southeastern",
-    walk: "5 min walk",
-    directions: "Turn right out of the station onto Lee High Road. The Old Tigers Head is on your left at the junction — you can see it from the platform.",
+    walk: "11 min · 0.5 miles",
+    directions: "Exit the station and head north on Burnt Ash Hill (A2212). Continue straight as it becomes Burnt Ash Road. The pub is at the crossroads where Burnt Ash Road meets Lee High Road.",
     icon: "🚉",
   },
   {
     station: "Blackheath Station",
     line: "National Rail · Southeastern",
-    walk: "12 min walk",
-    directions: "Walk south along Lee Road through the village. Continue past the green and down Lee High Road — the Tiger is at the far end on your right.",
+    walk: "14 min · 0.6 miles",
+    directions: "Exit and head south on Lee Road (B212). Walk straight for about half a mile to Lee Green crossroads. The pub is directly ahead of you on the corner.",
     icon: "🚉",
   },
   {
     station: "Hither Green Station",
     line: "National Rail · Southeastern",
-    walk: "15 min walk or bus",
-    directions: "Take the 261 or 273 bus towards Lee — it's two stops. Alternatively, walk along Hither Green Lane and turn left onto Lee High Road.",
-    icon: "🚌",
+    walk: "18 min · 0.8 miles",
+    directions: "Exit from the Springbank Road side and head east on Brightfield Road. Turn left onto Lee High Road (A20) and continue east towards the Lee Green intersection.",
+    icon: "🚉",
   },
   {
     station: "Lewisham Station",
     line: "DLR · National Rail",
-    walk: "10 min by bus",
-    directions: "Catch the 261 or 273 bus from Lewisham station towards Lee. Alight at the Lee stop — the Tiger is right in front of you.",
-    icon: "🚌",
+    walk: "31 min · 1.4 miles",
+    directions: "Follow the A20 (Lewisham High Street, then Lee High Road) heading southeast for just over a mile. The pub is at the junction with Burnt Ash Road and Lee Road.",
+    icon: "🚉",
   },
 ];
 
@@ -1019,7 +1019,7 @@ export default function Home() {
                     className="mt-0.5 flex-shrink-0 accent-[#C9A227]"
                   />
                   <span className="text-white/65 text-sm leading-relaxed group-hover:text-white/80 transition-colors">
-                    Keep me updated about events, special nights, and what's on at the Old Tigers Head.
+                    Keep me updated about what's on at the Old Tigers Head.
                   </span>
                 </label>
               </div>
@@ -1065,11 +1065,11 @@ export default function Home() {
                 <MapPin size={16} className="flex-shrink-0 mt-0.5" style={{ color: GOLD }} />
                 <div>
                   <div className="text-white font-bold">The Old Tigers Head</div>
-                  <div className="text-white/60 text-sm mt-1">2 Lee Road<br />London SE12 8RG</div>
+                  <div className="text-white/60 text-sm mt-1">351 Lee High Road<br />London SE12 8RU</div>
                 </div>
               </div>
               <a
-                href="https://maps.google.com/?q=Old+Tigers+Head+Lee+London+SE12"
+                href="https://maps.google.com/?q=351+Lee+High+Road+London+SE12+8RU"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase mt-2 transition-colors hover:text-white"
@@ -1153,6 +1153,40 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Bus stops */}
+          <div className="mb-14">
+            <h3 className="text-lg font-black uppercase tracking-wide mb-6" style={{ color: "white", fontFamily: FONT }}>
+              By Bus
+            </h3>
+            <div className="border border-white/10 p-6" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+              <p className="text-white/60 text-sm leading-relaxed mb-5">
+                The pub is served directly by its own stop — <span className="text-white font-semibold">Lee Green / The Old Tigers Head (Stop K)</span> — just steps from the front door.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-3 mb-5">
+                {[
+                  { route: "122", direction: "Crystal Palace or Plumstead" },
+                  { route: "178", direction: "Woolwich or Lewisham" },
+                  { route: "202", direction: "Blackheath or Crystal Palace" },
+                  { route: "261", direction: "Lewisham or Princess Royal Hospital" },
+                  { route: "321", direction: "Foots Cray or New Cross Gate" },
+                ].map((bus) => (
+                  <div key={bus.route} className="flex items-center gap-3">
+                    <span
+                      className="w-10 h-7 flex items-center justify-center font-black text-[11px] flex-shrink-0"
+                      style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
+                    >
+                      {bus.route}
+                    </span>
+                    <span className="text-white/60 text-sm">{bus.direction}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-white/35 text-xs">
+                Nearest stops: Lee Green / The Old Tigers Head (Stop K) · Burnt Ash Road / Lee Road (Stop H) · Lee Green (Stop J)
+              </p>
             </div>
           </div>
 
@@ -1541,7 +1575,7 @@ export default function Home() {
               <div className="space-y-2">
                 <div className="flex items-start gap-2 text-white/60 text-sm">
                   <MapPin size={14} className="flex-shrink-0 mt-0.5" style={{ color: GOLD }} />
-                  <span>2 Lee Road, London SE12 8RG</span>
+                  <span>351 Lee High Road, London SE12 8RU</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/60 text-sm">
                   <Phone size={14} className="flex-shrink-0" style={{ color: GOLD }} />
