@@ -13,7 +13,13 @@ import type {
   UseQueryResult,
 } from "@tanstack/react-query";
 
-import type { HealthStatus } from "./api.schemas";
+import type {
+  GetMenuParams,
+  GetWhatsOnParams,
+  HealthStatus,
+  MenuResponse,
+  WhatsOnResponse,
+} from "./api.schemas";
 
 import { customFetch } from "../custom-fetch";
 import type { ErrorType } from "../custom-fetch";
@@ -25,7 +31,6 @@ type Awaited<O> = O extends AwaitedInput<infer T> ? T : never;
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 /**
- * Returns server health status
  * @summary Health check
  */
 export const getHealthCheckUrl = () => {
@@ -92,6 +97,186 @@ export function useHealthCheck<
   request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
   const queryOptions = getHealthCheckQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Get What's On events from Google Sheets
+ */
+export const getGetWhatsOnUrl = (params: GetWhatsOnParams) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? "null" : value.toString());
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0
+    ? `/api/sheets/whats-on?${stringifiedParams}`
+    : `/api/sheets/whats-on`;
+};
+
+export const getWhatsOn = async (
+  params: GetWhatsOnParams,
+  options?: RequestInit,
+): Promise<WhatsOnResponse> => {
+  return customFetch<WhatsOnResponse>(getGetWhatsOnUrl(params), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetWhatsOnQueryKey = (params?: GetWhatsOnParams) => {
+  return [`/api/sheets/whats-on`, ...(params ? [params] : [])] as const;
+};
+
+export const getGetWhatsOnQueryOptions = <
+  TData = Awaited<ReturnType<typeof getWhatsOn>>,
+  TError = ErrorType<void>,
+>(
+  params: GetWhatsOnParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getWhatsOn>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetWhatsOnQueryKey(params);
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getWhatsOn>>> = ({
+    signal,
+  }) => getWhatsOn(params, { signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getWhatsOn>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetWhatsOnQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getWhatsOn>>
+>;
+export type GetWhatsOnQueryError = ErrorType<void>;
+
+/**
+ * @summary Get What's On events from Google Sheets
+ */
+
+export function useGetWhatsOn<
+  TData = Awaited<ReturnType<typeof getWhatsOn>>,
+  TError = ErrorType<void>,
+>(
+  params: GetWhatsOnParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getWhatsOn>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetWhatsOnQueryOptions(params, options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Get menu sections from Google Sheets
+ */
+export const getGetMenuUrl = (params: GetMenuParams) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? "null" : value.toString());
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0
+    ? `/api/sheets/menu?${stringifiedParams}`
+    : `/api/sheets/menu`;
+};
+
+export const getMenu = async (
+  params: GetMenuParams,
+  options?: RequestInit,
+): Promise<MenuResponse> => {
+  return customFetch<MenuResponse>(getGetMenuUrl(params), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetMenuQueryKey = (params?: GetMenuParams) => {
+  return [`/api/sheets/menu`, ...(params ? [params] : [])] as const;
+};
+
+export const getGetMenuQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMenu>>,
+  TError = ErrorType<void>,
+>(
+  params: GetMenuParams,
+  options?: {
+    query?: UseQueryOptions<Awaited<ReturnType<typeof getMenu>>, TError, TData>;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetMenuQueryKey(params);
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getMenu>>> = ({
+    signal,
+  }) => getMenu(params, { signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getMenu>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetMenuQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMenu>>
+>;
+export type GetMenuQueryError = ErrorType<void>;
+
+/**
+ * @summary Get menu sections from Google Sheets
+ */
+
+export function useGetMenu<
+  TData = Awaited<ReturnType<typeof getMenu>>,
+  TError = ErrorType<void>,
+>(
+  params: GetMenuParams,
+  options?: {
+    query?: UseQueryOptions<Awaited<ReturnType<typeof getMenu>>, TError, TData>;
+    request?: SecondParameter<typeof customFetch>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetMenuQueryOptions(params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;

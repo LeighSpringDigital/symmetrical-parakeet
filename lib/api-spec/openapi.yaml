@@ -10,13 +10,14 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: sheets
+    description: Google Sheets driven content
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +25,55 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /sheets/whats-on:
+    get:
+      operationId: getWhatsOn
+      tags: [sheets]
+      summary: Get What's On events from Google Sheets
+      parameters:
+        - name: sheetId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Google Spreadsheet ID
+      responses:
+        "200":
+          description: List of events
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WhatsOnResponse"
+        "400":
+          description: Missing sheetId
+        "500":
+          description: Failed to fetch sheet
+
+  /sheets/menu:
+    get:
+      operationId: getMenu
+      tags: [sheets]
+      summary: Get menu sections from Google Sheets
+      parameters:
+        - name: sheetId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Google Spreadsheet ID
+      responses:
+        "200":
+          description: Menu sections grouped by course
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MenuResponse"
+        "400":
+          description: Missing sheetId
+        "500":
+          description: Failed to fetch sheet
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +84,51 @@ components:
       required:
         - status
 
+    Event:
+      type: object
+      properties:
+        Day:
+          type: string
+        Time:
+          type: string
+        Title:
+          type: string
+        Description:
+          type: string
+        Tag:
+          type: string
+      required: [Day, Time, Title, Description, Tag]
+
+    WhatsOnResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/Event"
+      required: [events]
+
+    MenuItem:
+      type: object
+      properties:
+        name:
+          type: string
+        desc:
+          type: string
+        price:
+          type: string
+      required: [name, desc, price]
+
+    MenuSection:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          $ref: "#/components/schemas/MenuItem"
+
+    MenuResponse:
+      type: object
+      properties:
+        sections:
+          $ref: "#/components/schemas/MenuSection"
+      required: [sections]

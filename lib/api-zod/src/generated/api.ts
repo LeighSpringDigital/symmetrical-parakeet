@@ -8,9 +8,47 @@
 import * as zod from "zod";
 
 /**
- * Returns server health status
  * @summary Health check
  */
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
+});
+
+/**
+ * @summary Get What's On events from Google Sheets
+ */
+export const GetWhatsOnQueryParams = zod.object({
+  sheetId: zod.coerce.string().describe("Google Spreadsheet ID"),
+});
+
+export const GetWhatsOnResponse = zod.object({
+  events: zod.array(
+    zod.object({
+      Day: zod.string(),
+      Time: zod.string(),
+      Title: zod.string(),
+      Description: zod.string(),
+      Tag: zod.string(),
+    }),
+  ),
+});
+
+/**
+ * @summary Get menu sections from Google Sheets
+ */
+export const GetMenuQueryParams = zod.object({
+  sheetId: zod.coerce.string().describe("Google Spreadsheet ID"),
+});
+
+export const GetMenuResponse = zod.object({
+  sections: zod.record(
+    zod.string(),
+    zod.array(
+      zod.object({
+        name: zod.string(),
+        desc: zod.string(),
+        price: zod.string(),
+      }),
+    ),
+  ),
 });

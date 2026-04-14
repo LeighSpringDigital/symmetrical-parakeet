@@ -6,4 +6,11 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from "./event";
+export * from "./getMenuParams";
+export * from "./getWhatsOnParams";
 export * from "./healthStatus";
+export * from "./menuItem";
+export * from "./menuResponse";
+export * from "./menuSection";
+export * from "./whatsOnResponse";

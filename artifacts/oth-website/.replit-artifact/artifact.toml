@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Old Tigers Head"
+version = "1.0.0"
+id = "artifacts/oth-website"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21019
+
+[services.development]
+run = "pnpm --filter @workspace/oth-website run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/oth-website", "run", "build" ]
+publicDir = "artifacts/oth-website/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21019"
+BASE_PATH = "/"

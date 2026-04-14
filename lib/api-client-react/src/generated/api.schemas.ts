@@ -8,3 +8,43 @@
 export interface HealthStatus {
   status: string;
 }
+
+export interface Event {
+  Day: string;
+  Time: string;
+  Title: string;
+  Description: string;
+  Tag: string;
+}
+
+export interface WhatsOnResponse {
+  events: Event[];
+}
+
+export interface MenuItem {
+  name: string;
+  desc: string;
+  price: string;
+}
+
+export interface MenuSection {
+  [key: string]: MenuItem[];
+}
+
+export interface MenuResponse {
+  sections: MenuSection;
+}
+
+export type GetWhatsOnParams = {
+  /**
+   * Google Spreadsheet ID
+   */
+  sheetId: string;
+};
+
+export type GetMenuParams = {
+  /**
+   * Google Spreadsheet ID
+   */
+  sheetId: string;
+};
