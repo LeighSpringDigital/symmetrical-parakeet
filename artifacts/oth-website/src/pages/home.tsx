@@ -163,24 +163,54 @@ const tagColors: Record<string, { bg: string; color: string }> = {
 
 const historySlides = [
   {
-    era: "Est. 1750",
-    caption: "A coaching inn and alehouse at the crossroads of Lee — serving travellers on the road to Greenwich and beyond.",
-    img: "https://oldtigershead.springdigitalstudio.co.uk/wp-content/uploads/2024/10/oth_about_history.jpg",
+    era: "c. 1880s",
+    caption: "The Old Tigers Head advertising Courage & Co. Porter & Ale. Horse-drawn carriages line the road outside — the pub already a landmark at the Lee Green crossroads.",
+    img: "/hist-oth-1880s.jpg",
   },
   {
-    era: "Victorian Lee",
-    caption: "By the mid-1800s the Tiger was a fixture of Victorian Lee — a community anchor through the railway age, the arrival of the tram, and two World Wars.",
-    img: "",
+    era: "c. 1890s — Lee High Road",
+    caption: "A panoramic view of Lee High Road in the late Victorian era. Horse-drawn carts, top hats and long skirts — the Tiger stands at the heart of a thriving village.",
+    img: "/hist-1890s-lee-high-road.jpg",
   },
   {
-    era: "The 20th Century",
-    caption: "From rationing to rock 'n' roll, generations of Lee families have raised a glass here. Wakes and weddings, first dates and leaving dos.",
-    img: "",
+    era: "c. 1900 — Lee Green",
+    caption: "Lee Green at the turn of the century. Horse buses and bicycles share the road, while the shops and pubs of the high street bustle with Edwardian life.",
+    img: "/hist-1900s-lee-high-road.jpg",
+  },
+  {
+    era: "c. 1905 — Victorian Shopfronts",
+    caption: "The ornate Victorian commercial architecture of Lee — intricate brickwork, Dutch gables and iron cornicing. A neighbourhood built to last.",
+    img: "/hist-victorian-shopfront.jpg",
+  },
+  {
+    era: "c. 1912 — The Tram Age",
+    caption: "Electric trams arrive at Lee Green. The pub served as a stop-off for tram drivers and passengers alike — a ritual that continued until the trams were scrapped in 1952.",
+    img: "/hist-1910s-lee-green-tram.jpg",
+  },
+  {
+    era: "c. 1935 — Between the Wars",
+    caption: "Lee Green between the wars — motor cars replace horses, but the pace of life remains unhurried. The Tiger weathers the Depression and steels itself for what's to come.",
+    img: "/hist-1930s-lee-green.jpg",
+  },
+  {
+    era: "c. 1955 — Post-War Lee",
+    caption: "A 1950s Ford Consul passes a Double Diamond pub sign. Post-war Britain rebuilds and the Tiger fills its bars with a generation grateful for a quiet pint.",
+    img: "/hist-1950s-lee-high-road.jpg",
+  },
+  {
+    era: "Early 2000s",
+    caption: "The Old Tigers Head in its blue livery — a familiar corner of SE12 for thousands of regulars. The building's Victorian bones endure beneath every repaint.",
+    img: "/hist-oth-2000s-blue.jpg",
+  },
+  {
+    era: "2015",
+    caption: "The pub in its last guise before the current chapter. The distinctive corner building — with its curved bay and decorative brickwork — unchanged since the 1890s.",
+    img: "/hist-oth-2015.jpg",
   },
   {
     era: "Today",
-    caption: "Under Rob's stewardship, the Tiger has reclaimed its place at the beating heart of Lee — with a 15-year lease and a comprehensive refurbishment underway.",
-    img: "https://oldtigershead.springdigitalstudio.co.uk/wp-content/uploads/2024/10/oth_hero_homepage.jpg",
+    caption: "Back in its red-brick glory under Rob's stewardship. A 15-year lease, a proper refurbishment and the beating heart of Lee Green once more.",
+    img: "/hist-oth-modern-red.jpg",
   },
 ];
 
