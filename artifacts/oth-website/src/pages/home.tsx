@@ -571,14 +571,11 @@ export default function Home() {
             backgroundColor: "#001e30",
           }}
         />
-        <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, rgba(0,20,35,0.72) 0%, rgba(0,20,35,0.65) 50%, rgba(0,20,35,0.93) 100%)` }} />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, rgba(0,10,20,0.82) 0%, rgba(0,10,20,0.78) 50%, rgba(0,10,20,0.96) 100%)` }} />
 
         <div className="relative z-10 flex flex-col items-center justify-center flex-1 text-center px-6 pt-40 pb-16">
-          <p className="text-xs tracking-[0.7em] uppercase font-semibold mb-5" style={{ color: GOLD }}>
+          <p className="text-xs tracking-[0.7em] uppercase font-semibold mb-8" style={{ color: GOLD }}>
             At the Beating Heart of Lee
-          </p>
-          <p className="text-white/80 text-lg md:text-xl max-w-lg mb-14 leading-relaxed" style={{ fontFamily: FONT }}>
-            A proper local. Good food, great company, and a warm welcome for everyone who walks through the door.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a href="#whats-on" className="text-sm font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all hover:brightness-90" style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}>
