@@ -575,7 +575,7 @@ export default function Home() {
 
         <div className="relative z-10 flex flex-col items-center justify-center flex-1 text-center px-6 pt-40 pb-16">
           <p className="max-w-4xl font-semibold mb-8 leading-tight" style={{ color: GOLD, fontSize: "5rem" }}>
-            The Beating Heart of Lee.
+            Heritage and Modern Hospitality, at the Beating Heart of Lee.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a href="#whats-on" className="text-sm font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all hover:brightness-90" style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}>
