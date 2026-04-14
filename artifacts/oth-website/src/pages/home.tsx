@@ -217,10 +217,9 @@ const stationDirections = [
 
 // Tiger of the Month — hardcoded for now, updatable via Google Sheets later
 const tigerOfMonth = {
-  name: "Derek & Guinness",
-  bio: "Derek has been propping up the bar on Friday evenings since before Rob took over. His Labrador, Guinness, is the pub's unofficial mascot and has his own pint glass (filled with water, we think).",
+  name: "Casper the Chi Chon",
+  bio: "Self-appointed Head of Security at the Old Tiger's Head, Casper operates under the firm belief he's a towering apex predator. He's mad, bad and dangerous — until someone pets him, that is, at which point the tough-guy facade evaporates completely.",
   month: "April 2026",
-  reward: "Wings & a pint of their choice — on the house.",
   isActive: true,
 };
 
@@ -614,9 +613,6 @@ export default function Home() {
                 </div>
                 <p className="text-sm leading-relaxed max-w-xl" style={{ color: `${NAVY}cc` }}>
                   {tigerOfMonth.bio}
-                </p>
-                <p className="text-[11px] font-bold mt-2 uppercase tracking-wider" style={{ color: NAVY }}>
-                  Prize: {tigerOfMonth.reward}
                 </p>
               </div>
               {/* CTA */}
@@ -1679,7 +1675,7 @@ export default function Home() {
                   Join the Tigers Head Community
                 </div>
                 <p className="text-white/60 text-sm leading-relaxed max-w-xl">
-                  Sign up, write a bio, add your dog's profile, and become part of the family. One lucky member (or their four-legged friend) wins wings and a pint as our Tiger of the Month — featured right here on the site every month.
+                  Sign up, write a bio, add your dog's profile, and become part of the family. One lucky member (or their four-legged friend) is featured as our Tiger of the Month right here on the site every month.
                 </p>
               </div>
               <div className="flex-shrink-0">

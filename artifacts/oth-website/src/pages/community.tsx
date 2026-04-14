@@ -7,10 +7,9 @@ const GOLD = "#C9A227";
 const FONT = "'Century Gothic', 'Avant Garde', CenturyGothic, AppleGothic, sans-serif";
 
 const tigerOfMonth = {
-  name: "Derek & Guinness",
-  bio: "Derek has been propping up the bar on Friday evenings since before Rob took over. His Labrador, Guinness, is the pub's unofficial mascot and has his own pint glass (filled with water, we think).",
+  name: "Casper the Chi Chon",
+  bio: "Self-appointed Head of Security at the Old Tiger's Head, Casper operates under the firm belief he's a towering apex predator. He's mad, bad and dangerous — until someone pets him, that is, at which point the tough-guy facade evaporates completely.",
   month: "April 2026",
-  reward: "Wings & a pint of their choice — on the house.",
 };
 
 const communityMembers = [
@@ -112,12 +111,11 @@ export default function CommunityPage() {
               <div className="text-[10px] font-bold tracking-widest uppercase mb-1" style={{ color: `${NAVY}88` }}>{tigerOfMonth.month}</div>
               <div className="text-2xl font-black uppercase tracking-wide mb-1" style={{ color: NAVY, fontFamily: FONT }}>{tigerOfMonth.name}</div>
               <p className="text-sm leading-relaxed mb-2" style={{ color: `${NAVY}cc` }}>{tigerOfMonth.bio}</p>
-              <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: NAVY }}>Prize: {tigerOfMonth.reward}</p>
             </div>
           </div>
           <div className="mt-6 pt-6 border-t text-center" style={{ borderColor: `${NAVY}22` }}>
             <p className="text-sm" style={{ color: `${NAVY}99` }}>
-              Every month we pick one member profile — human or canine — to feature as Tiger of the Month. The winner gets wings and a pint on us.
+              Every month we pick one member profile — human or canine — to feature as Tiger of the Month right here on the site.
             </p>
           </div>
         </div>
