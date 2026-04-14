@@ -74,12 +74,12 @@ export default function Contact() {
                 <div>
                   <div className="text-white font-bold text-sm">The Old Tigers Head</div>
                   <div className="text-white/60 text-sm mt-1 leading-relaxed">
-                    351 Lee High Road<br />Lee Green<br />London SE12 8RU
+                    351 Lee High Road<br />Lee Green<br />London SE3 8RU
                   </div>
                 </div>
               </div>
               <a
-                href="https://maps.google.com/?q=351+Lee+High+Road+London+SE12+8RU"
+                href="https://maps.google.com/?q=351+Lee+High+Road+London+SE3+8RU"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase transition-colors hover:text-white"

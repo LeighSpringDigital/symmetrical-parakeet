@@ -8,7 +8,7 @@ const FONT = "'Century Gothic', 'Avant Garde', CenturyGothic, AppleGothic, sans-
 
 const tigerOfMonth = {
   name: "Casper the Chi Chon",
-  bio: "Self-appointed Head of Security at the Old Tiger's Head, Casper operates under the firm belief he's a towering apex predator. He's mad, bad and dangerous — until someone pets him, that is, at which point the tough-guy facade evaporates completely.",
+  bio: "Self-appointed Head of Security at the Old Tiger's Head, Casper operates under the firm belief he's a towering apex predator. Prone to outbursts of bravado, Casper is mad, bad and dangerous. Until someone pets him and the tough-guy facade evaporates into thin air.",
   month: "April 2026",
 };
 
@@ -309,7 +309,7 @@ export default function CommunityPage() {
 
       {/* FOOTER STRIP */}
       <div className="mt-20 py-6 px-6 border-t border-white/10 text-center" style={{ backgroundColor: "#001520" }}>
-        <p className="text-white/25 text-xs tracking-widest">© 2026 The Old Tigers Head · 351 Lee High Road, London SE12 8RU</p>
+        <p className="text-white/25 text-xs tracking-widest">© 2026 The Old Tigers Head · 351 Lee High Road, London SE3 8RU</p>
       </div>
     </div>
   );

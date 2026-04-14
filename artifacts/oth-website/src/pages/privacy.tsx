@@ -21,7 +21,7 @@ export default function Privacy() {
           {[
             {
               title: "Who we are",
-              body: "The Old Tigers Head is located at 351 Lee High Road, London SE12 8RU. We are the data controller for personal information collected through this website. If you have any questions about how we use your data, please contact us at enquiries@theoldtigershead.com."
+              body: "The Old Tigers Head is located at 351 Lee High Road, London SE3 8RU. We are the data controller for personal information collected through this website. If you have any questions about how we use your data, please contact us at enquiries@theoldtigershead.com."
             },
             {
               title: "What data we collect",
@@ -54,7 +54,7 @@ export default function Privacy() {
             },
             {
               title: "Contact",
-              body: "If you have any questions or concerns about how we handle your data, please email enquiries@theoldtigershead.com or write to: The Old Tigers Head, 351 Lee High Road, London SE12 8RU."
+              body: "If you have any questions or concerns about how we handle your data, please email enquiries@theoldtigershead.com or write to: The Old Tigers Head, 351 Lee High Road, London SE3 8RU."
             },
           ].map((section) => (
             <div key={section.title} id={section.id}>

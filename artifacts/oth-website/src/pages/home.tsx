@@ -204,7 +204,7 @@ const historySlides = [
   },
   {
     era: "Early 2000s",
-    caption: "The Old Tigers Head in its blue livery — a familiar corner of SE12 for thousands of regulars. The building's Victorian bones endure beneath every repaint.",
+    caption: "The Old Tigers Head in its blue livery — a familiar corner of SE3 for thousands of regulars. The building's Victorian bones endure beneath every repaint.",
     img: "/hist-oth-2000s-blue.jpg",
   },
   {
@@ -258,7 +258,7 @@ const stationDirections = [
 // Tiger of the Month — hardcoded for now, updatable via Google Sheets later
 const tigerOfMonth = {
   name: "Casper the Chi Chon",
-  bio: "Self-appointed Head of Security at the Old Tiger's Head, Casper operates under the firm belief he's a towering apex predator. He's mad, bad and dangerous — until someone pets him, that is, at which point the tough-guy facade evaporates completely.",
+  bio: "Self-appointed Head of Security at the Old Tiger's Head, Casper operates under the firm belief he's a towering apex predator. Prone to outbursts of bravado, Casper is mad, bad and dangerous. Until someone pets him and the tough-guy facade evaporates into thin air.",
   month: "April 2026",
   isActive: true,
 };
@@ -1274,11 +1274,11 @@ export default function Home() {
                 <MapPin size={16} className="flex-shrink-0 mt-0.5" style={{ color: GOLD }} />
                 <div>
                   <div className="text-white font-bold">The Old Tigers Head</div>
-                  <div className="text-white/60 text-sm mt-1">351 Lee High Road<br />London SE12 8RU</div>
+                  <div className="text-white/60 text-sm mt-1">351 Lee High Road<br />London SE3 8RU</div>
                 </div>
               </div>
               <a
-                href="https://maps.google.com/?q=351+Lee+High+Road+London+SE12+8RU"
+                href="https://maps.google.com/?q=351+Lee+High+Road+London+SE3+8RU"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase mt-2 transition-colors hover:text-white"
@@ -1330,7 +1330,7 @@ export default function Home() {
                 Getting Here
               </h3>
               <a
-                href="https://tfl.gov.uk/plan-a-journey/?to=SE12+8RG"
+                href="https://tfl.gov.uk/plan-a-journey/?to=SE3+8RG"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase border px-5 py-2.5 transition-colors hover:border-[#C9A227] hover:text-[#C9A227]"
@@ -1852,7 +1852,7 @@ export default function Home() {
                 Old Tigers Head
               </div>
               <p className="text-white/50 text-sm leading-relaxed">
-                Est. 1750. At the beating heart of Lee, London SE12.
+                Est. 1750. At the beating heart of Lee, London SE3.
               </p>
             </div>
             <div>
@@ -1870,7 +1870,7 @@ export default function Home() {
               <div className="space-y-2">
                 <div className="flex items-start gap-2 text-white/60 text-sm">
                   <MapPin size={14} className="flex-shrink-0 mt-0.5" style={{ color: GOLD }} />
-                  <span>351 Lee High Road, London SE12 8RU</span>
+                  <span>351 Lee High Road, London SE3 8RU</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/60 text-sm">
                   <Phone size={14} className="flex-shrink-0" style={{ color: GOLD }} />
