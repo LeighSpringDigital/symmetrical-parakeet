@@ -86,7 +86,7 @@ const weeklyGroups = [
   },
 ];
 
-const hardcodedMenuSections = [
+const todaysMenuSections = [
   {
     name: "Starters",
     items: [
@@ -99,9 +99,9 @@ const hardcodedMenuSections = [
     name: "Mains",
     items: [
       { name: "28-Day Aged Burger", desc: "Double smash patty, aged cheddar, house pickles, brioche bun. Served with fries", price: "£16.50" },
-      { name: "Sunday Roast", desc: "Choice of beef, chicken or nut roast. Served with all the trimmings", price: "£19.00" },
       { name: "Beer-Battered Fish & Chips", desc: "Proper pub fish & chips with mushy peas and tartare sauce", price: "£17.00" },
       { name: "Wild Mushroom Risotto (v)", desc: "Truffle oil, parmesan, fresh herbs", price: "£14.50" },
+      { name: "Tiger Burger", desc: "Smash patty, tiger sauce, pickled jalapeños, American cheese, brioche bun. Served with fries", price: "£17.50" },
     ],
   },
   {
@@ -112,6 +112,45 @@ const hardcodedMenuSections = [
     ],
   },
 ];
+
+const sundayMenuSections = [
+  {
+    name: "Starters",
+    items: [
+      { name: "Soup of the Day", desc: "Freshly made, served with sourdough bread", price: "£7.50" },
+      { name: "Prawn Cocktail", desc: "Classic Marie Rose, iceberg lettuce, brown bread", price: "£9.00" },
+      { name: "Chicken Liver Pâté", desc: "With red onion chutney and toasted brioche", price: "£9.00" },
+    ],
+  },
+  {
+    name: "Roasts",
+    items: [
+      { name: "Roast Sirloin of Beef", desc: "28-day aged, served with roast potatoes, seasonal vegetables, Yorkshire pudding and gravy", price: "£21.00" },
+      { name: "Roast Free-Range Chicken", desc: "Half chicken, roast potatoes, seasonal vegetables, stuffing and gravy", price: "£19.00" },
+      { name: "Nut Roast (v/vg)", desc: "Herb and walnut loaf, roast potatoes, seasonal vegetables and vegetable gravy", price: "£17.00" },
+      { name: "Children's Roast", desc: "Choice of beef or chicken, served with all the trimmings", price: "£10.00" },
+    ],
+  },
+  {
+    name: "Sides",
+    items: [
+      { name: "Extra Yorkshire Pudding", desc: "", price: "£1.50" },
+      { name: "Cauliflower Cheese", desc: "Baked in a cheddar and cream sauce", price: "£4.50" },
+      { name: "Roast Potatoes", desc: "Goose fat, rosemary", price: "£4.00" },
+      { name: "Seasonal Greens", desc: "Buttered, with garlic", price: "£3.50" },
+    ],
+  },
+  {
+    name: "Puddings",
+    items: [
+      { name: "Sticky Toffee Pudding", desc: "With warm toffee sauce and vanilla ice cream", price: "£7.50" },
+      { name: "Treacle Tart", desc: "With clotted cream", price: "£7.00" },
+      { name: "Cheese & Biscuits", desc: "A selection of British cheeses with chutney and crackers", price: "£9.50" },
+    ],
+  },
+];
+
+const hardcodedMenuSections = todaysMenuSections;
 
 const tagColors: Record<string, { bg: string; color: string }> = {
   Music: { bg: NAVY, color: GOLD },
@@ -190,6 +229,7 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeMenuTab, setActiveMenuTab] = useState("Mains");
+  const [activeMenuType, setActiveMenuType] = useState<"today" | "sunday">("today");
   const [slideIndex, setSlideIndex] = useState(0);
   const slideTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const [eventsView, setEventsView] = useState<"upcoming" | "past">("upcoming");
@@ -253,10 +293,11 @@ export default function Home() {
     ? hardcodedWhatsOn
     : whatsOnData.events.map((e) => ({ day: e.Day, time: e.Time, title: e.Title, desc: e.Description, tag: e.Tag }));
 
-  const mappedMenuSections = (!sheetId || menuError || !menuData)
-    ? hardcodedMenuSections
+  const rawMenuSections = (!sheetId || menuError || !menuData)
+    ? (activeMenuType === "today" ? todaysMenuSections : sundayMenuSections)
     : Object.entries(menuData.sections).map(([name, items]) => ({ name, items }));
 
+  const mappedMenuSections = rawMenuSections;
   const activeSection = mappedMenuSections.find((s) => s.name === activeMenuTab) || mappedMenuSections[0] || { name: "", items: [] };
   const slide = historySlides[slideIndex];
 
@@ -339,7 +380,7 @@ export default function Home() {
               className="text-xs font-bold tracking-[0.2em] uppercase px-6 py-3 transition-all hover:brightness-90"
               style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
             >
-              Request a Booking
+              Book
             </a>
             <button
               onClick={() => setSearchOpen(!searchOpen)}
@@ -427,7 +468,7 @@ export default function Home() {
               style={{ backgroundColor: GOLD, color: NAVY }}
               onClick={() => setMenuOpen(false)}
             >
-              Request a Booking
+              Book
             </a>
           </div>
         </div>
@@ -465,7 +506,7 @@ export default function Home() {
               Private Hire
             </a>
             <a href="#book" className="text-sm font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all border border-white/40 hover:border-white/80" style={{ color: "white", fontFamily: FONT }}>
-              Request a Booking
+              Book
             </a>
           </div>
         </div>
@@ -780,16 +821,56 @@ export default function Home() {
 
           {!menuLoading && (
             <>
-              <div className="flex justify-center gap-2 mb-10 flex-wrap">
+              {/* Top-level menu switcher + print */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+                <div className="flex border-2" style={{ borderColor: NAVY }}>
+                  {(["today", "sunday"] as const).map((type) => (
+                    <button
+                      key={type}
+                      onClick={() => {
+                        setActiveMenuType(type);
+                        setActiveMenuTab(type === "today" ? "Starters" : "Starters");
+                      }}
+                      className="px-7 py-3 text-xs font-bold tracking-widest uppercase transition-all"
+                      style={{
+                        backgroundColor: activeMenuType === type ? NAVY : "transparent",
+                        color: activeMenuType === type ? GOLD : NAVY,
+                        fontFamily: FONT,
+                        borderRight: type === "today" ? `2px solid ${NAVY}` : undefined,
+                      }}
+                    >
+                      {type === "today" ? "Today's Menu" : "Sample Sunday Menu"}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Print / Download */}
+                <button
+                  onClick={() => window.print()}
+                  className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase px-5 py-3 border-2 transition-all hover:bg-[#002942] hover:text-white"
+                  style={{ borderColor: NAVY, color: NAVY, fontFamily: FONT }}
+                  title="Print or save as PDF"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="6 9 6 2 18 2 18 9"/>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                    <rect x="6" y="14" width="12" height="8"/>
+                  </svg>
+                  Print / Download PDF
+                </button>
+              </div>
+
+              {/* Section sub-tabs */}
+              <div className="flex justify-center gap-2 mb-8 flex-wrap">
                 {mappedMenuSections.map((section) => (
                   <button
                     key={section.name}
                     onClick={() => setActiveMenuTab(section.name)}
-                    className="px-7 py-3 text-xs font-bold tracking-widest uppercase transition-all border-2"
+                    className="px-6 py-2.5 text-xs font-bold tracking-widest uppercase transition-all border"
                     style={{
                       backgroundColor: activeMenuTab === section.name ? NAVY : "transparent",
-                      color: activeMenuTab === section.name ? GOLD : NAVY,
-                      borderColor: NAVY,
+                      color: activeMenuTab === section.name ? GOLD : `${NAVY}99`,
+                      borderColor: activeMenuTab === section.name ? NAVY : `${NAVY}44`,
                       fontFamily: FONT,
                     }}
                   >
@@ -797,12 +878,14 @@ export default function Home() {
                   </button>
                 ))}
               </div>
+
+              {/* Menu items */}
               <div className="space-y-px">
                 {activeSection.items.map((item, i) => (
                   <div key={i} className="flex items-start justify-between py-5 px-6 border-b border-[#002942]/10 hover:bg-[#002942]/5 transition-colors">
                     <div className="flex-1 pr-8">
                       <h4 className="font-bold uppercase tracking-wide text-sm" style={{ color: NAVY, fontFamily: FONT }}>{item.name}</h4>
-                      <p style={{ color: `${NAVY}88` }} className="text-sm mt-1 leading-relaxed">{item.desc}</p>
+                      {item.desc && <p style={{ color: `${NAVY}88` }} className="text-sm mt-1 leading-relaxed">{item.desc}</p>}
                     </div>
                     <span className="font-black text-lg flex-shrink-0" style={{ color: GOLD }}>{item.price}</span>
                   </div>
@@ -1332,23 +1415,38 @@ export default function Home() {
                   </p>
                 </div>
 
-                {/* History directory link */}
+                {/* History directory */}
                 <div className="mt-8 border border-white/10 p-5" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
                   <div className="text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
                     Want to go deeper?
                   </div>
-                  <p className="text-white/55 text-sm mb-3 leading-relaxed">
-                    The Old Tigers Head has a rich and well-documented history. Explore records, archives and historical accounts from local historians and heritage organisations.
+                  <p className="text-white/55 text-sm mb-4 leading-relaxed">
+                    The Old Tigers Head has a rich and well-documented history. A directory of sources worth exploring.
                   </p>
-                  <a
-                    href="https://www.ideal-homes.org.uk/lewisham/lewisham-2/old-tigers-head-lee"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase transition-colors hover:text-white"
-                    style={{ color: GOLD }}
-                  >
-                    Explore the archive <ExternalLink size={11} />
-                  </a>
+                  <div className="space-y-3">
+                    {[
+                      { label: "Lee, London — Wikipedia", note: "Overview of Lee's history, including the Old Tiger's Head at Lee Green.", href: "https://en.wikipedia.org/wiki/Lee,_London" },
+                      { label: "Ideal Homes · University of Greenwich", note: "Historical images and notes on Lee Green's old pub and the area.", href: "https://ideal-homes.gre.ac.uk/lewisham/assets/galleries/lee/old-tigers-head.html" },
+                      { label: "Dover-Kent", note: "Detailed history including early origins and the rebuilding story.", href: "http://www.dover-kent.com/2016-project/Old-Tigers-Head-Lee.html" },
+                      { label: "Pubs Wiki", note: "Dates, landlords, and historical notes on the Old Tigers Head.", href: "https://pubwiki.co.uk/LondonPubs/Lee/OldTigersHead.shtml" },
+                      { label: "Running Past", note: "The New Tiger's Head article — explains the relationship with this pub and Lee Green.", href: "https://runner500.wordpress.com/2018/03/14/the-new-tigers-head-a-lee-green-pub/" },
+                      { label: "CAMRA", note: "Pub listing with notes on the location and historic setting.", href: "https://camra.org.uk/pubs/old-tigers-head-lee-158536" },
+                    ].map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-start gap-3 group"
+                      >
+                        <ExternalLink size={11} className="flex-shrink-0 mt-1 transition-colors group-hover:text-white" style={{ color: GOLD }} />
+                        <div>
+                          <div className="text-[11px] font-bold tracking-wide uppercase transition-colors group-hover:text-white" style={{ color: GOLD }}>{link.label}</div>
+                          <div className="text-white/40 text-xs leading-relaxed">{link.note}</div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
