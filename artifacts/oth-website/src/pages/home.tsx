@@ -835,7 +835,7 @@ export default function Home() {
             </h2>
             <div className="mt-4 w-16 h-0.5 mx-auto" style={{ backgroundColor: GOLD }} />
             <p className="text-white/50 text-sm mt-5 leading-relaxed max-w-md mx-auto">
-              Fill in your details and we'll confirm your booking via WhatsApp — usually within a few hours.
+              Fill in your details and we'll confirm your booking via WhatsApp ASAP.
             </p>
           </div>
 
@@ -1029,7 +1029,7 @@ export default function Home() {
                 className="w-full text-sm font-bold tracking-[0.25em] uppercase py-4 transition-all hover:brightness-90"
                 style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
               >
-                Request a Booking
+                Book
               </button>
 
               <p className="text-white/25 text-xs text-center mt-4">
