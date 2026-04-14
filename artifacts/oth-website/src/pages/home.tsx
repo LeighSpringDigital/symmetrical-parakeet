@@ -1446,7 +1446,6 @@ export default function Home() {
 
           <div className="space-y-2">
             {[
-              { q: "Can I book a table?", a: "Yes — use our online booking form or call us on 020 4568 0111. We recommend booking for Sunday roasts and Friday evenings, when we get very busy. Walk-ins are always welcome for smaller groups." },
               { q: "What are your opening hours?", a: "We're open Monday to Thursday 12pm–11pm, Friday and Saturday 12pm–midnight, and Sunday 12pm–10pm. The kitchen serves lunch 12pm–4pm and dinner 5pm–9pm daily." },
               { q: "Do you cater for dietary requirements?", a: "Absolutely. We have vegetarian, vegan, and gluten-free options on both our regular and Sunday menus. Please mention any allergies or requirements when you book, or speak to your server — we'll do everything we can to accommodate you." },
               { q: "Is the pub dog-friendly?", a: "Yes! Well-behaved dogs are welcome in the bar area. We keep water bowls at the bar and the bar staff love meeting them." },
