@@ -1,6 +1,9 @@
-import { useState, useEffect } from "react";
-import { Search, Menu, X, ChevronRight, ChevronDown, Calendar, Clock, MapPin, Phone, Mail } from "lucide-react";
-import { useGetWhatsOn, useGetMenu, Event, MenuSection, MenuItem } from "@workspace/api-client-react";
+import { useState, useEffect, useRef } from "react";
+import {
+  Search, Menu, X, ChevronRight, ChevronDown, Calendar, Clock,
+  MapPin, Phone, Mail, Train, ExternalLink, ChevronLeft, Users, Star
+} from "lucide-react";
+import { useGetWhatsOn, useGetMenu } from "@workspace/api-client-react";
 import { Spinner } from "@/components/ui/spinner";
 
 const NAVY = "#002942";
@@ -60,33 +63,99 @@ const tagColors: Record<string, { bg: string; color: string }> = {
   Community: { bg: GOLD, color: NAVY },
 };
 
+const historySlides = [
+  {
+    era: "Est. 1750",
+    caption: "A coaching inn and alehouse at the crossroads of Lee — serving travellers on the road to Greenwich and beyond.",
+    img: "https://oldtigershead.springdigitalstudio.co.uk/wp-content/uploads/2024/10/oth_about_history.jpg",
+  },
+  {
+    era: "Victorian Lee",
+    caption: "By the mid-1800s the Tiger was a fixture of Victorian Lee — a community anchor through the railway age, the arrival of the tram, and two World Wars.",
+    img: "",
+  },
+  {
+    era: "The 20th Century",
+    caption: "From rationing to rock 'n' roll, generations of Lee families have raised a glass here. Wakes and weddings, first dates and leaving dos.",
+    img: "",
+  },
+  {
+    era: "Today",
+    caption: "Under Rob's stewardship, the Tiger has reclaimed its place at the beating heart of Lee — with a 15-year lease and a comprehensive refurbishment underway.",
+    img: "https://oldtigershead.springdigitalstudio.co.uk/wp-content/uploads/2024/10/oth_hero_homepage.jpg",
+  },
+];
+
+const stationDirections = [
+  {
+    station: "Lee Station",
+    line: "National Rail · Southeastern",
+    walk: "5 min walk",
+    directions: "Turn right out of the station onto Lee High Road. The Old Tigers Head is on your left at the junction — you can see it from the platform.",
+    icon: "🚉",
+  },
+  {
+    station: "Blackheath Station",
+    line: "National Rail · Southeastern",
+    walk: "12 min walk",
+    directions: "Walk south along Lee Road through the village. Continue past the green and down Lee High Road — the Tiger is at the far end on your right.",
+    icon: "🚉",
+  },
+  {
+    station: "Hither Green Station",
+    line: "National Rail · Southeastern",
+    walk: "15 min walk or bus",
+    directions: "Take the 261 or 273 bus towards Lee — it's two stops. Alternatively, walk along Hither Green Lane and turn left onto Lee High Road.",
+    icon: "🚌",
+  },
+  {
+    station: "Lewisham Station",
+    line: "DLR · National Rail",
+    walk: "10 min by bus",
+    directions: "Catch the 261 or 273 bus from Lewisham station towards Lee. Alight at the Lee stop — the Tiger is right in front of you.",
+    icon: "🚌",
+  },
+];
+
+// Tiger of the Month — hardcoded for now, updatable via Google Sheets later
+const tigerOfMonth = {
+  name: "Derek & Guinness",
+  bio: "Derek has been propping up the bar on Friday evenings since before Rob took over. His Labrador, Guinness, is the pub's unofficial mascot and has his own pint glass (filled with water, we think).",
+  month: "April 2026",
+  reward: "Wings & a pint of their choice — on the house.",
+  isActive: true,
+};
+
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [activeMenu, setActiveMenu] = useState("Mains");
+  const [activeMenuTab, setActiveMenuTab] = useState("Mains");
+  const [slideIndex, setSlideIndex] = useState(0);
+  const slideTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const sheetId = import.meta.env.VITE_GOOGLE_SHEET_ID;
-  
+
   const { data: whatsOnData, isLoading: whatsOnLoading, isError: whatsOnError } = useGetWhatsOn(
-    { sheetId: sheetId || "" }, 
+    { sheetId: sheetId || "" },
     { query: { enabled: !!sheetId, queryKey: ["/api/sheets/whats-on", { sheetId }] } }
   );
 
   const { data: menuData, isLoading: menuLoading, isError: menuError } = useGetMenu(
-    { sheetId: sheetId || "" }, 
+    { sheetId: sheetId || "" },
     { query: { enabled: !!sheetId, queryKey: ["/api/sheets/menu", { sheetId }] } }
   );
 
   useEffect(() => {
     document.title = "The Old Tigers Head | Est. 1750 · Lee, London";
     const metaDesc = document.querySelector('meta[name="description"]');
+    const content = "A proper local in Lee, London. Good food, great company, and a warm welcome for everyone who walks through the door.";
     if (metaDesc) {
-      metaDesc.setAttribute("content", "A proper local in Lee, London. Good food, great company, and a warm welcome for everyone who walks through the door.");
+      metaDesc.setAttribute("content", content);
     } else {
       const newMeta = document.createElement("meta");
       newMeta.name = "description";
-      newMeta.content = "A proper local in Lee, London. Good food, great company, and a warm welcome for everyone who walks through the door.";
+      newMeta.content = content;
       document.head.appendChild(newMeta);
     }
   }, []);
@@ -97,31 +166,42 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const whatsOnEvents = (!sheetId || whatsOnError || !whatsOnData) ? hardcodedWhatsOn : whatsOnData.events.map(e => ({
-    day: e.Day,
-    time: e.Time,
-    title: e.Title,
-    desc: e.Description,
-    tag: e.Tag
-  }));
+  // Auto-advance slideshow
+  useEffect(() => {
+    slideTimer.current = setInterval(() => {
+      setSlideIndex((i) => (i + 1) % historySlides.length);
+    }, 5000);
+    return () => { if (slideTimer.current) clearInterval(slideTimer.current); };
+  }, []);
 
-  const mappedMenuSections = (!sheetId || menuError || !menuData) ? hardcodedMenuSections : Object.entries(menuData.sections).map(([name, items]) => ({
-    name,
-    items
-  }));
+  const goSlide = (dir: 1 | -1) => {
+    if (slideTimer.current) clearInterval(slideTimer.current);
+    setSlideIndex((i) => (i + dir + historySlides.length) % historySlides.length);
+    slideTimer.current = setInterval(() => {
+      setSlideIndex((i) => (i + 1) % historySlides.length);
+    }, 5000);
+  };
 
-  const activeSection = mappedMenuSections.find((s) => s.name === activeMenu) || mappedMenuSections[0] || { name: "", items: [] };
+  const whatsOnEvents = (!sheetId || whatsOnError || !whatsOnData)
+    ? hardcodedWhatsOn
+    : whatsOnData.events.map((e) => ({ day: e.Day, time: e.Time, title: e.Title, desc: e.Description, tag: e.Tag }));
+
+  const mappedMenuSections = (!sheetId || menuError || !menuData)
+    ? hardcodedMenuSections
+    : Object.entries(menuData.sections).map(([name, items]) => ({ name, items }));
+
+  const activeSection = mappedMenuSections.find((s) => s.name === activeMenuTab) || mappedMenuSections[0] || { name: "", items: [] };
+  const slide = historySlides[slideIndex];
 
   return (
     <div style={{ fontFamily: FONT }} className="min-h-screen">
       <style>{`
-        @keyframes ticker {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
+        @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         html { scroll-behavior: smooth; }
+        .slide-img { transition: opacity 0.6s ease; }
       `}</style>
-      {/* ── TICKER ───────────────────────────────────────── */}
+
+      {/* ── TICKER ─────────────────────────────────────────── */}
       <div style={{ backgroundColor: GOLD, color: NAVY }} className="overflow-hidden py-2 relative z-30">
         <div className="flex whitespace-nowrap animate-[ticker_35s_linear_infinite]">
           {[
@@ -129,12 +209,14 @@ export default function Home() {
             "SUNDAY ROAST & LIVE RUGBY",
             "QUIZ NIGHT EVERY TUESDAY",
             "PRIVATE HIRE FUNCTION ROOM AVAILABLE",
-            "JOIN THE TIGERS PRIDE LOYALTY CLUB",
+            "JOIN THE TIGERS HEAD COMMUNITY",
+            "15-YEAR LEASE SECURED — THE FUTURE IS BRIGHT",
             "FRIDAY NIGHT JAZZ @ 8PM",
             "SUNDAY ROAST & LIVE RUGBY",
             "QUIZ NIGHT EVERY TUESDAY",
             "PRIVATE HIRE FUNCTION ROOM AVAILABLE",
-            "JOIN THE TIGERS PRIDE LOYALTY CLUB",
+            "JOIN THE TIGERS HEAD COMMUNITY",
+            "15-YEAR LEASE SECURED — THE FUTURE IS BRIGHT",
           ].map((item, i) => (
             <span key={i} className="mx-8 text-xs font-bold tracking-widest uppercase">
               ★ {item}
@@ -143,12 +225,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── NAVBAR ───────────────────────────────────────── */}
-      <nav
-        className="sticky top-0 z-20 transition-all duration-300"
-        style={{ backgroundColor: scrolled ? NAVY : "transparent" }}
-      >
-        {/* Transparent-to-solid background layer */}
+      {/* ── NAVBAR ─────────────────────────────────────────── */}
+      <nav className="sticky top-0 z-20 transition-all duration-300" style={{ backgroundColor: scrolled ? NAVY : "transparent" }}>
         <div
           className="absolute inset-0 transition-opacity duration-300 pointer-events-none"
           style={{ backgroundColor: NAVY, opacity: scrolled ? 1 : 0 }}
@@ -165,20 +243,14 @@ export default function Home() {
                 className="text-white/90 hover:text-[#C9A227] text-[12px] font-semibold tracking-[0.15em] uppercase transition-colors duration-200 relative group whitespace-nowrap"
               >
                 {link.label}
-                <span
-                  className="absolute -bottom-1 left-0 w-0 h-px group-hover:w-full transition-all duration-300"
-                  style={{ backgroundColor: GOLD }}
-                />
+                <span className="absolute -bottom-1 left-0 w-0 h-px group-hover:w-full transition-all duration-300" style={{ backgroundColor: GOLD }} />
               </a>
             ))}
           </div>
 
-          {/* CENTRE: Name only — no crest */}
+          {/* CENTRE: Pub name */}
           <div className="flex flex-col items-center flex-shrink-0 mx-6 select-none cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
-            <div
-              className="text-[22px] font-black tracking-[0.06em] uppercase leading-tight"
-              style={{ color: GOLD, fontFamily: FONT }}
-            >
+            <div className="text-[22px] font-black tracking-[0.06em] uppercase leading-tight" style={{ color: GOLD, fontFamily: FONT }}>
               Old Tigers Head
             </div>
             <div className="text-white/50 text-[9px] tracking-[0.4em] uppercase mt-0.5">
@@ -186,8 +258,15 @@ export default function Home() {
             </div>
           </div>
 
-          {/* RIGHT: Book + Search + Hamburger */}
-          <div className="hidden lg:flex items-center gap-4 flex-1 justify-end">
+          {/* RIGHT: Menu + Book + Search + Hamburger */}
+          <div className="hidden lg:flex items-center gap-3 flex-1 justify-end">
+            <a
+              href="#food"
+              className="text-xs font-bold tracking-[0.2em] uppercase px-5 py-3 transition-all border border-white/30 hover:border-[#C9A227] hover:text-[#C9A227]"
+              style={{ color: "rgba(255,255,255,0.85)", fontFamily: FONT }}
+            >
+              Menu
+            </a>
             <a
               href="#book"
               className="text-xs font-bold tracking-[0.2em] uppercase px-6 py-3 transition-all hover:brightness-90"
@@ -205,7 +284,7 @@ export default function Home() {
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="text-white/80 hover:text-[#C9A227] transition-colors p-2"
-              aria-label="Menu"
+              aria-label="Navigation menu"
             >
               <Menu size={21} />
             </button>
@@ -213,16 +292,12 @@ export default function Home() {
 
           {/* Mobile right */}
           <div className="flex lg:hidden items-center gap-3 flex-1 justify-end">
-            <a
-              href="#book"
-              className="text-[10px] font-bold tracking-widest uppercase px-4 py-2"
-              style={{ backgroundColor: GOLD, color: NAVY }}
-            >
+            <a href="#food" className="text-[10px] font-bold tracking-widest uppercase px-3 py-2 border border-white/30" style={{ color: "rgba(255,255,255,0.85)" }}>
+              Menu
+            </a>
+            <a href="#book" className="text-[10px] font-bold tracking-widest uppercase px-4 py-2" style={{ backgroundColor: GOLD, color: NAVY }}>
               Book
             </a>
-            <button onClick={() => setSearchOpen(!searchOpen)} className="text-white p-1">
-              <Search size={18} />
-            </button>
             <button onClick={() => setMenuOpen(!menuOpen)} className="text-white p-1">
               <Menu size={20} />
             </button>
@@ -231,10 +306,7 @@ export default function Home() {
 
         {/* Search bar */}
         {searchOpen && (
-          <div
-            className="relative border-t border-white/10 px-8 py-4 flex items-center gap-3"
-            style={{ backgroundColor: NAVY }}
-          >
+          <div className="relative border-t border-white/10 px-8 py-4 flex items-center gap-3" style={{ backgroundColor: NAVY }}>
             <Search size={18} className="flex-shrink-0" style={{ color: GOLD }} />
             <input
               autoFocus
@@ -251,12 +323,9 @@ export default function Home() {
 
       {/* Full-screen mobile menu */}
       {menuOpen && (
-        <div
-          className="fixed inset-0 z-50 flex flex-col"
-          style={{ backgroundColor: NAVY }}
-        >
+        <div className="fixed inset-0 z-50 flex flex-col" style={{ backgroundColor: NAVY }}>
           <div className="flex justify-between items-center px-8 py-5 border-b border-white/10">
-            <div className="font-black tracking-widest uppercase" style={{ color: GOLD }}>Menu</div>
+            <div className="font-black tracking-widest uppercase" style={{ color: GOLD }}>Navigate</div>
             <button onClick={() => setMenuOpen(false)} className="text-white/70 hover:text-white transition-colors">
               <X size={24} />
             </button>
@@ -276,10 +345,18 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div className="px-10 py-8 border-t border-white/10">
+          <div className="px-10 py-8 border-t border-white/10 flex gap-3">
+            <a
+              href="#food"
+              className="flex-1 text-center text-sm font-bold tracking-[0.25em] uppercase py-4 border border-white/30 transition-all hover:border-[#C9A227]"
+              style={{ color: "rgba(255,255,255,0.85)" }}
+              onClick={() => setMenuOpen(false)}
+            >
+              Menu
+            </a>
             <a
               href="#book"
-              className="block w-full text-center text-sm font-bold tracking-[0.25em] uppercase py-4 transition-all hover:brightness-90"
+              className="flex-1 text-center text-sm font-bold tracking-[0.25em] uppercase py-4 transition-all hover:brightness-90"
               style={{ backgroundColor: GOLD, color: NAVY }}
               onClick={() => setMenuOpen(false)}
             >
@@ -289,9 +366,8 @@ export default function Home() {
         </div>
       )}
 
-      {/* ── HERO ─────────────────────────────────────────── */}
+      {/* ── HERO ───────────────────────────────────────────── */}
       <div className="relative -mt-20 min-h-screen flex flex-col overflow-hidden">
-        {/* Background: pub photo falls back to navy gradient */}
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -299,56 +375,29 @@ export default function Home() {
             backgroundColor: "#001e30",
           }}
         />
-        <div
-          className="absolute inset-0"
-          style={{ background: `linear-gradient(to bottom, rgba(0,41,66,0.55) 0%, rgba(0,20,35,0.6) 60%, rgba(0,41,66,0.92) 100%)` }}
-        />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, rgba(0,41,66,0.55) 0%, rgba(0,20,35,0.6) 60%, rgba(0,41,66,0.92) 100%)` }} />
 
         <div className="relative z-10 flex flex-col items-center justify-center flex-1 text-center px-6 pt-40 pb-16">
-          {/* Tagline — replaces title in hero */}
-          <p
-            className="text-xs tracking-[0.7em] uppercase font-semibold mb-5"
-            style={{ color: GOLD }}
-          >
+          <p className="text-xs tracking-[0.7em] uppercase font-semibold mb-5" style={{ color: GOLD }}>
             At the Beating Heart of Lee
           </p>
-
-          <p
-            className="text-white/80 text-lg md:text-xl max-w-lg mb-14 leading-relaxed"
-            style={{ fontFamily: FONT }}
-          >
+          <p className="text-white/80 text-lg md:text-xl max-w-lg mb-14 leading-relaxed" style={{ fontFamily: FONT }}>
             A proper local. Good food, great company, and a warm welcome for everyone who walks through the door.
           </p>
-
-          {/* Hero CTA buttons: What's On, Private Hire, Book a Table */}
           <div className="flex flex-wrap gap-4 justify-center">
-            <a
-              href="#whats-on"
-              className="text-sm font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all hover:brightness-90"
-              style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
-            >
+            <a href="#whats-on" className="text-sm font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all hover:brightness-90" style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}>
               What's On
             </a>
             <a
               href="#hire"
               className="text-sm font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all border-2"
               style={{ borderColor: GOLD, color: GOLD, fontFamily: FONT, backgroundColor: "transparent" }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor = GOLD;
-                (e.currentTarget as HTMLElement).style.color = NAVY;
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-                (e.currentTarget as HTMLElement).style.color = GOLD;
-              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = GOLD; (e.currentTarget as HTMLElement).style.color = NAVY; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent"; (e.currentTarget as HTMLElement).style.color = GOLD; }}
             >
               Private Hire
             </a>
-            <a
-              href="#book"
-              className="text-sm font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all border border-white/40 hover:border-white/80"
-              style={{ color: "white", fontFamily: FONT }}
-            >
+            <a href="#book" className="text-sm font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all border border-white/40 hover:border-white/80" style={{ color: "white", fontFamily: FONT }}>
               Book a Table
             </a>
           </div>
@@ -362,7 +411,54 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── WHAT'S ON ─────────────────────────────────────── */}
+      {/* ── TIGER OF THE MONTH ─────────────────────────────── */}
+      {tigerOfMonth.isActive && (
+        <section style={{ backgroundColor: GOLD }}>
+          <div className="max-w-6xl mx-auto px-6 py-8">
+            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+              {/* Badge */}
+              <div className="flex-shrink-0 flex flex-col items-center">
+                <div
+                  className="w-20 h-20 flex items-center justify-center font-black text-3xl border-4"
+                  style={{ backgroundColor: NAVY, color: GOLD, borderColor: NAVY }}
+                >
+                  🐯
+                </div>
+                <div className="text-[9px] font-black tracking-widest uppercase mt-2" style={{ color: NAVY }}>
+                  Tiger of the Month
+                </div>
+              </div>
+              {/* Text */}
+              <div className="flex-1 text-center md:text-left">
+                <div className="text-[10px] font-bold tracking-widest uppercase mb-1" style={{ color: `${NAVY}88` }}>
+                  {tigerOfMonth.month}
+                </div>
+                <div className="text-2xl font-black uppercase tracking-wide mb-1" style={{ color: NAVY, fontFamily: FONT }}>
+                  {tigerOfMonth.name}
+                </div>
+                <p className="text-sm leading-relaxed max-w-xl" style={{ color: `${NAVY}cc` }}>
+                  {tigerOfMonth.bio}
+                </p>
+                <p className="text-[11px] font-bold mt-2 uppercase tracking-wider" style={{ color: NAVY }}>
+                  Prize: {tigerOfMonth.reward}
+                </p>
+              </div>
+              {/* CTA */}
+              <div className="flex-shrink-0">
+                <a
+                  href="/community"
+                  className="inline-block text-xs font-bold tracking-[0.2em] uppercase px-7 py-3 transition-all hover:brightness-90"
+                  style={{ backgroundColor: NAVY, color: GOLD, fontFamily: FONT }}
+                >
+                  Join the Community
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── WHAT'S ON ──────────────────────────────────────── */}
       <section id="whats-on" className="py-20 px-6" style={{ backgroundColor: NAVY }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
@@ -373,15 +469,12 @@ export default function Home() {
               What's On
             </h2>
             <div className="mt-4 w-16 h-0.5 mx-auto" style={{ backgroundColor: GOLD }} />
-            <p className="text-white/40 text-[10px] mt-5 tracking-widest uppercase">
-              ★ Updated live from Google Sheets by the team
-            </p>
           </div>
 
           {whatsOnLoading && (
-             <div className="flex justify-center items-center py-20">
-               <Spinner className="w-8 h-8 text-[#C9A227]" />
-             </div>
+            <div className="flex justify-center items-center py-20">
+              <Spinner className="w-8 h-8 text-[#C9A227]" />
+            </div>
           )}
           {!whatsOnLoading && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -394,36 +487,23 @@ export default function Home() {
                     style={{ backgroundColor: "rgba(255,255,255,0.04)" }}
                   >
                     <div className="flex items-start justify-between mb-4">
-                      <span
-                        className="text-[10px] font-bold tracking-widest uppercase px-2.5 py-1"
-                        style={{ backgroundColor: tag.bg, color: tag.color }}
-                      >
+                      <span className="text-[10px] font-bold tracking-widest uppercase px-2.5 py-1" style={{ backgroundColor: tag.bg, color: tag.color }}>
                         {event.tag}
                       </span>
                       <Calendar size={14} className="text-white/25 mt-0.5" />
                     </div>
-                    <h3
-                      className="text-white text-[17px] font-black uppercase tracking-wide mb-2 group-hover:text-[#C9A227] transition-colors"
-                      style={{ fontFamily: FONT }}
-                    >
+                    <h3 className="text-white text-[17px] font-black uppercase tracking-wide mb-2 group-hover:text-[#C9A227] transition-colors" style={{ fontFamily: FONT }}>
                       {event.title}
                     </h3>
                     <div className="flex gap-4 mb-3">
-                      <span
-                        className="text-[11px] tracking-wider uppercase font-semibold flex items-center gap-1"
-                        style={{ color: GOLD }}
-                      >
+                      <span className="text-[11px] tracking-wider uppercase font-semibold flex items-center gap-1" style={{ color: GOLD }}>
                         <Clock size={10} className="flex-shrink-0" /> {event.day}
                       </span>
                       <span className="text-white/45 text-[11px]">{event.time}</span>
                     </div>
                     <p className="text-white/60 text-sm leading-relaxed">{event.desc}</p>
                     <div className="mt-5 pt-4 border-t border-white/10">
-                      <a
-                        href="#book"
-                        className="text-[11px] font-bold tracking-widest uppercase flex items-center gap-1 hover:gap-2 transition-all"
-                        style={{ color: GOLD }}
-                      >
+                      <a href="#book" className="text-[11px] font-bold tracking-widest uppercase flex items-center gap-1 hover:gap-2 transition-all" style={{ color: GOLD }}>
                         Book a Table <ChevronRight size={11} />
                       </a>
                     </div>
@@ -435,23 +515,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FOOD & MENU ───────────────────────────────────── */}
+      {/* ── FOOD & MENU ────────────────────────────────────── */}
       <section id="food" className="py-20 px-6" style={{ backgroundColor: "#f5f0e8" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
             <p className="text-xs tracking-[0.5em] uppercase font-semibold mb-3" style={{ color: GOLD }}>
               Proper pub cooking
             </p>
-            <h2
-              className="text-4xl md:text-5xl font-black uppercase tracking-wide"
-              style={{ color: NAVY, fontFamily: FONT }}
-            >
+            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-wide" style={{ color: NAVY, fontFamily: FONT }}>
               Our Menu
             </h2>
             <div className="mt-4 w-16 h-0.5 mx-auto" style={{ backgroundColor: GOLD }} />
-            <p className="text-[10px] mt-5 tracking-widest uppercase" style={{ color: `${NAVY}55` }}>
-              ★ Menu updated live from Google Sheets by the kitchen team
-            </p>
           </div>
 
           {menuLoading && (
@@ -462,16 +536,15 @@ export default function Home() {
 
           {!menuLoading && (
             <>
-              {/* Section tabs */}
               <div className="flex justify-center gap-2 mb-10 flex-wrap">
                 {mappedMenuSections.map((section) => (
                   <button
                     key={section.name}
-                    onClick={() => setActiveMenu(section.name)}
+                    onClick={() => setActiveMenuTab(section.name)}
                     className="px-7 py-3 text-xs font-bold tracking-widest uppercase transition-all border-2"
                     style={{
-                      backgroundColor: activeMenu === section.name ? NAVY : "transparent",
-                      color: activeMenu === section.name ? GOLD : NAVY,
+                      backgroundColor: activeMenuTab === section.name ? NAVY : "transparent",
+                      color: activeMenuTab === section.name ? GOLD : NAVY,
                       borderColor: NAVY,
                       fontFamily: FONT,
                     }}
@@ -480,28 +553,14 @@ export default function Home() {
                   </button>
                 ))}
               </div>
-
-              {/* Menu items */}
               <div className="space-y-px">
                 {activeSection.items.map((item, i) => (
-                  <div
-                    key={i}
-                    className="flex items-start justify-between py-5 px-6 border-b border-[#002942]/10 hover:bg-[#002942]/5 transition-colors"
-                  >
+                  <div key={i} className="flex items-start justify-between py-5 px-6 border-b border-[#002942]/10 hover:bg-[#002942]/5 transition-colors">
                     <div className="flex-1 pr-8">
-                      <h4
-                        className="font-bold uppercase tracking-wide text-sm"
-                        style={{ color: NAVY, fontFamily: FONT }}
-                      >
-                        {item.name}
-                      </h4>
-                      <p style={{ color: `${NAVY}88` }} className="text-sm mt-1 leading-relaxed">
-                        {item.desc}
-                      </p>
+                      <h4 className="font-bold uppercase tracking-wide text-sm" style={{ color: NAVY, fontFamily: FONT }}>{item.name}</h4>
+                      <p style={{ color: `${NAVY}88` }} className="text-sm mt-1 leading-relaxed">{item.desc}</p>
                     </div>
-                    <span className="font-black text-lg flex-shrink-0" style={{ color: GOLD }}>
-                      {item.price}
-                    </span>
+                    <span className="font-black text-lg flex-shrink-0" style={{ color: GOLD }}>{item.price}</span>
                   </div>
                 ))}
               </div>
@@ -514,172 +573,473 @@ export default function Home() {
               className="inline-block text-white text-sm font-bold tracking-[0.2em] uppercase px-10 py-4 transition-all hover:brightness-110"
               style={{ backgroundColor: NAVY, fontFamily: FONT }}
             >
-              Book a Table →
+              Book a Table
             </a>
           </div>
         </div>
       </section>
 
-      {/* ── ABOUT ─────────────────────────────────────────── */}
-      <section id="about" className="py-24 px-6" style={{ backgroundColor: NAVY }}>
+      {/* ── VISIT ──────────────────────────────────────────── */}
+      <section id="visit" className="py-24 px-6" style={{ backgroundColor: "#001e30" }}>
         <div className="max-w-5xl mx-auto">
+
           <div className="text-center mb-16">
             <p className="text-xs tracking-[0.5em] uppercase font-semibold mb-3" style={{ color: GOLD }}>
-              Est. 1750
+              We're easy to find
             </p>
-            <h2
-              className="text-white text-4xl md:text-5xl font-black uppercase tracking-wide"
-              style={{ fontFamily: FONT }}
-            >
-              Our Story
+            <h2 className="text-white text-4xl md:text-5xl font-black uppercase tracking-wide" style={{ fontFamily: FONT }}>
+              Visit Us
             </h2>
             <div className="mt-4 w-16 h-0.5 mx-auto" style={{ backgroundColor: GOLD }} />
           </div>
 
-          {/* History */}
-          <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-            <div
-              className="relative overflow-hidden"
-              style={{ minHeight: "320px", backgroundColor: "rgba(255,255,255,0.05)" }}
-            >
-              <img
-                src="https://oldtigershead.springdigitalstudio.co.uk/wp-content/uploads/2024/10/oth_about_history.jpg"
-                alt="The Old Tigers Head — historic photograph"
-                className="w-full h-full object-cover grayscale contrast-105"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-              />
-            </div>
-            <div>
-              <h3
-                className="text-2xl font-black uppercase tracking-wide mb-6"
-                style={{ color: GOLD, fontFamily: FONT }}
+          {/* Address + Map link */}
+          <div className="flex flex-col md:flex-row gap-8 mb-14">
+            <div className="flex-1 border border-white/10 p-8" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+              <div className="text-[10px] font-bold tracking-widest uppercase mb-5" style={{ color: GOLD }}>Address</div>
+              <div className="flex items-start gap-3 mb-4">
+                <MapPin size={16} className="flex-shrink-0 mt-0.5" style={{ color: GOLD }} />
+                <div>
+                  <div className="text-white font-bold">The Old Tigers Head</div>
+                  <div className="text-white/60 text-sm mt-1">2 Lee Road<br />London SE12 8RG</div>
+                </div>
+              </div>
+              <a
+                href="https://maps.google.com/?q=Old+Tigers+Head+Lee+London+SE12"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase mt-2 transition-colors hover:text-white"
+                style={{ color: GOLD }}
               >
-                A Building That Has Seen It All
-              </h3>
-              <div className="space-y-5 text-white/72 text-[15px] leading-loose">
-                <p>
-                  The Old Tigers Head has stood at the corner of Lee High Road since 1750 — through wars and coronations, the rumble of trams and the arrival of the motorcar, through rationing and rock 'n' roll. For over two and a half centuries, this corner has been where Lee gathers.
-                </p>
-                <p>
-                  Generations of families have raised a glass here. It has hosted wakes and weddings, first dates and leaving dos, arguments and reconciliations. The walls carry the memory of every toast — the handshakes over deals done, the tears of friends said goodbye to, the roar of a last-minute winner on a Saturday afternoon.
-                </p>
-                <p>
-                  It is, and has always been, more than a pub. It is the living room of Lee. A place where strangers become regulars, and regulars become family.
-                </p>
+                Open in Google Maps <ExternalLink size={11} />
+              </a>
+            </div>
+
+            <div className="flex-1 border border-white/10 p-8" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+              <div className="text-[10px] font-bold tracking-widest uppercase mb-5" style={{ color: GOLD }}>Opening Hours</div>
+              <div className="space-y-2 text-sm">
+                {[
+                  { days: "Mon – Thu", hours: "12pm – 11pm" },
+                  { days: "Fri – Sat", hours: "12pm – 12am" },
+                  { days: "Sunday", hours: "12pm – 10:30pm" },
+                ].map((row) => (
+                  <div key={row.days} className="flex justify-between">
+                    <span className="text-white/60">{row.days}</span>
+                    <span className="text-white font-semibold">{row.hours}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex-1 border border-white/10 p-8" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+              <div className="text-[10px] font-bold tracking-widest uppercase mb-5" style={{ color: GOLD }}>Get in Touch</div>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 text-white/60 text-sm">
+                  <Phone size={14} style={{ color: GOLD }} />
+                  <a href="tel:02083186000" className="hover:text-white transition-colors">020 8318 6000</a>
+                </div>
+                <div className="flex items-center gap-3 text-white/60 text-sm">
+                  <Mail size={14} style={{ color: GOLD }} />
+                  <a href="mailto:hello@oldtigershead.co.uk" className="hover:text-white transition-colors">hello@oldtigershead.co.uk</a>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Divider */}
-          <div className="w-full h-px mb-20" style={{ backgroundColor: `${GOLD}33` }} />
-
-          {/* Rob & Team */}
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            <div>
-              <h3
-                className="text-2xl font-black uppercase tracking-wide mb-6"
-                style={{ color: GOLD, fontFamily: FONT }}
-              >
-                Rob &amp; the Team
+          {/* Directions */}
+          <div className="mb-14">
+            <div className="flex items-center justify-between mb-8">
+              <h3 className="text-xl font-black uppercase tracking-wide" style={{ color: "white", fontFamily: FONT }}>
+                Getting Here
               </h3>
-              <div className="space-y-5 text-white/72 text-[15px] leading-loose">
-                <p>
-                  When Rob took on the Old Tigers Head, he did so with one clear purpose: to give Lee back its pub. Not a gastropub. Not a bar. A proper, welcoming local — where regulars are greeted by name, where the food is made with real care, and where nobody ever feels like a stranger for long.
-                </p>
-                <p>
-                  Together with Cara, Paolo, and the rest of the team, Rob has poured heart and soul into restoring the Tiger to its rightful place at the heart of the community. Every Sunday roast is crafted from the best local suppliers. Every event is planned to bring people together. Every pint is pulled with pride.
-                </p>
-                <p>
-                  Their commitment is simple: quality in everything, warmth in every welcome. Whether you're a regular popping in for a swift half or a family celebrating something special, you'll be looked after the way a good local always should.
-                </p>
-              </div>
-
-              <div className="mt-8 flex gap-4 flex-wrap">
-                {[
-                  { value: "1750", label: "Est." },
-                  { value: "275+", label: "Years Serving Lee" },
-                  { value: "★★★★★", label: "Community Reviews" },
-                ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="border px-5 py-3 text-center"
-                    style={{ borderColor: `${GOLD}44` }}
-                  >
-                    <div className="text-xl font-black" style={{ color: GOLD }}>{stat.value}</div>
-                    <div className="text-white/35 text-[9px] tracking-widest uppercase mt-0.5">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
+              <a
+                href="https://tfl.gov.uk/plan-a-journey/?to=SE12+8RG"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase border px-5 py-2.5 transition-colors hover:border-[#C9A227] hover:text-[#C9A227]"
+                style={{ borderColor: "rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.7)" }}
+              >
+                <Train size={13} />
+                TfL Journey Planner
+                <ExternalLink size={11} />
+              </a>
             </div>
 
-            <div
-              className="border border-white/10 p-8"
-              style={{ backgroundColor: "rgba(255,255,255,0.04)" }}
-            >
-              <div className="space-y-7">
-                {[
-                  {
-                    name: "Rob",
-                    role: "Licensee & Host",
-                    note: "Determined to restore the Tiger as the hub of the community. His door is always open — he'll find you a seat, remember your drink, and make sure you leave with a smile.",
-                  },
-                  {
-                    name: "Cara",
-                    role: "Front of House",
-                    note: "Cara makes every guest feel at home from the moment they walk in. A true natural in hospitality — warm, attentive, and always ready with a recommendation.",
-                  },
-                  {
-                    name: "Paolo",
-                    role: "Head Chef",
-                    note: "Paolo brings craft and love to every dish. Seasonal, honest, always made from scratch — and the reason people book a table two weeks in advance for Sunday lunch.",
-                  },
-                ].map((person) => (
-                  <div key={person.name} className="flex gap-5 items-start">
-                    <div
-                      className="w-12 h-12 flex-shrink-0 flex items-center justify-center font-black text-lg"
-                      style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
-                    >
-                      {person.name[0]}
-                    </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              {stationDirections.map((s) => (
+                <div
+                  key={s.station}
+                  className="border border-white/10 p-6 hover:border-[#C9A227]/40 transition-all"
+                  style={{ backgroundColor: "rgba(255,255,255,0.04)" }}
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="text-2xl flex-shrink-0">{s.icon}</span>
                     <div>
-                      <div className="text-white font-black tracking-wide" style={{ fontFamily: FONT }}>
-                        {person.name}
+                      <div className="font-black uppercase tracking-wide text-white text-sm" style={{ fontFamily: FONT }}>
+                        {s.station}
                       </div>
-                      <div
-                        className="text-[10px] tracking-widest uppercase mb-1.5"
-                        style={{ color: GOLD }}
-                      >
-                        {person.role}
+                      <div className="text-[10px] tracking-wider uppercase mb-1" style={{ color: GOLD }}>
+                        {s.line}
                       </div>
-                      <p className="text-white/55 text-sm leading-relaxed">{person.note}</p>
+                      <div className="text-[11px] font-bold mb-2" style={{ color: `${GOLD}99` }}>
+                        {s.walk}
+                      </div>
+                      <p className="text-white/55 text-sm leading-relaxed">{s.directions}</p>
                     </div>
                   </div>
-                ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* FAQ teaser */}
+          <div
+            className="border-l-4 px-8 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+            style={{ borderColor: GOLD, backgroundColor: "rgba(201,162,39,0.07)" }}
+          >
+            <div>
+              <div className="text-white font-bold mb-1" style={{ fontFamily: FONT }}>
+                Special dietary requirements? Need parking, or a high chair?
               </div>
+              <p className="text-white/60 text-sm">
+                Chat with us before you visit, or check out our FAQ page for quick answers.
+              </p>
+            </div>
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <a
+                href="mailto:hello@oldtigershead.co.uk"
+                className="text-[11px] font-bold tracking-widest uppercase px-6 py-3 transition-all hover:brightness-90"
+                style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
+              >
+                Chat with Us
+              </a>
+              <a
+                href="#faq"
+                className="text-[11px] font-bold tracking-widest uppercase px-6 py-3 border transition-colors hover:border-[#C9A227] hover:text-[#C9A227]"
+                style={{ borderColor: "rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.7)", fontFamily: FONT }}
+              >
+                FAQs
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── VENUE HIRE ────────────────────────────────────── */}
+      {/* ── ABOUT — PAST, PRESENT & FUTURE ────────────────── */}
+      <section id="about" className="py-24 px-6" style={{ backgroundColor: NAVY }}>
+        <div className="max-w-5xl mx-auto">
+
+          <div className="text-center mb-20">
+            <p className="text-xs tracking-[0.5em] uppercase font-semibold mb-3" style={{ color: GOLD }}>
+              Est. 1750
+            </p>
+            <h2 className="text-white text-4xl md:text-5xl font-black uppercase tracking-wide" style={{ fontFamily: FONT }}>
+              Our Story
+            </h2>
+            <div className="mt-4 w-16 h-0.5 mx-auto" style={{ backgroundColor: GOLD }} />
+            <p className="text-white/40 text-sm mt-5 max-w-lg mx-auto leading-relaxed">
+              The Old Tigers Head has been many things to many people over three centuries. A coaching inn, a community anchor, a local institution — and a pub with a very bright future.
+            </p>
+          </div>
+
+          {/* ── PAST ── */}
+          <div className="mb-24">
+            <div className="flex items-center gap-4 mb-10">
+              <div className="text-[10px] font-black tracking-[0.5em] uppercase px-3 py-1.5 border" style={{ color: GOLD, borderColor: `${GOLD}55` }}>Past</div>
+              <div className="flex-1 h-px" style={{ backgroundColor: `${GOLD}22` }} />
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
+              {/* Slideshow */}
+              <div className="relative overflow-hidden" style={{ minHeight: "360px", backgroundColor: "rgba(255,255,255,0.05)" }}>
+                {/* Slide image */}
+                <div className="relative w-full h-full" style={{ minHeight: "360px" }}>
+                  {slide.img ? (
+                    <img
+                      key={slide.img}
+                      src={slide.img}
+                      alt={slide.era}
+                      className="w-full h-full object-cover slide-img"
+                      style={{ minHeight: "360px", opacity: 1 }}
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                    />
+                  ) : (
+                    <div
+                      className="w-full flex items-center justify-center"
+                      style={{ minHeight: "360px", background: `linear-gradient(135deg, rgba(0,41,66,0.8) 0%, rgba(0,20,35,0.95) 100%)` }}
+                    >
+                      <div className="text-center px-8">
+                        <div className="text-6xl font-black opacity-10 mb-4" style={{ color: GOLD, fontFamily: FONT }}>
+                          OTH
+                        </div>
+                        <div className="text-white/30 text-xs tracking-widest uppercase">Historical photo coming soon</div>
+                      </div>
+                    </div>
+                  )}
+                  {/* Dark overlay */}
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,20,35,0.85) 0%, rgba(0,20,35,0.2) 60%, transparent 100%)" }} />
+                  {/* Era label + caption */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div className="text-[10px] font-black tracking-widest uppercase mb-1" style={{ color: GOLD }}>{slide.era}</div>
+                    <p className="text-white/75 text-sm leading-relaxed">{slide.caption}</p>
+                  </div>
+                </div>
+
+                {/* Prev / Next */}
+                <button
+                  onClick={() => goSlide(-1)}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center border border-white/20 hover:border-white/60 transition-colors text-white"
+                  style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
+                  aria-label="Previous photo"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <button
+                  onClick={() => goSlide(1)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center border border-white/20 hover:border-white/60 transition-colors text-white"
+                  style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
+                  aria-label="Next photo"
+                >
+                  <ChevronRight size={16} />
+                </button>
+
+                {/* Slide dots */}
+                <div className="absolute bottom-3 right-3 flex gap-1.5">
+                  {historySlides.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => { if (slideTimer.current) clearInterval(slideTimer.current); setSlideIndex(i); }}
+                      className="w-1.5 h-1.5 transition-all"
+                      style={{ backgroundColor: i === slideIndex ? GOLD : "rgba(255,255,255,0.3)" }}
+                      aria-label={`Slide ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* History text */}
+              <div>
+                <h3 className="text-2xl font-black uppercase tracking-wide mb-6" style={{ color: GOLD, fontFamily: FONT }}>
+                  A Building That Has Seen It All
+                </h3>
+                <div className="space-y-5 text-white/72 text-[15px] leading-loose">
+                  <p>
+                    The Old Tigers Head has stood at the corner of Lee High Road since 1750 — through wars and coronations, the rumble of trams and the arrival of the motorcar, through rationing and rock 'n' roll. For over two and a half centuries, this corner has been where Lee gathers.
+                  </p>
+                  <p>
+                    Generations of families have raised a glass here. It has hosted wakes and weddings, first dates and leaving dos, arguments and reconciliations. The walls carry the memory of every toast — the handshakes over deals done, the tears of friends said goodbye to, the roar of a last-minute winner on a Saturday afternoon.
+                  </p>
+                  <p>
+                    It is, and has always been, more than a pub. It is the living room of Lee. A place where strangers become regulars, and regulars become family.
+                  </p>
+                </div>
+
+                {/* History directory link */}
+                <div className="mt-8 border border-white/10 p-5" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+                  <div className="text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
+                    Want to go deeper?
+                  </div>
+                  <p className="text-white/55 text-sm mb-3 leading-relaxed">
+                    The Old Tigers Head has a rich and well-documented history. Explore records, archives and historical accounts from local historians and heritage organisations.
+                  </p>
+                  <a
+                    href="https://www.ideal-homes.org.uk/lewisham/lewisham-2/old-tigers-head-lee"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase transition-colors hover:text-white"
+                    style={{ color: GOLD }}
+                  >
+                    Explore the archive <ExternalLink size={11} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full h-px mb-20" style={{ backgroundColor: `${GOLD}22` }} />
+
+          {/* ── PRESENT ── */}
+          <div className="mb-24">
+            <div className="flex items-center gap-4 mb-10">
+              <div className="text-[10px] font-black tracking-[0.5em] uppercase px-3 py-1.5 border" style={{ color: GOLD, borderColor: `${GOLD}55` }}>Present</div>
+              <div className="flex-1 h-px" style={{ backgroundColor: `${GOLD}22` }} />
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-16 items-start">
+              <div>
+                <h3 className="text-2xl font-black uppercase tracking-wide mb-6" style={{ color: GOLD, fontFamily: FONT }}>
+                  Rob &amp; the Team
+                </h3>
+                <div className="space-y-5 text-white/72 text-[15px] leading-loose">
+                  <p>
+                    When Rob took on the Old Tigers Head, he did so with one clear purpose: to give Lee back its pub. Not a gastropub. Not a bar. A proper, welcoming local — where regulars are greeted by name, where the food is made with real care, and where nobody ever feels like a stranger for long.
+                  </p>
+                  <p>
+                    Together with Cara, Paolo, and the rest of the team, Rob has poured heart and soul into restoring the Tiger to its rightful place at the heart of the community. Every Sunday roast is crafted from the best local suppliers. Every event is planned to bring people together. Every pint is pulled with pride.
+                  </p>
+                  <p>
+                    Their commitment is simple: quality in everything, warmth in every welcome. Whether you're a regular popping in for a swift half or a family celebrating something special, you'll be looked after the way a good local always should.
+                  </p>
+                </div>
+              </div>
+
+              <div className="border border-white/10 p-8" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+                <div className="space-y-7">
+                  {[
+                    { name: "Rob", role: "Licensee & Host", note: "Determined to restore the Tiger as the hub of the community. His door is always open — he'll find you a seat, remember your drink, and make sure you leave with a smile." },
+                    { name: "Cara", role: "Front of House", note: "Cara makes every guest feel at home from the moment they walk in. A true natural in hospitality — warm, attentive, and always ready with a recommendation." },
+                    { name: "Paolo", role: "Head Chef", note: "Paolo brings craft and love to every dish. Seasonal, honest, always made from scratch — and the reason people book a table two weeks in advance for Sunday lunch." },
+                  ].map((person) => (
+                    <div key={person.name} className="flex gap-5 items-start">
+                      <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center font-black text-lg" style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}>
+                        {person.name[0]}
+                      </div>
+                      <div>
+                        <div className="text-white font-black tracking-wide" style={{ fontFamily: FONT }}>{person.name}</div>
+                        <div className="text-[10px] tracking-widest uppercase mb-1.5" style={{ color: GOLD }}>{person.role}</div>
+                        <p className="text-white/55 text-sm leading-relaxed">{person.note}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Community CTA */}
+            <div
+              className="mt-14 p-8 border border-white/10 flex flex-col md:flex-row items-center gap-8 text-center md:text-left"
+              style={{ backgroundColor: "rgba(201,162,39,0.07)", borderColor: `${GOLD}33` }}
+            >
+              <div className="flex-shrink-0">
+                <div
+                  className="w-16 h-16 flex items-center justify-center"
+                  style={{ backgroundColor: GOLD, color: NAVY }}
+                >
+                  <Users size={28} />
+                </div>
+              </div>
+              <div className="flex-1">
+                <div className="text-xl font-black uppercase tracking-wide mb-2" style={{ color: "white", fontFamily: FONT }}>
+                  Join the Tigers Head Community
+                </div>
+                <p className="text-white/60 text-sm leading-relaxed max-w-xl">
+                  Sign up, write a bio, add your dog's profile, and become part of the family. One lucky member (or their four-legged friend) wins wings and a pint as our Tiger of the Month — featured right here on the site every month.
+                </p>
+              </div>
+              <div className="flex-shrink-0">
+                <a
+                  href="/community"
+                  className="inline-block text-sm font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all hover:brightness-90"
+                  style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
+                >
+                  Join the Community
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full h-px mb-20" style={{ backgroundColor: `${GOLD}22` }} />
+
+          {/* ── FUTURE ── */}
+          <div>
+            <div className="flex items-center gap-4 mb-10">
+              <div className="text-[10px] font-black tracking-[0.5em] uppercase px-3 py-1.5 border" style={{ color: GOLD, borderColor: `${GOLD}55` }}>Future</div>
+              <div className="flex-1 h-px" style={{ backgroundColor: `${GOLD}22` }} />
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
+              <div>
+                <h3 className="text-2xl font-black uppercase tracking-wide mb-6" style={{ color: GOLD, fontFamily: FONT }}>
+                  The Tiger Is Here to Stay
+                </h3>
+                <div className="space-y-5 text-white/72 text-[15px] leading-loose">
+                  <p>
+                    We're thrilled to announce that a 15-year lease has just been secured on The Old Tigers Head. This is a landmark moment — a guarantee that this building, and this community, will remain at the heart of Lee for a generation to come.
+                  </p>
+                  <p>
+                    And we're not stopping there. A comprehensive refurbishment is on the way — carefully planned to preserve everything that makes the Tiger special while bringing the building up to the standard it deserves. The bones are extraordinary. We intend to match them.
+                  </p>
+                  <p>
+                    We'll share updates on the refurbishment here as plans take shape. In the meantime — come in, have a drink, and know that this place isn't going anywhere.
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                {/* Milestone: Lease */}
+                <div
+                  className="border-l-4 p-6 flex items-start gap-5"
+                  style={{ borderColor: GOLD, backgroundColor: "rgba(255,255,255,0.04)" }}
+                >
+                  <div
+                    className="w-12 h-12 flex-shrink-0 flex items-center justify-center font-black text-sm"
+                    style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
+                  >
+                    <Star size={20} />
+                  </div>
+                  <div>
+                    <div className="text-white font-black uppercase tracking-wide text-sm mb-1" style={{ fontFamily: FONT }}>
+                      15-Year Lease Secured
+                    </div>
+                    <div className="text-[10px] tracking-widest uppercase mb-2" style={{ color: GOLD }}>April 2026</div>
+                    <p className="text-white/55 text-sm leading-relaxed">
+                      A long-term commitment to Lee and its community. The Old Tigers Head will remain a proper local pub for the foreseeable future.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Milestone: Refurbishment */}
+                <div
+                  className="border-l-4 p-6 flex items-start gap-5"
+                  style={{ borderColor: `${GOLD}55`, backgroundColor: "rgba(255,255,255,0.04)" }}
+                >
+                  <div
+                    className="w-12 h-12 flex-shrink-0 flex items-center justify-center font-black text-sm border-2"
+                    style={{ borderColor: GOLD, color: GOLD, fontFamily: FONT }}
+                  >
+                    🔨
+                  </div>
+                  <div>
+                    <div className="text-white font-black uppercase tracking-wide text-sm mb-1" style={{ fontFamily: FONT }}>
+                      Comprehensive Refurbishment
+                    </div>
+                    <div className="text-[10px] tracking-widest uppercase mb-2" style={{ color: `${GOLD}99` }}>Coming soon</div>
+                    <p className="text-white/55 text-sm leading-relaxed">
+                      A sympathetic, thorough renovation of the building — preserving its historic character while creating a pub that's worthy of its next 275 years. Full details to follow.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Keep informed CTA */}
+                <div className="border border-white/10 p-6" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+                  <div className="text-white/60 text-sm mb-3 leading-relaxed">
+                    Want to be kept informed as the refurbishment plans take shape? Join the community and we'll keep you posted.
+                  </div>
+                  <a
+                    href="/community"
+                    className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase transition-colors hover:text-white"
+                    style={{ color: GOLD }}
+                  >
+                    Stay in the Loop <ChevronRight size={11} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── VENUE HIRE ─────────────────────────────────────── */}
       <section id="hire" className="py-20 px-6" style={{ backgroundColor: GOLD }}>
         <div className="max-w-4xl mx-auto text-center">
-          <p
-            className="text-xs tracking-[0.5em] uppercase font-semibold mb-3"
-            style={{ color: NAVY }}
-          >
+          <p className="text-xs tracking-[0.5em] uppercase font-semibold mb-3" style={{ color: NAVY }}>
             Functions &amp; Events
           </p>
-          <h2
-            className="text-4xl md:text-5xl font-black uppercase tracking-wide mb-6"
-            style={{ color: NAVY, fontFamily: FONT }}
-          >
+          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-wide mb-6" style={{ color: NAVY, fontFamily: FONT }}>
             Private Hire
           </h2>
-          <p
-            className="text-lg leading-relaxed max-w-2xl mx-auto mb-10"
-            style={{ color: `${NAVY}bb` }}
-          >
+          <p className="text-lg leading-relaxed max-w-2xl mx-auto mb-10" style={{ color: `${NAVY}bb` }}>
             Our private function room holds up to 80 guests and can be dressed and tailored for everything from birthday celebrations and wakes to corporate away days and film screenings. Get in touch to discuss your event.
           </p>
           <a
@@ -692,15 +1052,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FOOTER ───────────────────────────────────────── */}
+      {/* ── FOOTER ─────────────────────────────────────────── */}
       <footer className="py-16 px-6" style={{ backgroundColor: "#001520" }}>
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-5xl mx-auto" id="contact">
           <div className="grid md:grid-cols-3 gap-12 mb-12">
             <div>
-              <div
-                className="text-xl font-black uppercase tracking-wide mb-4"
-                style={{ color: GOLD, fontFamily: FONT }}
-              >
+              <div className="text-xl font-black uppercase tracking-wide mb-4" style={{ color: GOLD, fontFamily: FONT }}>
                 Old Tigers Head
               </div>
               <p className="text-white/50 text-sm leading-relaxed">
@@ -715,7 +1072,7 @@ export default function Home() {
                 <div className="flex justify-between"><span>Sunday</span><span>12pm – 10:30pm</span></div>
               </div>
             </div>
-            <div id="contact">
+            <div>
               <div className="text-white/30 text-[10px] tracking-widest uppercase font-semibold mb-4">Find Us</div>
               <div className="space-y-2">
                 <div className="flex items-start gap-2 text-white/60 text-sm">
@@ -724,17 +1081,17 @@ export default function Home() {
                 </div>
                 <div className="flex items-center gap-2 text-white/60 text-sm">
                   <Phone size={14} className="flex-shrink-0" style={{ color: GOLD }} />
-                  <span>020 8318 6000</span>
+                  <a href="tel:02083186000" className="hover:text-white transition-colors">020 8318 6000</a>
                 </div>
                 <div className="flex items-center gap-2 text-white/60 text-sm">
                   <Mail size={14} className="flex-shrink-0" style={{ color: GOLD }} />
-                  <span>hello@oldtigershead.co.uk</span>
+                  <a href="mailto:hello@oldtigershead.co.uk" className="hover:text-white transition-colors">hello@oldtigershead.co.uk</a>
                 </div>
               </div>
             </div>
           </div>
           <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-white/25 text-xs tracking-widest">© 2025 The Old Tigers Head. All rights reserved.</p>
+            <p className="text-white/25 text-xs tracking-widest">© 2026 The Old Tigers Head. All rights reserved.</p>
             <p className="text-white/25 text-xs">Please drink responsibly. Think 25.</p>
           </div>
         </div>
