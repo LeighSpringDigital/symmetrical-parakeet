@@ -425,10 +425,10 @@ export default function Home() {
 
           {/* CENTRE: Pub name */}
           <div className="flex flex-col items-center flex-shrink-0 select-none cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
-            <div className="text-[30px] md:text-[36px] font-black tracking-[0.06em] uppercase leading-tight" style={{ color: GOLD, fontFamily: FONT }}>
+            <div className="text-[20px] md:text-[24px] font-black tracking-[0.1em] uppercase leading-tight" style={{ color: GOLD, fontFamily: FONT }}>
               The Old Tigers Head
             </div>
-            <div className="text-white/50 text-[9px] tracking-[0.4em] uppercase mt-1">
+            <div className="text-white/50 text-[8px] tracking-[0.4em] uppercase mt-0.5">
               Est. 1750 · Lee, London
             </div>
           </div>
@@ -482,17 +482,20 @@ export default function Home() {
             <div className="space-y-5">
               {[
                 { label: "What's On", href: "#whats-on" },
+                { label: "Menu", href: "#food" },
+                { label: "Book a Table", href: "#book" },
                 { label: "Visit", href: "#visit" },
                 { label: "About", href: "#about" },
-                { label: "Menu", href: "#food" },
                 { label: "Venue Hire", href: "#hire" },
+                { label: "Leave a Review", href: "https://www.google.com/search?q=The+Old+Tigers+Head+Lee+High+Road+London+reviews", external: true },
                 { label: "Contact", href: "/contact" },
                 { label: "Staff Portal", href: "/staff" },
               ].map((link, i, arr) => (
                 <div key={link.label}>
                   <a
                     href={link.href}
-                    className="text-white text-2xl font-black tracking-widest uppercase hover:text-[#C9A227] transition-colors flex items-center gap-3 group"
+                    {...("external" in link && link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className={`text-2xl font-black tracking-widest uppercase transition-colors flex items-center gap-3 group ${"external" in link && link.external ? "text-[#C9A227] hover:text-white" : "text-white hover:text-[#C9A227]"}`}
                     onClick={() => setMenuOpen(false)}
                   >
                     <span>{link.label}</span>
@@ -536,7 +539,7 @@ export default function Home() {
         <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, rgba(0,10,20,0.82) 0%, rgba(0,10,20,0.78) 50%, rgba(0,10,20,0.96) 100%)` }} />
 
         <div className="relative z-10 flex flex-col items-center justify-center flex-1 text-center px-6 pt-40 pb-16">
-          <p className="max-w-3xl font-semibold mb-10 leading-tight" style={{ color: GOLD, fontSize: "clamp(2.8rem, 6vw, 4.5rem)" }}>
+          <p className="max-w-3xl font-black mb-10 leading-[1.1]" style={{ color: GOLD, fontFamily: FONT, fontSize: "clamp(2.4rem, 5.5vw, 5rem)" }}>
             At the beating heart of Lee.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
@@ -1150,6 +1153,46 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── REVIEWS ─────────────────────────────────────────── */}
+      <section style={{ backgroundColor: GOLD }} className="py-14 px-6">
+        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          {/* Stars */}
+          <div className="flex-shrink-0 flex flex-col items-center">
+            <div className="flex gap-1 mb-2">
+              {[1,2,3,4,5].map((s) => (
+                <svg key={s} width="22" height="22" viewBox="0 0 24 24" fill={NAVY} xmlns="http://www.w3.org/2000/svg">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+              ))}
+            </div>
+            <div className="text-[10px] font-black tracking-widest uppercase" style={{ color: NAVY }}>Google Reviews</div>
+          </div>
+
+          {/* Copy */}
+          <div className="flex-1 text-center md:text-left">
+            <h3 className="text-xl md:text-2xl font-black uppercase tracking-wide mb-2" style={{ color: NAVY, fontFamily: FONT }}>
+              Had a good time? Tell Google.
+            </h3>
+            <p className="text-sm leading-relaxed" style={{ color: `${NAVY}cc` }}>
+              The Tiger is under new management and the pub has turned a corner — but old reviews linger. If you've enjoyed a visit, a few words on Google make a genuine difference to this community local.
+            </p>
+          </div>
+
+          {/* CTA */}
+          <div className="flex-shrink-0">
+            <a
+              href="https://www.google.com/search?q=The+Old+Tigers+Head+Lee+High+Road+London+reviews"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block text-xs font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all hover:brightness-90"
+              style={{ backgroundColor: NAVY, color: GOLD, fontFamily: FONT }}
+            >
+              Leave a Review
+            </a>
           </div>
         </div>
       </section>
