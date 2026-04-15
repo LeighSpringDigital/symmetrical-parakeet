@@ -660,15 +660,176 @@ export default function Home() {
             </>
           )}
 
-          <div className="text-center mt-12">
-            <a
-              href="#book"
-              className="inline-block text-white text-sm font-bold tracking-[0.2em] uppercase px-10 py-4 transition-all hover:brightness-110"
-              style={{ backgroundColor: NAVY, fontFamily: FONT }}
-            >
+        </div>
+      </section>
+
+      {/* ── REQUEST A BOOKING ──────────────────────────────── */}
+      <section id="book" className="py-20 px-6" style={{ backgroundColor: NAVY }}>
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-xs tracking-[0.5em] uppercase font-semibold mb-3" style={{ color: GOLD }}>
+              Reserve your spot
+            </p>
+            <h2 className="text-white text-4xl md:text-5xl font-black uppercase tracking-wide" style={{ fontFamily: FONT }}>
               Request a Booking
-            </a>
+            </h2>
+            <div className="mt-4 w-16 h-0.5 mx-auto" style={{ backgroundColor: GOLD }} />
+            <p className="text-white/55 text-sm mt-5 leading-relaxed">
+              Fill in your details and we'll confirm your table via WhatsApp — usually within the hour.
+            </p>
           </div>
+
+          {bookingSubmitted ? (
+            /* ── CONFIRMATION STATE ── */
+            <div className="border border-white/10 p-10 text-center" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+              <div className="w-14 h-14 flex items-center justify-center mx-auto mb-5 font-black text-xl" style={{ backgroundColor: GOLD, color: NAVY }}>✓</div>
+              <div className="text-xl font-black uppercase tracking-wide text-white mb-3" style={{ fontFamily: FONT }}>Booking Pending</div>
+              <p className="text-white/65 text-sm leading-relaxed mb-5">
+                Thanks, {bookingForm.name.split(" ")[0]}. We've received your request and will confirm via WhatsApp shortly.
+              </p>
+              <div className="border-l-4 px-5 py-4 text-left mb-5" style={{ borderColor: GOLD, backgroundColor: "rgba(201,162,39,0.08)" }}>
+                <div className="text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>Your request</div>
+                <div className="text-white/70 text-sm space-y-1">
+                  <div><span className="text-white/40">Date:</span> {bookingForm.date}</div>
+                  <div><span className="text-white/40">Time:</span> {bookingForm.time}</div>
+                  <div><span className="text-white/40">Guests:</span> {bookingForm.guests}</div>
+                </div>
+              </div>
+              <p className="text-white/40 text-xs">
+                Urgent? Call us on{" "}
+                <a href="tel:02045680111" className="underline hover:text-white transition-colors">020 4568 0111</a>
+              </p>
+            </div>
+          ) : (
+            /* ── BOOKING FORM ── */
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const errs: Record<string, string> = {};
+                if (!bookingForm.name.trim()) errs.name = "Please enter your name";
+                if (!bookingForm.phone.trim() && !bookingForm.email.trim()) errs.contact = "Please provide a phone number or email";
+                if (!bookingForm.date.trim()) errs.date = "Please choose a date";
+                if (!bookingForm.guests.trim()) errs.guests = "Please tell us how many guests";
+                setBookingErrors(errs);
+                if (Object.keys(errs).length === 0) setBookingSubmitted(true);
+              }}
+            >
+              <div className="grid sm:grid-cols-2 gap-4 mb-4">
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>Your Name *</label>
+                  <input
+                    type="text" placeholder="Full name" value={bookingForm.name}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, name: e.target.value }))}
+                    className="w-full bg-transparent border px-4 py-3 text-white text-sm placeholder:text-white/30 outline-none focus:border-[#C9A227] transition-colors"
+                    style={{ borderColor: bookingErrors.name ? "#ef4444" : "rgba(255,255,255,0.15)" }}
+                  />
+                  {bookingErrors.name && <p className="text-red-400 text-xs mt-1">{bookingErrors.name}</p>}
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>Phone</label>
+                  <input
+                    type="tel" placeholder="Mobile number" value={bookingForm.phone}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, phone: e.target.value }))}
+                    className="w-full bg-transparent border px-4 py-3 text-white text-sm placeholder:text-white/30 outline-none focus:border-[#C9A227] transition-colors"
+                    style={{ borderColor: bookingErrors.contact ? "#ef4444" : "rgba(255,255,255,0.15)" }}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>Email</label>
+                  <input
+                    type="email" placeholder="your@email.com" value={bookingForm.email}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, email: e.target.value }))}
+                    className="w-full bg-transparent border px-4 py-3 text-white text-sm placeholder:text-white/30 outline-none focus:border-[#C9A227] transition-colors"
+                    style={{ borderColor: bookingErrors.contact ? "#ef4444" : "rgba(255,255,255,0.15)" }}
+                  />
+                  {bookingErrors.contact && <p className="text-red-400 text-xs mt-1">{bookingErrors.contact}</p>}
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>Date *</label>
+                  <input
+                    type="date" value={bookingForm.date}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, date: e.target.value }))}
+                    className="w-full bg-transparent border px-4 py-3 text-white text-sm outline-none focus:border-[#C9A227] transition-colors"
+                    style={{ borderColor: bookingErrors.date ? "#ef4444" : "rgba(255,255,255,0.15)", colorScheme: "dark" }}
+                  />
+                  {bookingErrors.date && <p className="text-red-400 text-xs mt-1">{bookingErrors.date}</p>}
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>Time</label>
+                  <select
+                    value={bookingForm.time}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, time: e.target.value }))}
+                    className="w-full bg-[#002942] border px-4 py-3 text-white text-sm outline-none focus:border-[#C9A227] transition-colors appearance-none cursor-pointer"
+                    style={{ borderColor: "rgba(255,255,255,0.15)" }}
+                  >
+                    <option value="">Select a time…</option>
+                    <option value="12:00">12:00pm – Lunch</option>
+                    <option value="13:00">1:00pm</option>
+                    <option value="14:00">2:00pm</option>
+                    <option value="17:00">5:00pm</option>
+                    <option value="18:00">6:00pm</option>
+                    <option value="19:00">7:00pm – Dinner</option>
+                    <option value="19:30">7:30pm</option>
+                    <option value="20:00">8:00pm</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>Guests *</label>
+                  <select
+                    value={bookingForm.guests}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, guests: e.target.value }))}
+                    className="w-full bg-[#002942] border px-4 py-3 text-white text-sm outline-none focus:border-[#C9A227] transition-colors appearance-none cursor-pointer"
+                    style={{ borderColor: bookingErrors.guests ? "#ef4444" : "rgba(255,255,255,0.15)" }}
+                  >
+                    <option value="">How many?</option>
+                    {[1,2,3,4,5,6,7,8,"9+"].map((n) => (
+                      <option key={n} value={String(n)}>{n} {n === 1 ? "guest" : "guests"}</option>
+                    ))}
+                  </select>
+                  {bookingErrors.guests && <p className="text-red-400 text-xs mt-1">{bookingErrors.guests}</p>}
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>Anything we should know?</label>
+                  <textarea
+                    placeholder="Dietary requirements, allergies, occasion, high chairs…"
+                    rows={2}
+                    value={bookingForm.notes}
+                    onChange={(e) => setBookingForm((f) => ({ ...f, notes: e.target.value }))}
+                    className="w-full bg-transparent border px-4 py-3 text-white text-sm placeholder:text-white/30 outline-none focus:border-[#C9A227] transition-colors resize-none"
+                    style={{ borderColor: "rgba(255,255,255,0.15)" }}
+                  />
+                </div>
+              </div>
+
+              <label className="flex items-start gap-3 cursor-pointer mb-6">
+                <input
+                  type="checkbox"
+                  checked={bookingForm.keepUpdated}
+                  onChange={(e) => setBookingForm((f) => ({ ...f, keepUpdated: e.target.checked }))}
+                  className="mt-0.5 flex-shrink-0 accent-[#C9A227]"
+                />
+                <span className="text-white/55 text-sm leading-relaxed">Keep me updated about what's on at the Old Tigers Head.</span>
+              </label>
+
+              <button
+                type="submit"
+                className="w-full text-sm font-bold tracking-[0.25em] uppercase py-4 transition-all hover:brightness-90"
+                style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
+              >
+                Request a Table
+              </button>
+              <p className="text-white/30 text-xs text-center mt-4">
+                We'll confirm via WhatsApp. For larger parties or private hire,{" "}
+                <a href="mailto:enquiries@theoldtigershead.com" className="underline hover:text-white/55 transition-colors">email us</a>.
+              </p>
+            </form>
+          )}
         </div>
       </section>
 
@@ -970,7 +1131,7 @@ export default function Home() {
                 When Rob took on the Old Tigers Head, he did so with a single purpose: to give Lee back its pub. Not a gastropub, not a concept bar — a proper, welcoming local where regulars are greeted by name and nobody ever feels like a stranger for long.
               </p>
               <p>
-                A 15-year lease has just been secured. The Tiger isn't going anywhere. This corner of SE3 — and the community built around it — is here for a generation.
+                This is a place where the same faces come back week after week, where everyone's welcome from the first visit, and where the community has a genuine stake in keeping it exactly as it should be.
               </p>
               <a href="#about" className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase transition-colors hover:text-white" style={{ color: GOLD }}>
                 Read our full story <ChevronRight size={13} />
@@ -979,266 +1140,15 @@ export default function Home() {
             <div className="grid grid-cols-2 gap-4">
               {[
                 { label: "Est.", value: "1750" },
-                { label: "Lease", value: "15 yrs" },
+                { label: "Location", value: "Lee SE3" },
                 { label: "Bus routes", value: "5 direct" },
-                { label: "Part of", value: "Lee, SE3" },
+                { label: "Kitchen", value: "Daily" },
               ].map((stat) => (
                 <div key={stat.label} className="border border-white/10 p-6 text-center" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
                   <div className="text-3xl font-black mb-1" style={{ color: GOLD, fontFamily: FONT }}>{stat.value}</div>
                   <div className="text-white/40 text-[10px] tracking-widest uppercase">{stat.label}</div>
                 </div>
               ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── REQUEST A BOOKING ──────────────────────────────── */}
-      <section id="book" className="py-24 px-6" style={{ backgroundColor: NAVY }}>
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-xs tracking-[0.5em] uppercase font-semibold mb-3" style={{ color: GOLD }}>
-              Reserve your spot
-            </p>
-            <h2 className="text-white text-4xl md:text-5xl font-black uppercase tracking-wide" style={{ fontFamily: FONT }}>
-              Request a Booking
-            </h2>
-            <div className="mt-4 w-16 h-0.5 mx-auto" style={{ backgroundColor: GOLD }} />
-            <p className="text-white/55 text-sm mt-5 leading-relaxed max-w-md mx-auto">
-              Fill in your details below and we'll confirm your table via WhatsApp — usually within the hour.
-            </p>
-          </div>
-
-          {bookingSubmitted ? (
-            /* ── CONFIRMATION STATE ── */
-            <div className="max-w-xl mx-auto border border-white/10 p-12 text-center" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
-              <div
-                className="w-16 h-16 flex items-center justify-center mx-auto mb-6 font-black text-2xl"
-                style={{ backgroundColor: GOLD, color: NAVY }}
-              >
-                ✓
-              </div>
-              <div className="text-2xl font-black uppercase tracking-wide text-white mb-3" style={{ fontFamily: FONT }}>
-                Booking Pending
-              </div>
-              <p className="text-white/65 text-sm leading-relaxed mb-6">
-                Thanks, {bookingForm.name.split(" ")[0]}. We've received your request and will confirm your booking via WhatsApp shortly.
-              </p>
-              <div
-                className="border-l-4 px-5 py-4 text-left mb-6"
-                style={{ borderColor: GOLD, backgroundColor: "rgba(201,162,39,0.08)" }}
-              >
-                <div className="text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>Your request</div>
-                <div className="text-white/70 text-sm space-y-1">
-                  <div><span className="text-white/40">Date:</span> {bookingForm.date}</div>
-                  <div><span className="text-white/40">Time:</span> {bookingForm.time}</div>
-                  <div><span className="text-white/40">Guests:</span> {bookingForm.guests}</div>
-                </div>
-              </div>
-              <p className="text-white/40 text-xs">
-                If you need to reach us urgently, call us on{" "}
-                <a href="tel:02045680111" className="underline hover:text-white transition-colors">020 4568 0111</a>
-              </p>
-            </div>
-          ) : (
-            /* ── BOOKING FORM ── */
-            <form
-              className="max-w-2xl mx-auto"
-              onSubmit={(e) => {
-                e.preventDefault();
-                const errs: Record<string, string> = {};
-                if (!bookingForm.name.trim()) errs.name = "Please enter your name";
-                if (!bookingForm.phone.trim() && !bookingForm.email.trim()) errs.contact = "Please provide a phone number or email";
-                if (!bookingForm.date.trim()) errs.date = "Please choose a date";
-                if (!bookingForm.guests.trim()) errs.guests = "Please tell us how many guests";
-                setBookingErrors(errs);
-                if (Object.keys(errs).length === 0) setBookingSubmitted(true);
-              }}
-            >
-              <div className="grid sm:grid-cols-2 gap-5 mb-5">
-                {/* Name */}
-                <div className="sm:col-span-2">
-                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
-                    Your Name *
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Full name"
-                    value={bookingForm.name}
-                    onChange={(e) => setBookingForm((f) => ({ ...f, name: e.target.value }))}
-                    className="w-full bg-transparent border px-4 py-3 text-white text-sm placeholder:text-white/30 outline-none transition-colors focus:border-[#C9A227]"
-                    style={{ borderColor: bookingErrors.name ? "#ef4444" : "rgba(255,255,255,0.15)" }}
-                  />
-                  {bookingErrors.name && <p className="text-red-400 text-xs mt-1">{bookingErrors.name}</p>}
-                </div>
-
-                {/* Phone */}
-                <div>
-                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    placeholder="Your mobile number"
-                    value={bookingForm.phone}
-                    onChange={(e) => setBookingForm((f) => ({ ...f, phone: e.target.value }))}
-                    className="w-full bg-transparent border px-4 py-3 text-white text-sm placeholder:text-white/30 outline-none transition-colors focus:border-[#C9A227]"
-                    style={{ borderColor: bookingErrors.contact ? "#ef4444" : "rgba(255,255,255,0.15)" }}
-                  />
-                </div>
-
-                {/* Email */}
-                <div>
-                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="your@email.com"
-                    value={bookingForm.email}
-                    onChange={(e) => setBookingForm((f) => ({ ...f, email: e.target.value }))}
-                    className="w-full bg-transparent border px-4 py-3 text-white text-sm placeholder:text-white/30 outline-none transition-colors focus:border-[#C9A227]"
-                    style={{ borderColor: bookingErrors.contact ? "#ef4444" : "rgba(255,255,255,0.15)" }}
-                  />
-                  {bookingErrors.contact && <p className="text-red-400 text-xs mt-1">{bookingErrors.contact}</p>}
-                </div>
-
-                {/* Date */}
-                <div>
-                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
-                    Date of Visit *
-                  </label>
-                  <input
-                    type="date"
-                    value={bookingForm.date}
-                    onChange={(e) => setBookingForm((f) => ({ ...f, date: e.target.value }))}
-                    className="w-full bg-transparent border px-4 py-3 text-white text-sm outline-none transition-colors focus:border-[#C9A227]"
-                    style={{
-                      borderColor: bookingErrors.date ? "#ef4444" : "rgba(255,255,255,0.15)",
-                      colorScheme: "dark",
-                    }}
-                  />
-                  {bookingErrors.date && <p className="text-red-400 text-xs mt-1">{bookingErrors.date}</p>}
-                </div>
-
-                {/* Time */}
-                <div>
-                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
-                    Preferred Time
-                  </label>
-                  <select
-                    value={bookingForm.time}
-                    onChange={(e) => setBookingForm((f) => ({ ...f, time: e.target.value }))}
-                    className="w-full bg-[#002942] border px-4 py-3 text-white text-sm outline-none transition-colors focus:border-[#C9A227] appearance-none cursor-pointer"
-                    style={{ borderColor: "rgba(255,255,255,0.15)" }}
-                  >
-                    <option value="">Select a time...</option>
-                    <option value="12:00">12:00pm – Lunch</option>
-                    <option value="13:00">1:00pm</option>
-                    <option value="14:00">2:00pm</option>
-                    <option value="17:00">5:00pm</option>
-                    <option value="18:00">6:00pm</option>
-                    <option value="19:00">7:00pm – Dinner</option>
-                    <option value="19:30">7:30pm</option>
-                    <option value="20:00">8:00pm</option>
-                  </select>
-                </div>
-
-                {/* Guests */}
-                <div>
-                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
-                    Number of Guests *
-                  </label>
-                  <select
-                    value={bookingForm.guests}
-                    onChange={(e) => setBookingForm((f) => ({ ...f, guests: e.target.value }))}
-                    className="w-full bg-[#002942] border px-4 py-3 text-white text-sm outline-none transition-colors focus:border-[#C9A227] appearance-none cursor-pointer"
-                    style={{ borderColor: bookingErrors.guests ? "#ef4444" : "rgba(255,255,255,0.15)" }}
-                  >
-                    <option value="">Select...</option>
-                    {[1,2,3,4,5,6,7,8,"9+"].map((n) => (
-                      <option key={n} value={String(n)}>{n} {n === 1 ? "guest" : "guests"}</option>
-                    ))}
-                  </select>
-                  {bookingErrors.guests && <p className="text-red-400 text-xs mt-1">{bookingErrors.guests}</p>}
-                </div>
-
-                {/* Notes */}
-                <div className="sm:col-span-2">
-                  <label className="block text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: GOLD }}>
-                    Anything else we should know?
-                  </label>
-                  <textarea
-                    placeholder="Dietary requirements, allergies, high chairs, occasion, specific seating request..."
-                    rows={3}
-                    value={bookingForm.notes}
-                    onChange={(e) => setBookingForm((f) => ({ ...f, notes: e.target.value }))}
-                    className="w-full bg-transparent border px-4 py-3 text-white text-sm placeholder:text-white/30 outline-none transition-colors focus:border-[#C9A227] resize-none"
-                    style={{ borderColor: "rgba(255,255,255,0.15)" }}
-                  />
-                </div>
-              </div>
-
-              {/* Event updates checkbox */}
-              <div className="mb-7 border border-white/10 px-5 py-4" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
-                <label className="flex items-start gap-3 cursor-pointer group">
-                  <input
-                    type="checkbox"
-                    checked={bookingForm.keepUpdated}
-                    onChange={(e) => setBookingForm((f) => ({ ...f, keepUpdated: e.target.checked }))}
-                    className="mt-0.5 flex-shrink-0 accent-[#C9A227]"
-                  />
-                  <span className="text-white/65 text-sm leading-relaxed group-hover:text-white/80 transition-colors">
-                    Keep me updated about what's on at the Old Tigers Head.
-                  </span>
-                </label>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full text-sm font-bold tracking-[0.25em] uppercase py-4 transition-all hover:brightness-90"
-                style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
-              >
-                Request a Table
-              </button>
-
-              <p className="text-white/25 text-xs text-center mt-4">
-                We'll confirm your booking via WhatsApp. For larger parties or private hire, please{" "}
-                <a href="mailto:enquiries@theoldtigershead.com" className="underline hover:text-white/50 transition-colors">
-                  email us directly
-                </a>.
-              </p>
-            </form>
-          )}
-
-          {/* FAQ teaser on book page */}
-          <div
-            className="mt-12 border-l-4 px-8 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
-            style={{ borderColor: GOLD, backgroundColor: "rgba(201,162,39,0.07)" }}
-          >
-            <div>
-              <div className="text-white font-bold mb-1" style={{ fontFamily: FONT }}>
-                Special dietary requirements? Need a high chair or parking?
-              </div>
-              <p className="text-white/60 text-sm">
-                Chat with us before you visit, or check our FAQ for quick answers.
-              </p>
-            </div>
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <a
-                href="mailto:enquiries@theoldtigershead.com"
-                className="text-[11px] font-bold tracking-widest uppercase px-6 py-3 transition-all hover:brightness-90"
-                style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
-              >
-                Chat with Us
-              </a>
-              <a
-                href="#faq"
-                className="text-[11px] font-bold tracking-widest uppercase px-6 py-3 border transition-colors hover:border-[#C9A227] hover:text-[#C9A227]"
-                style={{ borderColor: "rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.7)", fontFamily: FONT }}
-              >
-                FAQs
-              </a>
             </div>
           </div>
         </div>
