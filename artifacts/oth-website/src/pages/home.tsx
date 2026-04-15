@@ -420,46 +420,21 @@ export default function Home() {
 
         <div className="relative max-w-[1400px] mx-auto px-8 h-20 flex items-center justify-between">
 
-          {/* LEFT NAV LINKS */}
-          <div className="hidden lg:flex items-center gap-7 flex-1">
-            {navLinksLeft.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-white/90 hover:text-[#C9A227] text-[12px] font-semibold tracking-[0.15em] uppercase transition-colors duration-200 relative group whitespace-nowrap"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-px group-hover:w-full transition-all duration-300" style={{ backgroundColor: GOLD }} />
-              </a>
-            ))}
-          </div>
+          {/* LEFT: spacer for centering */}
+          <div className="flex-1" />
 
           {/* CENTRE: Pub name */}
-          <div className="flex flex-col items-center flex-shrink-0 mx-6 select-none cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
-            <div className="text-[22px] font-black tracking-[0.06em] uppercase leading-tight" style={{ color: GOLD, fontFamily: FONT }}>
+          <div className="flex flex-col items-center flex-shrink-0 select-none cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
+            <div className="text-[30px] md:text-[36px] font-black tracking-[0.06em] uppercase leading-tight" style={{ color: GOLD, fontFamily: FONT }}>
               The Old Tigers Head
             </div>
-            <div className="text-white/50 text-[9px] tracking-[0.4em] uppercase mt-0.5">
+            <div className="text-white/50 text-[9px] tracking-[0.4em] uppercase mt-1">
               Est. 1750 · Lee, London
             </div>
           </div>
 
-          {/* RIGHT: Menu + Book + Search + Hamburger */}
-          <div className="hidden lg:flex items-center gap-3 flex-1 justify-end">
-            <a
-              href="#food"
-              className="text-xs font-bold tracking-[0.2em] uppercase px-5 py-3 transition-all border border-white/30 hover:border-[#C9A227] hover:text-[#C9A227]"
-              style={{ color: "rgba(255,255,255,0.85)", fontFamily: FONT }}
-            >
-              Menu
-            </a>
-            <a
-              href="#book"
-              className="text-xs font-bold tracking-[0.2em] uppercase px-6 py-3 transition-all hover:brightness-90"
-              style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
-            >
-              Book
-            </a>
+          {/* RIGHT: Search + Hamburger only */}
+          <div className="flex items-center gap-2 flex-1 justify-end">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
               className="text-white/80 hover:text-[#C9A227] transition-colors p-2"
@@ -473,19 +448,6 @@ export default function Home() {
               aria-label="Navigation menu"
             >
               <Menu size={21} />
-            </button>
-          </div>
-
-          {/* Mobile right */}
-          <div className="flex lg:hidden items-center gap-3 flex-1 justify-end">
-            <a href="#food" className="text-[10px] font-bold tracking-widest uppercase px-3 py-2 border border-white/30" style={{ color: "rgba(255,255,255,0.85)" }}>
-              Menu
-            </a>
-            <a href="#book" className="text-[10px] font-bold tracking-widest uppercase px-4 py-2" style={{ backgroundColor: GOLD, color: NAVY }}>
-              Request
-            </a>
-            <button onClick={() => setMenuOpen(!menuOpen)} className="text-white p-1">
-              <Menu size={20} />
             </button>
           </div>
         </div>
@@ -601,49 +563,114 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── TIGER OF THE MONTH ─────────────────────────────── */}
-      {tigerOfMonth.isActive && (
-        <section style={{ backgroundColor: GOLD }}>
-          <div className="max-w-6xl mx-auto px-6 py-8">
-            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
-              {/* Badge */}
-              <div className="flex-shrink-0 flex flex-col items-center">
-                <div
-                  className="w-24 h-24 overflow-hidden border-4"
-                  style={{ borderColor: NAVY }}
-                >
-                  <img src="/casper.jpg" alt="Casper the Chi Chon" className="w-full h-full object-cover object-top" />
-                </div>
-                <div className="text-[9px] font-black tracking-widest uppercase mt-2" style={{ color: NAVY }}>
-                  {tigerOfMonth.name}
-                </div>
-              </div>
-              {/* Text */}
-              <div className="flex-1 text-center md:text-left">
-                <div className="text-[10px] font-bold tracking-widest uppercase mb-1" style={{ color: `${NAVY}88` }}>
-                  {tigerOfMonth.month}
-                </div>
-                <div className="text-2xl font-black uppercase tracking-wide mb-1" style={{ color: NAVY, fontFamily: FONT }}>
-                  Tiger of the Month
-                </div>
-                <p className="text-base leading-relaxed max-w-xl" style={{ color: `${NAVY}dd` }}>
-                  {tigerOfMonth.bio}
-                </p>
-              </div>
-              {/* CTA */}
-              <div className="flex-shrink-0">
-                <a
-                  href="/community"
-                  className="inline-block text-xs font-bold tracking-[0.2em] uppercase px-7 py-3 transition-all hover:brightness-90"
-                  style={{ backgroundColor: NAVY, color: GOLD, fontFamily: FONT }}
-                >
-                  Join the Community
-                </a>
-              </div>
-            </div>
+      {/* ── FOOD & MENU ────────────────────────────────────── */}
+      <section id="food" className="py-20 px-6" style={{ backgroundColor: "#f5f0e8" }}>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-xs tracking-[0.5em] uppercase font-semibold mb-3" style={{ color: GOLD }}>
+              Proper pub cooking
+            </p>
+            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-wide" style={{ color: NAVY, fontFamily: FONT }}>
+              Our Menu
+            </h2>
+            <div className="mt-4 w-16 h-0.5 mx-auto" style={{ backgroundColor: GOLD }} />
           </div>
-        </section>
-      )}
+
+          {menuLoading && (
+            <div className="flex justify-center items-center py-20">
+              <Spinner className="w-8 h-8 text-[#002942]" />
+            </div>
+          )}
+
+          {!menuLoading && (
+            <>
+              {/* Top-level menu switcher + print */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+                <div className="flex border-2" style={{ borderColor: NAVY }}>
+                  {(["today", "sunday"] as const).map((type) => (
+                    <button
+                      key={type}
+                      onClick={() => {
+                        setActiveMenuType(type);
+                      }}
+                      className="px-7 py-3 text-xs font-bold tracking-widest uppercase transition-all"
+                      style={{
+                        backgroundColor: activeMenuType === type ? NAVY : "transparent",
+                        color: activeMenuType === type ? GOLD : NAVY,
+                        fontFamily: FONT,
+                        borderRight: type === "today" ? `2px solid ${NAVY}` : undefined,
+                      }}
+                    >
+                      {type === "today" ? "Today's Menu" : "Sample Sunday Menu"}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Print / Download */}
+                <button
+                  onClick={() => window.print()}
+                  className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase px-5 py-3 border-2 transition-all hover:bg-[#002942] hover:text-white"
+                  style={{ borderColor: NAVY, color: NAVY, fontFamily: FONT }}
+                  title="Print or save as PDF"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="6 9 6 2 18 2 18 9"/>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                    <rect x="6" y="14" width="12" height="8"/>
+                  </svg>
+                  Print / Download PDF
+                </button>
+              </div>
+
+              {/* Sunday roast hero image */}
+              {activeMenuType === "sunday" && (
+                <div className="mb-8 overflow-hidden" style={{ height: 220 }}>
+                  <img
+                    src="/sunday-roast.jpg"
+                    alt="Sunday roast at The Old Tigers Head"
+                    className="w-full h-full object-cover object-center"
+                  />
+                </div>
+              )}
+
+              {/* All menu sections listed vertically */}
+              <div className="space-y-10">
+                {mappedMenuSections.map((section) => (
+                  <div key={section.name}>
+                    <div className="flex items-center gap-4 mb-3">
+                      <div className="text-[10px] font-black tracking-[0.4em] uppercase px-3 py-1 border" style={{ color: GOLD, borderColor: `${GOLD}55` }}>
+                        {section.name}
+                      </div>
+                      <div className="flex-1 h-px" style={{ backgroundColor: `${NAVY}18` }} />
+                    </div>
+                    <div className="space-y-px">
+                      {section.items.map((item, i) => (
+                        <div key={i} className="flex items-start justify-between py-5 px-6 border-b border-[#002942]/10 hover:bg-[#002942]/5 transition-colors">
+                          <div className="flex-1 pr-8">
+                            <h4 className="font-bold uppercase tracking-wide text-sm" style={{ color: NAVY, fontFamily: FONT }}>{item.name}</h4>
+                            {item.desc && <p style={{ color: `${NAVY}88` }} className="text-sm mt-1 leading-relaxed">{item.desc}</p>}
+                          </div>
+                          <span className="font-black text-lg flex-shrink-0" style={{ color: GOLD }}>{item.price}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          <div className="text-center mt-12">
+            <a
+              href="#book"
+              className="inline-block text-white text-sm font-bold tracking-[0.2em] uppercase px-10 py-4 transition-all hover:brightness-110"
+              style={{ backgroundColor: NAVY, fontFamily: FONT }}
+            >
+              Request a Booking
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* ── WHAT'S ON ──────────────────────────────────────── */}
       <section id="whats-on" className="py-20 px-6" style={{ backgroundColor: NAVY }}>
@@ -886,111 +913,82 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FOOD & MENU ────────────────────────────────────── */}
-      <section id="food" className="py-20 px-6" style={{ backgroundColor: "#f5f0e8" }}>
+      {/* ── TIGER OF THE MONTH ─────────────────────────────── */}
+      {tigerOfMonth.isActive && (
+        <section style={{ backgroundColor: GOLD }}>
+          <div className="max-w-6xl mx-auto px-6 py-10">
+            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12">
+              {/* Badge */}
+              <div className="flex-shrink-0 flex flex-col items-center">
+                <div className="w-28 h-28 overflow-hidden border-4" style={{ borderColor: NAVY }}>
+                  <img src="/casper.jpg" alt="Casper the Chi Chon" className="w-full h-full object-cover object-top" />
+                </div>
+                <div className="text-[9px] font-black tracking-widest uppercase mt-2 text-center" style={{ color: NAVY }}>
+                  {tigerOfMonth.name}
+                </div>
+              </div>
+              {/* Text */}
+              <div className="flex-1 text-center md:text-left">
+                <div className="text-[10px] font-bold tracking-widest uppercase mb-1" style={{ color: `${NAVY}88` }}>
+                  {tigerOfMonth.month}
+                </div>
+                <div className="text-2xl font-black uppercase tracking-wide mb-2" style={{ color: NAVY, fontFamily: FONT }}>
+                  Tiger of the Month
+                </div>
+                <p className="text-base leading-relaxed max-w-xl" style={{ color: `${NAVY}dd` }}>
+                  {tigerOfMonth.bio}
+                </p>
+              </div>
+              {/* CTA */}
+              <div className="flex-shrink-0">
+                <a
+                  href="/community"
+                  className="inline-block text-xs font-bold tracking-[0.2em] uppercase px-7 py-3 transition-all hover:brightness-90"
+                  style={{ backgroundColor: NAVY, color: GOLD, fontFamily: FONT }}
+                >
+                  Join the Community
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── OUR STORY (INTRO) ───────────────────────────────── */}
+      <section style={{ backgroundColor: NAVY }} className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-xs tracking-[0.5em] uppercase font-semibold mb-3" style={{ color: GOLD }}>
-              Proper pub cooking
-            </p>
-            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-wide" style={{ color: NAVY, fontFamily: FONT }}>
-              Our Menu
+          <div className="text-center mb-12">
+            <p className="text-xs tracking-[0.5em] uppercase font-semibold mb-3" style={{ color: GOLD }}>Your local since 1750</p>
+            <h2 className="text-white text-4xl md:text-5xl font-black uppercase tracking-wide" style={{ fontFamily: FONT }}>
+              This is your pub
             </h2>
             <div className="mt-4 w-16 h-0.5 mx-auto" style={{ backgroundColor: GOLD }} />
           </div>
-
-          {menuLoading && (
-            <div className="flex justify-center items-center py-20">
-              <Spinner className="w-8 h-8 text-[#002942]" />
+          <div className="grid md:grid-cols-2 gap-10 items-start">
+            <div className="space-y-6 text-white/75 text-base leading-loose">
+              <p>
+                When Rob took on the Old Tigers Head, he did so with a single purpose: to give Lee back its pub. Not a gastropub, not a concept bar — a proper, welcoming local where regulars are greeted by name and nobody ever feels like a stranger for long.
+              </p>
+              <p>
+                A 15-year lease has just been secured. The Tiger isn't going anywhere. This corner of SE3 — and the community built around it — is here for a generation.
+              </p>
+              <a href="#about" className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase transition-colors hover:text-white" style={{ color: GOLD }}>
+                Read our full story <ChevronRight size={13} />
+              </a>
             </div>
-          )}
-
-          {!menuLoading && (
-            <>
-              {/* Top-level menu switcher + print */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-                <div className="flex border-2" style={{ borderColor: NAVY }}>
-                  {(["today", "sunday"] as const).map((type) => (
-                    <button
-                      key={type}
-                      onClick={() => {
-                        setActiveMenuType(type);
-                      }}
-                      className="px-7 py-3 text-xs font-bold tracking-widest uppercase transition-all"
-                      style={{
-                        backgroundColor: activeMenuType === type ? NAVY : "transparent",
-                        color: activeMenuType === type ? GOLD : NAVY,
-                        fontFamily: FONT,
-                        borderRight: type === "today" ? `2px solid ${NAVY}` : undefined,
-                      }}
-                    >
-                      {type === "today" ? "Today's Menu" : "Sample Sunday Menu"}
-                    </button>
-                  ))}
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { label: "Est.", value: "1750" },
+                { label: "Lease", value: "15 yrs" },
+                { label: "Bus routes", value: "5 direct" },
+                { label: "Part of", value: "Lee, SE3" },
+              ].map((stat) => (
+                <div key={stat.label} className="border border-white/10 p-6 text-center" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+                  <div className="text-3xl font-black mb-1" style={{ color: GOLD, fontFamily: FONT }}>{stat.value}</div>
+                  <div className="text-white/40 text-[10px] tracking-widest uppercase">{stat.label}</div>
                 </div>
-
-                {/* Print / Download */}
-                <button
-                  onClick={() => window.print()}
-                  className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase px-5 py-3 border-2 transition-all hover:bg-[#002942] hover:text-white"
-                  style={{ borderColor: NAVY, color: NAVY, fontFamily: FONT }}
-                  title="Print or save as PDF"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="6 9 6 2 18 2 18 9"/>
-                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
-                    <rect x="6" y="14" width="12" height="8"/>
-                  </svg>
-                  Print / Download PDF
-                </button>
-              </div>
-
-              {/* Sunday roast hero image */}
-              {activeMenuType === "sunday" && (
-                <div className="mb-8 overflow-hidden" style={{ height: 220 }}>
-                  <img
-                    src="/sunday-roast.jpg"
-                    alt="Sunday roast at The Old Tigers Head"
-                    className="w-full h-full object-cover object-center"
-                  />
-                </div>
-              )}
-
-              {/* All menu sections listed vertically */}
-              <div className="space-y-10">
-                {mappedMenuSections.map((section) => (
-                  <div key={section.name}>
-                    <div className="flex items-center gap-4 mb-3">
-                      <div className="text-[10px] font-black tracking-[0.4em] uppercase px-3 py-1 border" style={{ color: GOLD, borderColor: `${GOLD}55` }}>
-                        {section.name}
-                      </div>
-                      <div className="flex-1 h-px" style={{ backgroundColor: `${NAVY}18` }} />
-                    </div>
-                    <div className="space-y-px">
-                      {section.items.map((item, i) => (
-                        <div key={i} className="flex items-start justify-between py-5 px-6 border-b border-[#002942]/10 hover:bg-[#002942]/5 transition-colors">
-                          <div className="flex-1 pr-8">
-                            <h4 className="font-bold uppercase tracking-wide text-sm" style={{ color: NAVY, fontFamily: FONT }}>{item.name}</h4>
-                            {item.desc && <p style={{ color: `${NAVY}88` }} className="text-sm mt-1 leading-relaxed">{item.desc}</p>}
-                          </div>
-                          <span className="font-black text-lg flex-shrink-0" style={{ color: GOLD }}>{item.price}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-
-          <div className="text-center mt-12">
-            <a
-              href="#book"
-              className="inline-block text-white text-sm font-bold tracking-[0.2em] uppercase px-10 py-4 transition-all hover:brightness-110"
-              style={{ backgroundColor: NAVY, fontFamily: FONT }}
-            >
-              Request a Booking
-            </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>
