@@ -574,24 +574,21 @@ export default function Home() {
         <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, rgba(0,10,20,0.82) 0%, rgba(0,10,20,0.78) 50%, rgba(0,10,20,0.96) 100%)` }} />
 
         <div className="relative z-10 flex flex-col items-center justify-center flex-1 text-center px-6 pt-40 pb-16">
-          <p className="max-w-4xl font-semibold mb-8 leading-tight" style={{ color: GOLD, fontSize: "5rem" }}>
+          <p className="max-w-3xl font-semibold mb-10 leading-tight" style={{ color: GOLD, fontSize: "clamp(2.8rem, 6vw, 4.5rem)" }}>
             At the beating heart of Lee.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <a href="#whats-on" className="text-sm font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all hover:brightness-90" style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}>
-              What's On
+            <a href="#book" className="text-sm font-bold tracking-[0.2em] uppercase px-10 py-4 transition-all hover:brightness-90" style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}>
+              Book a Table
             </a>
             <a
-              href="#hire"
-              className="text-sm font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all border-2"
+              href="#whats-on"
+              className="text-sm font-bold tracking-[0.2em] uppercase px-10 py-4 transition-all border-2"
               style={{ borderColor: GOLD, color: GOLD, fontFamily: FONT, backgroundColor: "transparent" }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = GOLD; (e.currentTarget as HTMLElement).style.color = NAVY; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent"; (e.currentTarget as HTMLElement).style.color = GOLD; }}
             >
-              Private Hire
-            </a>
-            <a href="#book" className="text-sm font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all border border-white/40 hover:border-white/80" style={{ color: "white", fontFamily: FONT }}>
-              Book
+              What's On
             </a>
           </div>
         </div>
@@ -629,7 +626,7 @@ export default function Home() {
                 <div className="text-2xl font-black uppercase tracking-wide mb-1" style={{ color: NAVY, fontFamily: FONT }}>
                   Tiger of the Month
                 </div>
-                <p className="text-sm leading-relaxed max-w-xl" style={{ color: `${NAVY}cc` }}>
+                <p className="text-base leading-relaxed max-w-xl" style={{ color: `${NAVY}dd` }}>
                   {tigerOfMonth.bio}
                 </p>
               </div>
@@ -1009,8 +1006,8 @@ export default function Home() {
               Request a Booking
             </h2>
             <div className="mt-4 w-16 h-0.5 mx-auto" style={{ backgroundColor: GOLD }} />
-            <p className="text-white/50 text-sm mt-5 leading-relaxed max-w-md mx-auto">
-              Fill in your details and we'll confirm your booking via WhatsApp ASAP.
+            <p className="text-white/55 text-sm mt-5 leading-relaxed max-w-md mx-auto">
+              Fill in your details below and we'll confirm your table via WhatsApp — usually within the hour.
             </p>
           </div>
 
@@ -1204,7 +1201,7 @@ export default function Home() {
                 className="w-full text-sm font-bold tracking-[0.25em] uppercase py-4 transition-all hover:brightness-90"
                 style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
               >
-                Book
+                Request a Table
               </button>
 
               <p className="text-white/25 text-xs text-center mt-4">
@@ -1307,10 +1304,10 @@ export default function Home() {
 
             <div className="flex-1 border border-white/10 p-8" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
               <div className="text-[10px] font-bold tracking-widest uppercase mb-5" style={{ color: GOLD }}>Get in Touch</div>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 text-white/60 text-sm">
-                  <Phone size={14} style={{ color: GOLD }} />
-                  <a href="tel:02045680111" className="hover:text-white transition-colors">020 4568 0111</a>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <Phone size={16} style={{ color: GOLD }} />
+                  <a href="tel:02045680111" className="text-white font-semibold text-base hover:text-[#C9A227] transition-colors">020 4568 0111</a>
                 </div>
                 <div className="flex items-center gap-3 text-white/60 text-sm">
                   <Mail size={14} style={{ color: GOLD }} />
@@ -1466,7 +1463,7 @@ export default function Home() {
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   aria-expanded={openFaq === i}
                 >
-                  <span className="font-bold text-sm tracking-wide pr-4 group-hover:text-[#C9A227] transition-colors" style={{ color: openFaq === i ? GOLD : "white", fontFamily: FONT }}>
+                  <span className="font-bold text-base tracking-wide pr-4 group-hover:text-[#C9A227] transition-colors" style={{ color: openFaq === i ? GOLD : "white", fontFamily: FONT }}>
                     {item.q}
                   </span>
                   <ChevronDown
@@ -1477,7 +1474,7 @@ export default function Home() {
                 </button>
                 {openFaq === i && (
                   <div className="px-6 pb-5">
-                    <p className="text-white/65 text-sm leading-relaxed">{item.a}</p>
+                    <p className="text-white/65 text-base leading-relaxed">{item.a}</p>
                   </div>
                 )}
               </div>
@@ -1594,7 +1591,7 @@ export default function Home() {
                 <h3 className="text-2xl font-black uppercase tracking-wide mb-6" style={{ color: GOLD, fontFamily: FONT }}>
                   A Building That Has Seen It All
                 </h3>
-                <div className="space-y-5 text-white/72 text-[15px] leading-loose">
+                <div className="space-y-5 text-white/72 text-base leading-loose">
                   <p>
                     The Old Tigers Head has stood at the corner of Lee High Road since 1750 — through wars and coronations, the rumble of trams and the arrival of the motorcar, through rationing and rock 'n' roll. For over two and a half centuries, this corner has been where Lee gathers.
                   </p>
@@ -1657,7 +1654,7 @@ export default function Home() {
                 <h3 className="text-2xl font-black uppercase tracking-wide mb-6" style={{ color: GOLD, fontFamily: FONT }}>
                   Rob &amp; the Team
                 </h3>
-                <div className="space-y-5 text-white/72 text-[15px] leading-loose">
+                <div className="space-y-5 text-white/72 text-base leading-loose">
                   <p>
                     When Rob took on the Old Tigers Head, he did so with one clear purpose: to give Lee back its pub. Not a gastropub. Not a bar. A proper, welcoming local — where regulars are greeted by name, where the food is made with real care, and where nobody ever feels like a stranger for long.
                   </p>
@@ -1739,7 +1736,7 @@ export default function Home() {
                 <h3 className="text-2xl font-black uppercase tracking-wide mb-6" style={{ color: GOLD, fontFamily: FONT }}>
                   The Tiger Is Here to Stay
                 </h3>
-                <div className="space-y-5 text-white/72 text-[15px] leading-loose">
+                <div className="space-y-5 text-white/72 text-base leading-loose">
                   <p>
                     We're thrilled to announce that a 15-year lease has just been secured on The Old Tigers Head. This is a landmark moment — a guarantee that this building, and this community, will remain at the heart of Lee for a generation to come.
                   </p>
