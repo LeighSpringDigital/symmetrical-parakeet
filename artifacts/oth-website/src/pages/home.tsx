@@ -1232,7 +1232,7 @@ export default function Home() {
                 </div>
               </div>
               <a
-                href="https://maps.google.com/?q=351+Lee+High+Road+London+SE3+8RU"
+                href="https://share.google/eL2P8NSvFLO3MFzRh"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase mt-2 transition-colors hover:text-white"
