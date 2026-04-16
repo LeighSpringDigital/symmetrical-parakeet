@@ -542,7 +542,7 @@ export default function Home() {
           <p className="max-w-3xl font-black mb-10 leading-[1.1]" style={{ color: GOLD, fontFamily: FONT, fontSize: "clamp(2.4rem, 5.5vw, 5rem)" }}>
             At the beating heart of Lee.
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-wrap gap-4 justify-center mb-5">
             <a href="#book" className="text-sm font-bold tracking-[0.2em] uppercase px-10 py-4 transition-all hover:brightness-90" style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}>
               Book a Table
             </a>
@@ -556,6 +556,15 @@ export default function Home() {
               What's On
             </a>
           </div>
+          <a
+            href="/brand-strategy"
+            className="text-[10px] font-black tracking-[0.35em] uppercase px-8 py-3 transition-all border border-white/25 hover:border-white/60"
+            style={{ color: "rgba(255,255,255,0.55)", fontFamily: FONT, backgroundColor: "transparent" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.9)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.55)"; }}
+          >
+            Foundational Brand Strategy
+          </a>
         </div>
 
         <div className="relative z-10 pb-10 flex justify-center">
