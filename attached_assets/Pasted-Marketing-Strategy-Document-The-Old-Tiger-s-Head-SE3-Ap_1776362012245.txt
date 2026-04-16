@@ -1,0 +1,46 @@
+Marketing Strategy Document: The Old Tiger’s Head, SE3
+April 2026
+This document defines the brand for The Old Tiger’s Head, examines the pub’s current micro and macro environment, identifies target demographics and their buying behaviour, and outlines a targeted digital strategy. The strategy focuses on attracting new customers, growing a loyal returning customer base and achieving revenue targets. It lays the foundation for future growth by establishing a consistent and targeted brand position.
+Brand Positioning
+Brand positioning is the single most important strategic lever. It converts the landmark from a passive building into the High-Trust Social Anchor of Lee Green.
+Positioning Statement: The undisputed High-Trust Social Anchor of Lee Green – the permanent, professionally run neighbourhood hub for SE3’s primary spenders.
+Brand Identity: The Epicentre of the Neighbourhood.
+Core Promise: A zero-failure social environment where quality and service standards are as reliable as the 1908 building itself.
+USP: Intersection of heritage and modern hospitality delivered through forensic stewardship and a 15-year lease commitment.
+Brand Voice: Warm, factual and transparent. Every communication signals professional standards and social ownership.
+Target Market and Buying Behaviour
+The primary target is the Anchored Professional: middle-class women aged 46–52 with household incomes of £140k+, who own Victorian terraces or semis in Lee Manor and Burnt Ash. These professional homeowner women act as social decision-makers. They control 68 % of household leisure spend in SE3 and determine venue choice for Sunday roasts, mid-week wine and group events.
+Their buying behaviour prioritises social reliability. They seek environments that guarantee safety, consistent quality and a professional atmosphere aligned with their standards. They value sophisticated convenience – premium experiences within walking distance – over price alone. In 2026 they expect a community pub to feel known before arrival. They reject opaque venues and default to Blackheath when interiors and standards cannot be assessed online. They become loyal customers when transparency removes the social risk of a first visit and repeated positive experiences create habit.
+Current Micro and Macro Environment
+Micro environment: The pub occupies a dominant Grade II listed position at the Lee Green crossroads. The building itself is structurally sound and benefits from constant footfall. However, the enclosed exterior creates an invisibility barrier, and current digital assets remain placeholder level. Google Business Profile photos still show legacy clientele, reinforcing the perception of a locals-only venue. No website or CRM exists, so first-time visitors cannot easily assess the interior or book with confidence.
+Macro environment: Lee Green functions as a busy transit junction rather than a destination. The 40–60 demographic drives past and continues to Blackheath because local options appear opaque. Rising operational costs (energy +14 %, wages +6.2 % projected for 2026) place greater emphasis on high-margin, loyal custom. Competitors rely on food photography and events but offer no pre-visit transparency or targeted approach to social decision-makers.
+What Middle-Class Consumers Expect from a Community Pub and Its Digital Presence in 2026
+Middle-class professional homeowner women expect a community pub to feel like a safe, curated third space: warm lighting, clean and inviting interiors, professional yet approachable staff, and food and drink that matches their discerning standards. They expect the digital presence to eliminate uncertainty. In 2026 they require live atmosphere videos, clear staff portraits, interactive menus with provenance details, instant booking and real-time capacity information. When these expectations are met, the psychological barrier to crossing the threshold disappears and repeat visits become habitual.
+Local Community, Influential Leaders, Groups and Businesses
+The Lee Manor Society, Lee Green Lives community centre, local sports clubs and nearby businesses act as gatekeepers. These influential leaders and groups overcome barriers to entry by receiving direct invitations and practical benefits: free Tiger Room use for meetings, targeted postcards to Victorian streets offering a first-visit upgrade, and simple partnerships such as post-match drinks or senior social afternoons. This low-cost outreach turns them into advocates who bring their networks and normalise the pub as the neighbourhood anchor.
+Targeted Digital Strategy
+The digital strategy operates in two parallel layers to attract new customers and grow loyal regulars.
+Layer 1 – Core Transparency (ongoing): A new website and Google Business Profile deliver live atmosphere videos, interactive technical menus, a Meet the Team portal and frictionless booking with a Local Intelligence Log. The site’s booking function and menu are managed simply through a WhatsApp Business account linked to Google Sheets. This allows real-time updates to availability, special dishes and capacity without complex software.
+A dedicated staff portal provides AI-assisted digital marketing content creation. Staff can generate brand-consistent Reels, posts and responses in seconds while maintaining the required warm, factual voice.
+Layer 2 – Operational Audit Protocol (90-day campaign, May–July 2026): A standalone promotional series that employs a dry humorous framing of the staff as service technicians who are forensically attentive to every operational detail. This runs separately so the main brand voice remains professional and targeted.
+The combined approach constitutes a highly intentional digital strategy whose core thrust is to build familiarity before customers cross the threshold. Building this pre-visit familiarity is of paramount importance; it is the central mechanism for overcoming the Invisibility Barrier. Whether through this specific campaign or any equivalent transparency mechanisms, this must remain the primary focus of all digital efforts. It attracts new customers through 2-mile radius advertising with a first-time calibration incentive, converts them via transparency and turns them into loyal regulars through the Tigers Pride programme.
+Loyalty Programme – Tigers Pride
+Tigers Pride is a simple, wallet-based loyalty scheme for all customers. Membership is actively encouraged on the website and printed menus. Upon joining, the system instantly creates a digital loyalty card that is added directly to the customer’s Apple or Google Wallet. Staff simply enter the customer’s membership number (recognised immediately via its unique letter prefix) to retrieve all stored preferences and history in real time. A letter prefix can be used to indicate whatever they want – visit frequency, gluten free, favourite table, etc. Remembering these preferences massively improves guest experience: staff can greet returning customers by name, suggest their preferred drink before they ask, and tailor service to their exact requirements. The result is a sense of genuine belonging that turns one-time visitors into weekly regulars. The programme also offers priority booking, personalised local updates and a complimentary drink upgrade on the first visit. These changes typically generate 20–25 % incremental revenue from the loyal base.
+KPIs
+
+Female-led bookings: 31 % to 55 % within 90 days
+Sunday pre-booked covers: +25 %
+First-time local visitors who return: 40 % within 7 days
+Google reviews: 18 new 4.5+ star reviews per month (90 % replied to warmly)
+Social engagement: 8 % average
+Tiger Room revenue per cover: +18 %
+
+All KPIs are tracked weekly against the April 2026 baseline.
+Implementation Roadmap
+
+Weeks 1–2: Launch new website with live videos and easy booking; complete Google Business Profile cleanup.
+Week 3: Activate Tigers Pride and begin audit Reels.
+Week 4 onward: Full execution of both digital layers.
+30-day review: Adjust any element not meeting KPIs.
+
+This is a strategy designed to lay the foundations for a powerful brand. It identifies existing barriers to growth and a deliberate approach to overcome them. It positions The Old Tiger’s Head as the automatic high-trust choice for SE3’s primary spenders and secures revenue growth across the 15-year lease.
