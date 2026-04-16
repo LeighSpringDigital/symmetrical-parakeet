@@ -1,71 +1,133 @@
 import React, { useEffect } from "react";
-import { ArrowLeft, Target, Users, BarChart2, Map, Zap, Star } from "lucide-react";
+import { ArrowLeft, Printer } from "lucide-react";
 
 const NAVY = "#002942";
 const GOLD = "#C9A227";
+const CREAM = "#FAF8F3";
 const FONT = "'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif";
 
-function GoldFrame({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <div
-      className={`border-2 p-6 md:p-8 ${className}`}
-      style={{ borderColor: GOLD }}
-    >
-      {children}
-    </div>
-  );
-}
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="text-[9px] tracking-[0.55em] uppercase font-black mb-3" style={{ color: GOLD }}>
-      {children}
-    </p>
-  );
-}
-
-function SectionHeading({ children, icon: Icon }: { children: React.ReactNode; icon?: React.ElementType }) {
-  return (
-    <div className="flex items-center gap-3 mb-8">
-      {Icon && <Icon size={20} style={{ color: GOLD }} strokeWidth={1.5} />}
-      <h2 className="text-2xl md:text-3xl font-black uppercase tracking-wide text-white" style={{ fontFamily: FONT }}>
+    <div className="mt-10 mb-4">
+      <h2
+        style={{
+          fontFamily: FONT,
+          color: NAVY,
+          fontSize: "1.2rem",
+          fontWeight: 800,
+          textTransform: "uppercase",
+          letterSpacing: "0.08em",
+          borderBottom: `2px solid ${GOLD}`,
+          paddingBottom: "0.4rem",
+          marginBottom: "0.75rem",
+        }}
+      >
         {children}
       </h2>
     </div>
   );
 }
 
-function FramedPoint({ label, value }: { label: string; value: string }) {
+function Callout({ children, label }: { children: React.ReactNode; label?: string }) {
   return (
-    <div className="py-5 px-6 border-l-2" style={{ borderColor: GOLD, backgroundColor: "rgba(201,162,39,0.06)" }}>
-      <p className="text-[8px] tracking-[0.5em] uppercase font-black mb-2" style={{ color: GOLD }}>{label}</p>
-      <p className="text-white/90 text-sm leading-relaxed">{value}</p>
+    <div
+      className="my-5"
+      style={{
+        border: `1.5px solid ${GOLD}`,
+        borderLeft: `5px solid ${GOLD}`,
+        padding: "1rem 1.25rem",
+        backgroundColor: "rgba(201,162,39,0.06)",
+        fontFamily: FONT,
+      }}
+    >
+      {label && (
+        <p style={{ fontSize: "0.68rem", letterSpacing: "0.35em", textTransform: "uppercase", color: GOLD, fontWeight: 800, marginBottom: "0.4rem" }}>
+          {label}
+        </p>
+      )}
+      <div style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.7 }}>{children}</div>
     </div>
   );
 }
 
-function KpiCard({ stat, label }: { stat: string; label: string }) {
+function DefinitionRow({ term, value }: { term: string; value: string }) {
   return (
-    <div className="border border-white/10 p-5 text-center hover:border-[#C9A227] transition-colors" style={{ backgroundColor: "rgba(255,255,255,0.03)" }}>
-      <div className="text-2xl md:text-3xl font-black mb-2" style={{ color: GOLD, fontFamily: FONT }}>{stat}</div>
-      <div className="text-white/60 text-[10px] tracking-[0.3em] uppercase leading-relaxed">{label}</div>
+    <div className="flex gap-0 mb-2" style={{ borderBottom: "1px solid rgba(0,41,66,0.1)" }}>
+      <div
+        style={{
+          fontFamily: FONT,
+          color: GOLD,
+          fontWeight: 800,
+          fontSize: "0.72rem",
+          letterSpacing: "0.25em",
+          textTransform: "uppercase",
+          minWidth: "180px",
+          paddingTop: "0.5rem",
+          paddingBottom: "0.5rem",
+          flexShrink: 0,
+        }}
+      >
+        {term}
+      </div>
+      <div
+        style={{
+          fontFamily: FONT,
+          color: NAVY,
+          fontSize: "0.93rem",
+          lineHeight: 1.65,
+          paddingTop: "0.5rem",
+          paddingBottom: "0.5rem",
+        }}
+      >
+        {value}
+      </div>
     </div>
   );
 }
 
-function RoadmapStep({ week, action, index }: { week: string; action: string; index: number }) {
+function KpiList() {
+  const kpis = [
+    { metric: "Female-led bookings", target: "31% → 55% within 90 days" },
+    { metric: "Sunday pre-booked covers", target: "+25%" },
+    { metric: "First-time local visitors who return", target: "40% within 7 days" },
+    { metric: "Google reviews", target: "18 new 4.5★+ per month, 90% replied to warmly" },
+    { metric: "Social engagement", target: "8% average" },
+    { metric: "Tiger Room revenue per cover", target: "+18%" },
+  ];
   return (
-    <div className="flex gap-4 items-start">
-      <div className="flex-shrink-0 flex flex-col items-center">
-        <div className="w-9 h-9 flex items-center justify-center font-black text-sm" style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}>
-          {index + 1}
+    <div className="my-4">
+      {kpis.map((k) => (
+        <div
+          key={k.metric}
+          className="flex gap-4 py-2.5"
+          style={{ borderBottom: "1px solid rgba(0,41,66,0.1)", fontFamily: FONT }}
+        >
+          <div style={{ color: NAVY, fontSize: "0.93rem", flex: 1 }}>{k.metric}</div>
+          <div style={{ color: GOLD, fontWeight: 800, fontSize: "0.93rem", textAlign: "right", minWidth: "260px" }}>{k.target}</div>
         </div>
-        {index < 4 && <div className="w-px flex-1 mt-1" style={{ backgroundColor: "rgba(201,162,39,0.25)", minHeight: "2.5rem" }} />}
+      ))}
+    </div>
+  );
+}
+
+function RoadmapItem({ step, text }: { step: string; text: string }) {
+  return (
+    <div className="flex gap-4 mb-4" style={{ fontFamily: FONT }}>
+      <div
+        style={{
+          minWidth: "140px",
+          fontWeight: 800,
+          fontSize: "0.72rem",
+          letterSpacing: "0.2em",
+          textTransform: "uppercase",
+          color: GOLD,
+          paddingTop: "0.15rem",
+          flexShrink: 0,
+        }}
+      >
+        {step}
       </div>
-      <div className="pb-6">
-        <p className="text-[9px] tracking-[0.4em] uppercase font-black mb-1" style={{ color: GOLD }}>{week}</p>
-        <p className="text-white/85 text-sm leading-relaxed">{action}</p>
-      </div>
+      <div style={{ color: NAVY, fontSize: "0.93rem", lineHeight: 1.65 }}>{text}</div>
     </div>
   );
 }
@@ -75,305 +137,270 @@ export default function BrandStrategy() {
     window.scrollTo(0, 0);
   }, []);
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
-    <div style={{ backgroundColor: NAVY, minHeight: "100vh", fontFamily: FONT }}>
+    <>
+      <style>{`
+        @media print {
+          .no-print { display: none !important; }
+          body { background: white !important; }
+          .print-page { box-shadow: none !important; margin: 0 !important; max-width: 100% !important; padding: 2cm 2.5cm !important; }
+        }
+        body { background-color: #e8e4dc; }
+      `}</style>
 
-      {/* ── TOP NAV BAR ─────────────────────────────── */}
-      <div className="sticky top-0 z-20 border-b border-white/10" style={{ backgroundColor: NAVY }}>
-        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <a
-            href="/"
-            className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-xs tracking-widest uppercase font-black"
-          >
-            <ArrowLeft size={15} />
-            Back to Site
-          </a>
-          <div className="text-[10px] tracking-[0.5em] uppercase font-black" style={{ color: GOLD }}>
-            The Old Tigers Head
-          </div>
-          <div className="text-white/25 text-[9px] tracking-widest uppercase">April 2026</div>
-        </div>
+      {/* ── TOOLBAR (screen only) ────────────────── */}
+      <div
+        className="no-print sticky top-0 z-20 flex items-center justify-between px-6 py-3 border-b"
+        style={{ backgroundColor: NAVY, borderColor: "rgba(255,255,255,0.1)" }}
+      >
+        <a
+          href="/"
+          className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+          style={{ fontFamily: FONT, fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 800 }}
+        >
+          <ArrowLeft size={14} />
+          Back to Site
+        </a>
+        <span style={{ fontFamily: FONT, color: GOLD, fontSize: "0.72rem", letterSpacing: "0.4em", textTransform: "uppercase", fontWeight: 800 }}>
+          The Old Tigers Head
+        </span>
+        <button
+          onClick={handlePrint}
+          className="flex items-center gap-2 px-5 py-2 transition-all hover:brightness-90"
+          style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT, fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 800, border: "none", cursor: "pointer" }}
+        >
+          <Printer size={13} />
+          Save / Print PDF
+        </button>
       </div>
 
-      {/* ── COVER ───────────────────────────────────── */}
-      <div className="border-b border-white/10" style={{ background: `linear-gradient(135deg, #001e30 0%, #002942 60%, #003a5c 100%)` }}>
-        <div className="max-w-5xl mx-auto px-6 py-20 md:py-28">
-          <p className="text-[9px] tracking-[0.6em] uppercase font-black mb-6" style={{ color: GOLD }}>
-            Confidential · Internal Use Only
-          </p>
-          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-wide text-white leading-[1.05] mb-6" style={{ fontFamily: FONT }}>
-            Foundational<br />Brand Strategy
-          </h1>
-          <div className="w-16 h-0.5 mb-8" style={{ backgroundColor: GOLD }} />
-          <p className="text-white/55 text-sm leading-relaxed max-w-xl">
-            This document defines the brand for The Old Tiger's Head, examines the pub's current micro and macro environment, identifies target demographics and their buying behaviour, and outlines a targeted digital strategy to attract new customers, grow loyal regulars and achieve revenue targets.
-          </p>
-        </div>
-      </div>
+      {/* ── DOCUMENT ────────────────────────────── */}
+      <div style={{ backgroundColor: "#e8e4dc", padding: "2rem 1rem", minHeight: "100vh" }}>
+        <div
+          className="print-page"
+          style={{
+            backgroundColor: CREAM,
+            maxWidth: "820px",
+            margin: "0 auto",
+            padding: "3.5rem 4rem",
+            boxShadow: "0 4px 40px rgba(0,0,0,0.18)",
+            fontFamily: FONT,
+          }}
+        >
 
-      {/* ── MAIN CONTENT ────────────────────────────── */}
-      <div className="max-w-5xl mx-auto px-6 py-16 space-y-20">
-
-        {/* ── BRAND POSITIONING ───────────────────── */}
-        <section id="positioning">
-          <SectionLabel>01 / Brand</SectionLabel>
-          <SectionHeading icon={Target}>Brand Positioning</SectionHeading>
-
-          <GoldFrame className="mb-8">
-            <p className="text-[8px] tracking-[0.5em] uppercase font-black mb-3" style={{ color: GOLD }}>Positioning Statement</p>
-            <p className="text-white text-xl md:text-2xl font-black leading-snug" style={{ fontFamily: FONT }}>
-              The undisputed High-Trust Social Anchor of Lee Green — the permanent, professionally run neighbourhood hub for SE3's primary spenders.
+          {/* DOCUMENT HEADER */}
+          <div style={{ borderBottom: `3px solid ${GOLD}`, paddingBottom: "2rem", marginBottom: "2rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.5rem" }}>
+              <div>
+                <p style={{ fontSize: "0.68rem", letterSpacing: "0.5em", textTransform: "uppercase", color: GOLD, fontWeight: 800, marginBottom: "0.5rem" }}>
+                  Internal Strategy Document
+                </p>
+                <h1
+                  style={{
+                    fontFamily: FONT,
+                    color: NAVY,
+                    fontSize: "2rem",
+                    fontWeight: 900,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.06em",
+                    lineHeight: 1.1,
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  Marketing Strategy<br />Document
+                </h1>
+                <p style={{ color: NAVY, fontSize: "0.95rem", opacity: 0.6 }}>The Old Tiger's Head, SE3 · April 2026</p>
+              </div>
+              <div style={{ textAlign: "right", flexShrink: 0 }}>
+                <p style={{ fontSize: "0.68rem", letterSpacing: "0.4em", textTransform: "uppercase", color: GOLD, fontWeight: 800 }}>Est. 1750</p>
+                <p style={{ fontSize: "0.8rem", color: NAVY, opacity: 0.5, marginTop: "0.3rem" }}>351 Lee High Road</p>
+                <p style={{ fontSize: "0.8rem", color: NAVY, opacity: 0.5 }}>London SE3 8RU</p>
+              </div>
+            </div>
+            <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85 }}>
+              This document defines the brand for The Old Tiger's Head, examines the pub's current micro and macro environment, identifies target demographics and their buying behaviour, and outlines a targeted digital strategy. The strategy focuses on attracting new customers, growing a loyal returning customer base and achieving revenue targets. It lays the foundation for future growth by establishing a consistent and targeted brand position.
             </p>
-          </GoldFrame>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FramedPoint
-              label="Brand Identity"
-              value="The Epicentre of the Neighbourhood."
-            />
-            <FramedPoint
-              label="Core Promise"
-              value="A zero-failure social environment where quality and service standards are as reliable as the 1908 building itself."
-            />
-            <FramedPoint
-              label="USP"
-              value="Intersection of heritage and modern hospitality delivered through forensic stewardship and a 15-year lease commitment."
-            />
-            <FramedPoint
-              label="Brand Voice"
-              value="Warm, factual and transparent. Every communication signals professional standards and social ownership."
-            />
           </div>
-        </section>
 
-        {/* ── TARGET MARKET ───────────────────────── */}
-        <section id="target">
-          <SectionLabel>02 / Audience</SectionLabel>
-          <SectionHeading icon={Users}>Target Market &amp; Buying Behaviour</SectionHeading>
+          {/* BRAND POSITIONING */}
+          <SectionHeading>Brand Positioning</SectionHeading>
+          <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, marginBottom: "1rem", opacity: 0.85 }}>
+            Brand positioning is the single most important strategic lever. It converts the landmark from a passive building into the High-Trust Social Anchor of Lee Green.
+          </p>
+          <Callout label="Positioning Statement">
+            The undisputed High-Trust Social Anchor of Lee Green – the permanent, professionally run neighbourhood hub for SE3's primary spenders.
+          </Callout>
+          <DefinitionRow term="Brand Identity" value="The Epicentre of the Neighbourhood." />
+          <DefinitionRow term="Core Promise" value="A zero-failure social environment where quality and service standards are as reliable as the 1908 building itself." />
+          <DefinitionRow term="USP" value="Intersection of heritage and modern hospitality delivered through forensic stewardship and a 15-year lease commitment." />
+          <DefinitionRow term="Brand Voice" value="Warm, factual and transparent. Every communication signals professional standards and social ownership." />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <GoldFrame className="md:col-span-3">
-              <p className="text-[8px] tracking-[0.5em] uppercase font-black mb-3" style={{ color: GOLD }}>Primary Target — The Anchored Professional</p>
-              <p className="text-white/85 text-sm leading-relaxed">
-                Middle-class women aged <span className="text-white font-black">46–52</span> with household incomes of <span className="text-white font-black">£140k+</span>, owning Victorian terraces or semis in Lee Manor and Burnt Ash. These professional homeowner women act as social decision-makers — they control <span className="text-white font-black">68% of household leisure spend</span> in SE3 and determine venue choice for Sunday roasts, mid-week wine and group events.
+          {/* TARGET MARKET */}
+          <SectionHeading>Target Market and Buying Behaviour</SectionHeading>
+          <Callout label="Primary Target — The Anchored Professional">
+            Middle-class women aged <strong>46–52</strong> with household incomes of <strong>£140k+</strong>, who own Victorian terraces or semis in Lee Manor and Burnt Ash. These professional homeowner women act as social decision-makers. They control <strong>68% of household leisure spend</strong> in SE3 and determine venue choice for Sunday roasts, mid-week wine and group events.
+          </Callout>
+          <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85, marginBottom: "0.75rem" }}>
+            Their buying behaviour prioritises social reliability. They seek environments that guarantee safety, consistent quality and a professional atmosphere aligned with their standards. They value sophisticated convenience – premium experiences within walking distance – over price alone. In 2026 they expect a community pub to feel known before arrival. They reject opaque venues and default to Blackheath when interiors and standards cannot be assessed online. They become loyal customers when transparency removes the social risk of a first visit and repeated positive experiences create habit.
+          </p>
+
+          {/* ENVIRONMENT */}
+          <SectionHeading>Current Micro and Macro Environment</SectionHeading>
+          <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85, marginBottom: "0.75rem" }}>
+            <strong style={{ color: NAVY }}>Micro environment:</strong> The pub occupies a dominant Grade II listed position at the Lee Green crossroads. The building itself is structurally sound and benefits from constant footfall. However, the enclosed exterior creates an invisibility barrier, and current digital assets remain placeholder level. Google Business Profile photos still show legacy clientele, reinforcing the perception of a locals-only venue. No website or CRM exists, so first-time visitors cannot easily assess the interior or book with confidence.
+          </p>
+          <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85 }}>
+            <strong style={{ color: NAVY }}>Macro environment:</strong> Lee Green functions as a busy transit junction rather than a destination. The 40–60 demographic drives past and continues to Blackheath because local options appear opaque. Rising operational costs (energy +14%, wages +6.2% projected for 2026) place greater emphasis on high-margin, loyal custom. Competitors rely on food photography and events but offer no pre-visit transparency or targeted approach to social decision-makers.
+          </p>
+
+          {/* WHAT CONSUMERS EXPECT */}
+          <SectionHeading>What Middle-Class Consumers Expect from a Community Pub and Its Digital Presence in 2026</SectionHeading>
+          <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85 }}>
+            Middle-class professional homeowner women expect a community pub to feel like a safe, curated third space: warm lighting, clean and inviting interiors, professional yet approachable staff, and food and drink that matches their discerning standards. They expect the digital presence to eliminate uncertainty. In 2026 they require live atmosphere videos, clear staff portraits, interactive menus with provenance details, instant booking and real-time capacity information. When these expectations are met, the psychological barrier to crossing the threshold disappears and repeat visits become habitual.
+          </p>
+
+          {/* LOCAL COMMUNITY */}
+          <SectionHeading>Local Community, Influential Leaders, Groups and Businesses</SectionHeading>
+          <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85 }}>
+            The Lee Manor Society, Lee Green Lives community centre, local sports clubs and nearby businesses act as gatekeepers. These influential leaders and groups overcome barriers to entry by receiving direct invitations and practical benefits: free Tiger Room use for meetings, targeted postcards to Victorian streets offering a first-visit upgrade, and simple partnerships such as post-match drinks or senior social afternoons. This low-cost outreach turns them into advocates who bring their networks directly to the pub and reinforce its position as the neighbourhood's social anchor.
+          </p>
+
+          {/* DIGITAL STRATEGY */}
+          <SectionHeading>Targeted Digital Strategy</SectionHeading>
+          <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85, marginBottom: "1rem" }}>
+            The digital strategy operates in two parallel layers to attract new customers and grow loyal regulars.
+          </p>
+
+          <Callout label="Layer 1 — Core Transparency (Ongoing)">
+            <p style={{ marginBottom: "0.6rem" }}>
+              A new website and Google Business Profile deliver live atmosphere videos, interactive technical menus, a Meet the Team portal and frictionless booking with a Local Intelligence Log. The site's booking function and menu are managed simply through a WhatsApp Business account linked to Google Sheets. This allows real-time updates to availability, special dishes and capacity without complex software.
+            </p>
+            <p>
+              A dedicated staff portal provides AI-assisted digital marketing content creation. Staff can generate brand-consistent Reels, posts and responses in seconds while maintaining the required warm, factual voice.
+            </p>
+          </Callout>
+
+          <div
+            className="my-4 p-4"
+            style={{
+              border: `1px solid rgba(0,41,66,0.2)`,
+              fontFamily: FONT,
+            }}
+          >
+            <p style={{ fontSize: "0.68rem", letterSpacing: "0.35em", textTransform: "uppercase", color: NAVY, fontWeight: 800, opacity: 0.5, marginBottom: "0.4rem" }}>
+              Layer 2 — Operational Audit Protocol (90-Day Campaign, May–July 2026)
+            </p>
+            <p style={{ color: NAVY, fontSize: "0.93rem", lineHeight: 1.65, opacity: 0.8 }}>
+              A standalone promotional series that employs a dry humorous framing of the staff as service technicians who are forensically attentive to every operational detail. This runs separately so the main brand voice remains professional and targeted.
+            </p>
+          </div>
+
+          <Callout label="Core Strategic Principle">
+            The combined approach constitutes a highly intentional digital strategy whose core thrust is to build familiarity before customers cross the threshold. Building this pre-visit familiarity is of paramount importance; it is the central mechanism for overcoming the Invisibility Barrier. Whether through this specific campaign or any equivalent transparency mechanisms, this must remain the primary focus of all digital efforts. It attracts new customers through 2-mile radius advertising with a first-time calibration incentive, converts them via transparency and turns them into loyal regulars through the Tigers Pride programme.
+          </Callout>
+
+          {/* TIGERS PRIDE */}
+          <SectionHeading>Loyalty Programme – Tigers Pride</SectionHeading>
+
+          <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start", flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: "280px" }}>
+              <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85, marginBottom: "0.75rem" }}>
+                Tigers Pride is a simple, wallet-based loyalty scheme for all customers. Membership is actively encouraged on the website and printed menus. Upon joining, the system instantly creates a digital loyalty card that is added directly to the customer's Apple or Google Wallet.
               </p>
-            </GoldFrame>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FramedPoint
-              label="Buying Priority"
-              value="Social reliability. They seek environments that guarantee safety, consistent quality and a professional atmosphere aligned with their standards."
-            />
-            <FramedPoint
-              label="Value Driver"
-              value="Sophisticated convenience — premium experiences within walking distance — over price alone. They expect to feel known before arrival."
-            />
-            <FramedPoint
-              label="Barrier to Entry"
-              value="They reject opaque venues and default to Blackheath when interiors and standards cannot be assessed online."
-            />
-            <FramedPoint
-              label="Loyalty Trigger"
-              value="Once trust is established, they become vocal advocates, driving group bookings and word-of-mouth across the demographic cluster."
-            />
-          </div>
-        </section>
-
-        {/* ── ENVIRONMENT ─────────────────────────── */}
-        <section id="environment">
-          <SectionLabel>03 / Context</SectionLabel>
-          <SectionHeading icon={Map}>Micro &amp; Macro Environment</SectionHeading>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-0">
-              <div className="py-3 px-5 font-black text-xs tracking-widest uppercase" style={{ backgroundColor: GOLD, color: NAVY }}>
-                Micro Environment
-              </div>
-              <div className="border border-white/10 p-6 space-y-4" style={{ backgroundColor: "rgba(255,255,255,0.02)" }}>
-                <p className="text-white/80 text-sm leading-relaxed">
-                  The pub occupies a dominant Grade II listed position at the Lee Green crossroads. The building is structurally sound with constant footfall. However:
-                </p>
-                <ul className="space-y-2">
-                  {[
-                    "Enclosed exterior creates an invisibility barrier",
-                    "Digital assets remain at placeholder level",
-                    "Google Business Profile photos show legacy clientele",
-                    "No website or CRM — first-time visitors cannot assess the interior",
-                    "Reputation actively suppressed by prior management reviews",
-                  ].map((item) => (
-                    <li key={item} className="flex gap-3 text-sm text-white/70">
-                      <span className="mt-1.5 flex-shrink-0 w-1 h-1 rounded-full" style={{ backgroundColor: GOLD }} />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85, marginBottom: "0.75rem" }}>
+                Staff simply enter the customer's membership number (recognised immediately via its unique letter prefix) to retrieve all stored preferences and history in real time. A letter prefix can be used to indicate whatever they want – visit frequency, gluten free, favourite table, etc. Remembering these preferences massively improves guest experience: staff can greet returning customers by name, suggest their preferred drink before they ask, and tailor service to their exact requirements.
+              </p>
+              <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85 }}>
+                The result is a sense of genuine belonging that turns one-time visitors into weekly regulars. The programme also offers priority booking, personalised local updates and a complimentary drink upgrade on the first visit. These changes typically generate 20–25% incremental revenue from the loyal base.
+              </p>
             </div>
-
-            <div className="space-y-0">
-              <div className="py-3 px-5 font-black text-xs tracking-widest uppercase border" style={{ backgroundColor: "transparent", color: GOLD, borderColor: GOLD }}>
-                Macro Environment
-              </div>
-              <div className="border border-t-0 border-white/10 p-6 space-y-4" style={{ backgroundColor: "rgba(255,255,255,0.02)", borderColor: "rgba(255,255,255,0.1)" }}>
-                <p className="text-white/80 text-sm leading-relaxed">
-                  Lee Green functions as a busy transit junction rather than a destination. Key pressures:
-                </p>
-                <ul className="space-y-2">
-                  {[
-                    "40–60 demographic drives past to Blackheath — local options appear opaque",
-                    "Energy costs +14%, wages projected +6.2% in 2026",
-                    "Greater emphasis needed on high-margin, loyal custom",
-                    "Competitors rely on food photography — no pre-visit transparency",
-                    "No competitor targets social decision-makers directly",
-                  ].map((item) => (
-                    <li key={item} className="flex gap-3 text-sm text-white/70">
-                      <span className="mt-1.5 flex-shrink-0 w-1 h-1 rounded-full" style={{ backgroundColor: GOLD }} />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── DIGITAL STRATEGY ────────────────────── */}
-        <section id="digital">
-          <SectionLabel>04 / Strategy</SectionLabel>
-          <SectionHeading icon={Zap}>Targeted Digital Strategy</SectionHeading>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <GoldFrame>
-              <p className="text-[8px] tracking-[0.5em] uppercase font-black mb-4" style={{ color: GOLD }}>Layer 1 — Core Transparency</p>
-              <p className="text-white/50 text-[9px] tracking-[0.3em] uppercase mb-3">Ongoing</p>
-              <ul className="space-y-2">
-                {[
-                  "New website and Google Business Profile",
-                  "Live atmosphere videos",
-                  "Interactive technical menus",
-                  "Meet the Team portal",
-                  "Frictionless booking with Local Intelligence Log",
-                  "Clean brand voice — proof of professional standards",
-                ].map((item) => (
-                  <li key={item} className="flex gap-3 text-sm text-white/80">
-                    <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5" style={{ backgroundColor: GOLD }} />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </GoldFrame>
-
-            <div className="border border-white/15 p-6 md:p-8" style={{ backgroundColor: "rgba(255,255,255,0.03)" }}>
-              <p className="text-[8px] tracking-[0.5em] uppercase font-black mb-4 text-white/60">Layer 2 — Operational Audit Protocol</p>
-              <p className="text-white/50 text-[9px] tracking-[0.3em] uppercase mb-3">90-Day Campaign · May – July 2026</p>
-              <ul className="space-y-2">
-                {[
-                  "Standalone promotional series with isolated creative execution",
-                  "Chief Systems Auditor scripts",
-                  "Fibreglass Steward and greyhound material",
-                  "Runs separately — main brand voice stays professional",
-                  "2-mile radius advertising with first-time calibration incentive",
-                ].map((item) => (
-                  <li key={item} className="flex gap-3 text-sm text-white/65">
-                    <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 border border-white/30" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+            <div style={{ flexShrink: 0, width: "180px" }}>
+              <img
+                src="/tigers-pride-card.jpg"
+                alt="Tigers Pride digital loyalty card on Apple Wallet"
+                style={{ width: "100%", display: "block", border: `1px solid rgba(0,41,66,0.15)` }}
+              />
+              <p style={{ fontSize: "0.68rem", color: NAVY, opacity: 0.5, textAlign: "center", marginTop: "0.4rem", fontFamily: FONT }}>
+                Tigers Pride digital loyalty card
+              </p>
             </div>
           </div>
 
-          <div className="p-5 text-sm text-white/60 leading-relaxed border-l-2" style={{ borderColor: "rgba(201,162,39,0.35)", backgroundColor: "rgba(201,162,39,0.04)" }}>
-            The combined approach attracts new customers through 2-mile radius advertising, converts them via transparency and turns them into loyal regulars through the Tigers Pride programme.
-          </div>
-        </section>
+          {/* STAFF PORTAL */}
+          <SectionHeading>Staff Portal</SectionHeading>
+          <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85, marginBottom: "0.75rem" }}>
+            The staff portal provides AI-assisted tools for generating brand-consistent social media content, responding to reviews and managing day-to-day digital communications. It is accessible from the website at <strong>/staff</strong>.
+          </p>
+          <Callout label="Staff Portal Access">
+            <DefinitionRow term="URL" value="theoldtigershead.com/staff" />
+            <DefinitionRow term="Username" value="test" />
+            <DefinitionRow term="Password" value="test" />
+          </Callout>
 
-        {/* ── TIGERS PRIDE ────────────────────────── */}
-        <section id="loyalty">
-          <SectionLabel>05 / Loyalty</SectionLabel>
-          <SectionHeading icon={Star}>Tigers Pride Programme</SectionHeading>
+          {/* KPIs */}
+          <SectionHeading>Key Performance Indicators</SectionHeading>
+          <p style={{ color: NAVY, fontSize: "0.85rem", opacity: 0.5, marginBottom: "0.5rem", fontFamily: FONT }}>
+            All KPIs are tracked weekly against the April 2026 baseline.
+          </p>
+          <KpiList />
 
-          <GoldFrame className="mb-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div>
-                <p className="text-[8px] tracking-[0.5em] uppercase font-black mb-2" style={{ color: GOLD }}>Platform</p>
-                <p className="text-white text-sm leading-relaxed">WhatsApp-based system designed for social decision-makers.</p>
-              </div>
-              <div>
-                <p className="text-[8px] tracking-[0.5em] uppercase font-black mb-2" style={{ color: GOLD }}>Year 1 Target</p>
-                <p className="text-white text-3xl font-black" style={{ fontFamily: FONT }}>1,200</p>
-                <p className="text-white/55 text-xs mt-1">members enrolled</p>
-              </div>
-              <div>
-                <p className="text-[8px] tracking-[0.5em] uppercase font-black mb-2" style={{ color: GOLD }}>Projected Revenue</p>
-                <p className="text-white text-3xl font-black" style={{ fontFamily: FONT }}>£87k</p>
-                <p className="text-white/55 text-xs mt-1">incremental at 22% margin</p>
-              </div>
-            </div>
-          </GoldFrame>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <FramedPoint label="Benefit 1" value="Priority booking — guaranteed tables for social decision-makers planning group events." />
-            <FramedPoint label="Benefit 2" value="Personalised local updates — curated What's On content delivered directly to their phone." />
-            <FramedPoint label="Benefit 3" value="Complimentary drink upgrade on the first visit — converts trial into loyal custom." />
-          </div>
-        </section>
-
-        {/* ── KPIs ────────────────────────────────── */}
-        <section id="kpis">
-          <SectionLabel>06 / Measurement</SectionLabel>
-          <SectionHeading icon={BarChart2}>Key Performance Indicators</SectionHeading>
-
-          <div className="mb-4 text-white/45 text-[10px] tracking-widest uppercase">All KPIs tracked weekly against April 2026 baseline</div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            <KpiCard stat="55%" label="Female-led bookings within 90 days (from 31%)" />
-            <KpiCard stat="+25%" label="Sunday pre-booked covers" />
-            <KpiCard stat="40%" label="First-time locals who return within 7 days" />
-            <KpiCard stat="18/mo" label="New 4.5+ star Google reviews, 90% replied to warmly" />
-            <KpiCard stat="8%" label="Average social media engagement rate" />
-            <KpiCard stat="+18%" label="Tiger Room revenue per cover" />
-          </div>
-        </section>
-
-        {/* ── ROADMAP ─────────────────────────────── */}
-        <section id="roadmap">
-          <SectionLabel>07 / Execution</SectionLabel>
+          {/* ROADMAP */}
           <SectionHeading>Implementation Roadmap</SectionHeading>
-
-          <div className="border border-white/10 p-8" style={{ backgroundColor: "rgba(255,255,255,0.02)" }}>
-            {[
-              { week: "Weeks 1–2", action: "Launch new website with live videos and easy booking. Complete Google Business Profile cleanup — remove legacy content and replace with current atmosphere imagery." },
-              { week: "Week 3", action: "Activate Tigers Pride WhatsApp programme. Begin Operational Audit Reels as the isolated creative layer." },
-              { week: "Week 4 onwards", action: "Full execution of both digital layers — Core Transparency running continuously, Audit Protocol driving acquisition through 2-mile radius paid targeting." },
-              { week: "30-Day Review", action: "Assess all KPIs against April 2026 baseline. Adjust any element not meeting targets. Expand what is working without delay." },
-              { week: "May – July 2026", action: "Complete 90-day Operational Audit Protocol campaign. Measure conversion from first-time visitor to loyal regular. Begin planning Tigers Pride Year 1 milestone event." },
-            ].map((step, i) => (
-              <RoadmapStep key={step.week} week={step.week} action={step.action} index={i} />
-            ))}
+          <div className="my-4">
+            <RoadmapItem step="Weeks 1–2" text="Launch new website with live videos and easy booking; complete Google Business Profile cleanup." />
+            <RoadmapItem step="Week 3" text="Activate Tigers Pride and begin Operational Audit Reels." />
+            <RoadmapItem step="Week 4 Onward" text="Full execution of both digital layers." />
+            <RoadmapItem step="30-Day Review" text="Adjust any element not meeting KPIs." />
           </div>
-        </section>
 
-        {/* ── FOOTER NOTE ─────────────────────────── */}
-        <div className="border-t border-white/10 pt-10 pb-4">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div>
-              <p className="font-black text-sm uppercase tracking-widest mb-1" style={{ color: GOLD, fontFamily: FONT }}>The Old Tigers Head</p>
-              <p className="text-white/35 text-xs">351 Lee High Road, London SE3 8RU · Est. 1750</p>
-            </div>
-            <a
-              href="/"
-              className="flex items-center gap-2 text-xs font-black tracking-[0.2em] uppercase px-6 py-3 transition-all hover:brightness-90"
-              style={{ backgroundColor: GOLD, color: NAVY, fontFamily: FONT }}
-            >
-              <ArrowLeft size={13} />
-              Back to Site
-            </a>
+          {/* CLOSING STATEMENT */}
+          <div
+            style={{
+              borderTop: `2px solid ${GOLD}`,
+              marginTop: "2.5rem",
+              paddingTop: "1.5rem",
+            }}
+          >
+            <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85 }}>
+              This is a strategy designed to lay the foundations for a powerful brand. It identifies existing barriers to growth and a deliberate approach to overcome them. It positions The Old Tiger's Head as the automatic high-trust choice for SE3's primary spenders and secures revenue growth across the 15-year lease.
+            </p>
           </div>
+
+          {/* DOCUMENT FOOTER */}
+          <div
+            style={{
+              marginTop: "3rem",
+              paddingTop: "1rem",
+              borderTop: `1px solid rgba(0,41,66,0.15)`,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <p style={{ fontFamily: FONT, color: NAVY, opacity: 0.4, fontSize: "0.75rem" }}>
+              The Old Tigers Head · 351 Lee High Road, London SE3 8RU · Est. 1750
+            </p>
+            <p style={{ fontFamily: FONT, color: NAVY, opacity: 0.4, fontSize: "0.75rem" }}>April 2026</p>
+          </div>
+
         </div>
 
+        {/* BOTTOM PRINT BUTTON (screen only) */}
+        <div className="no-print flex justify-center mt-8 pb-8">
+          <button
+            onClick={handlePrint}
+            className="flex items-center gap-2 px-8 py-3 transition-all hover:brightness-90"
+            style={{ backgroundColor: NAVY, color: GOLD, fontFamily: FONT, fontSize: "0.75rem", letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 800, border: "none", cursor: "pointer" }}
+          >
+            <Printer size={14} />
+            Save as PDF / Print
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
