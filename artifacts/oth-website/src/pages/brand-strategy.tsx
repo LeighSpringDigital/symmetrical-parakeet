@@ -366,7 +366,7 @@ export default function BrandStrategy() {
             }}
           >
             <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85 }}>
-              This is a strategy designed to lay the foundations for a powerful brand. It identifies existing barriers to growth and a deliberate approach to overcome them. It positions The Old Tiger's Head as the automatic high-trust choice for SE3's primary spenders and secures revenue growth across the 15-year lease.
+              This is a strategic roadmap to transforming The Old Tiger's Head into a powerful brand. It examines existing barriers to growth and identifies a clear pathway to overcoming them. It positions The Old Tiger's Head as the automatic high-trust choice for SE3's primary spenders, unlocking reliable, steady revenue growth over the term of its 15-year lease.
             </p>
           </div>
 
