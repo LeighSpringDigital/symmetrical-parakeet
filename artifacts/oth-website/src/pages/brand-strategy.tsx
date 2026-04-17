@@ -366,7 +366,7 @@ export default function BrandStrategy() {
             }}
           >
             <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85 }}>
-              Positioning The Old Tiger's Head as 'The Automatic High-Trust Venue of Choice for SE3' is highly achieveable through strategic, targeted branding. By defining a confident identity, and systematically removing the perceptual barriers that currently prevent female decision-makers from entering, the pub will convert initial hesitation into lasting loyalty and deliver reliable, sustainable revenue growth throughout the 15-year lease.
+              Positioning The Old Tiger's Head as 'The Automatic High-Trust Venue of Choice for SE3' is achieveable through strategic, targeted branding and on minimal ad spend. By defining a confident identity, and systematically removing the perceptual barriers that currently prevent female decision-makers from entering, the pub will convert initial hesitation into lasting loyalty and deliver reliable, sustainable revenue growth throughout the 15-year lease.
             </p>
           </div>
 
