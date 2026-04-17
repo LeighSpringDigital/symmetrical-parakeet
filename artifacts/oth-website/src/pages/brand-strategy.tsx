@@ -366,7 +366,7 @@ export default function BrandStrategy() {
             }}
           >
             <p style={{ color: NAVY, fontSize: "0.95rem", lineHeight: 1.75, opacity: 0.85 }}>
-              This is a strategic roadmap to transforming The Old Tiger's Head into a powerful brand. It examines existing barriers to growth and identifies a clear pathway to overcoming them. It positions The Old Tiger's Head as the automatic high-trust choice for SE3's primary spenders, unlocking reliable, steady revenue growth over the term of its 15-year lease.
+              In order to establish The Old Tiger's Head as "the automatic high-trust venue of choice for SE3's primary spenders", taking a clear, deliberate and strategic approach to branding is essential. By defining a confident identity, and systematically removing the perceptual barriers that currently prevent customers from entering, the pub will convert initial hesitation into lasting loyalty and deliver reliable, sustainable revenue growth throughout the 15-year lease.
             </p>
           </div>
 
