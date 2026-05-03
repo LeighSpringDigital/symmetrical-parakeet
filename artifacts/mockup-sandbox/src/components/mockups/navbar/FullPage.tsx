@@ -14,7 +14,7 @@ const navLinksLeft = [
 ];
 
 const whatsOn = [
-  { day: "Every Friday", time: "8pm – late", title: "Friday Night Jazz", desc: "Live jazz from local musicians in the bar. No booking required — just show up and soak it in.", tag: "Music" },
+  { day: "Every Saturday", time: "8pm – late", title: "Saturday Night Live Band", desc: "Live band from local musicians in the Tiger Room. No booking required — just show up and soak it in.", tag: "Music" },
   { day: "Every Sunday", time: "12pm – 5pm", title: "Sunday Roast & Live Rugby", desc: "Our legendary Sunday roast served while the big game plays. Book a table to guarantee your spot.", tag: "Food & Sport" },
   { day: "Every Tuesday", time: "7:30pm", title: "Quiz Night", desc: "The best pub quiz in Lee. Teams of up to 6. Prizes, laughs, and a pint or two.", tag: "Quiz" },
   { day: "Monthly", time: "Various", title: "Comedy Night", desc: "Stand-up comedy from rising and established acts. Tickets available at the bar.", tag: "Comedy" },
@@ -79,12 +79,12 @@ export function FullPage() {
       <div style={{ backgroundColor: GOLD, color: NAVY }} className="overflow-hidden py-2 relative z-30">
         <div className="flex whitespace-nowrap animate-[ticker_35s_linear_infinite]">
           {[
-            "FRIDAY NIGHT JAZZ @ 8PM",
+            "SATURDAY NIGHT LIVE BAND @ 8PM",
             "SUNDAY ROAST & LIVE RUGBY",
             "QUIZ NIGHT EVERY TUESDAY",
             "PRIVATE HIRE FUNCTION ROOM AVAILABLE",
             "JOIN THE TIGERS PRIDE LOYALTY CLUB",
-            "FRIDAY NIGHT JAZZ @ 8PM",
+            "SATURDAY NIGHT LIVE BAND @ 8PM",
             "SUNDAY ROAST & LIVE RUGBY",
             "QUIZ NIGHT EVERY TUESDAY",
             "PRIVATE HIRE FUNCTION ROOM AVAILABLE",
@@ -517,20 +517,16 @@ export function FullPage() {
                 className="text-2xl font-black uppercase tracking-wide mb-6"
                 style={{ color: GOLD, fontFamily: FONT }}
               >
-                Rob &amp; the Team
+                The Heart of Lee Restored
               </h3>
               <div className="space-y-5 text-white/72 text-[15px] leading-loose">
                 <p>
-                  When Rob took on the Old Tigers Head, he did so with one clear purpose: to give Lee back its pub. Not a gastropub. Not a bar. A proper, welcoming local — where regulars are greeted by name, where the food is made with real care, and where nobody ever feels like a stranger for long.
+                  When Rob stepped into the Old Tiger’s Head, he saw more than a pub; he saw a historic landmark that deserved to be restored as the social epicentre of South East London.
                 </p>
                 <p>
-                  Together with Cara, Paolo, and the rest of the team, Rob has poured heart and soul into restoring the Tiger to its rightful place at the heart of the community. Every Sunday roast is crafted from the best local suppliers. Every event is planned to bring people together. Every pint is pulled with pride.
-                </p>
-                <p>
-                  Their commitment is simple: quality in everything, warmth in every welcome. Whether you're a regular popping in for a swift half or a family celebrating something special, you'll be looked after the way a good local always should.
+                  Today, the Old Tiger’s Head is once again a place for Lee to truly belong. Rob and his team have reclaimed this timeless destination, creating a refined community cornerstone where heritage meets modern hospitality. It is a safe, beautiful space where all generations gather to enjoy exceptional food, an impeccable garden, and the kind of service that turns a simple visit into a lasting memory.
                 </p>
               </div>
-
               <div className="mt-8 flex gap-4 flex-wrap">
                 {[
                   { value: "1750", label: "Est." },
@@ -566,9 +562,9 @@ export function FullPage() {
                     note: "Cara makes every guest feel at home from the moment they walk in. A true natural in hospitality — warm, attentive, and always ready with a recommendation.",
                   },
                   {
-                    name: "Paolo",
+                    name: "Rob",
                     role: "Head Chef",
-                    note: "Paolo brings craft and love to every dish. Seasonal, honest, always made from scratch — and the reason people book a table two weeks in advance for Sunday lunch.",
+                    note: "Rob brings craft and love to every dish. Seasonal, honest, always made from scratch — and the reason people book a table two weeks in advance for Sunday lunch.",
                   },
                 ].map((person) => (
                   <div key={person.name} className="flex gap-5 items-start">

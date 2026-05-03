@@ -1,0 +1,8 @@
+name = "oth-api-server"
+main = "src/index.ts"
+compatibility_date = "2025-04-30"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+EXCEL_FILE_URL = "your-onedrive-direct-download-url"
+NODE_ENV = "production"

@@ -1,0 +1,19 @@
+name = "old-tigers-head"
+compatibility_date = "2024-04-01"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
+
+# D1 Database for CMS content, settings, and events
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "oth-db"
+# database_id = "00000000-0000-0000-0000-000000000000" # Placeholder
+
+# R2 Bucket for hero videos, images, and menu files
+# [[r2_buckets]]
+# binding = "BUCKET"
+# bucket_name = "oth-media"
+
+[vars]
+# Default settings
+SITE_URL = "https://old-tigers-head.pages.dev"

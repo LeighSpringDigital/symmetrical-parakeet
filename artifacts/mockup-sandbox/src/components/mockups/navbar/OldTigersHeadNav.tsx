@@ -38,12 +38,12 @@ export function OldTigersHeadNav() {
       <div className="relative z-10 bg-[#C9A227] text-black overflow-hidden py-2">
         <div className="flex whitespace-nowrap animate-[ticker_30s_linear_infinite]">
           {[
-            "FRIDAY NIGHT JAZZ @ 8PM",
+            "SATURDAY NIGHT LIVE BAND @ 8PM",
             "SUNDAY ROAST & LIVE RUGBY",
             "QUIZ NIGHT EVERY TUESDAY",
             "PRIVATE HIRE FUNCTION ROOM AVAILABLE",
             "JOIN THE TIGERS PRIDE LOYALTY CLUB",
-            "FRIDAY NIGHT JAZZ @ 8PM",
+            "SATURDAY NIGHT LIVE BAND @ 8PM",
             "SUNDAY ROAST & LIVE RUGBY",
             "QUIZ NIGHT EVERY TUESDAY",
             "PRIVATE HIRE FUNCTION ROOM AVAILABLE",

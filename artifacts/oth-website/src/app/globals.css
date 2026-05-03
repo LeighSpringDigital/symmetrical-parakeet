@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #002942;
+  --gold: #C9A227;
+  --cream: #f5f0e8;
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-gold: var(--gold);
+  --color-cream: var(--cream);
+}
+
+@layer base {
+  * {
+    font-family: 'Century Gothic', 'Avant Garde', CenturyGothic, AppleGothic, sans-serif;
+    font-variant: small-caps;
+  }
+
+  body {
+    background-color: var(--navy);
+    color: white;
+    @apply antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, nav, button, a {
+    letter-spacing: 0.1em;
+  }
+}
+
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

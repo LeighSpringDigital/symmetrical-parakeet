@@ -44,6 +44,16 @@ Thumbs.db
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
 
+# Next.js / Cloudflare / Build outputs
+.next
+.vercel
+.open-next
+out
+dist
+
+# Backups
+*-old
+
 # Replit
 .cache/
 .local/
