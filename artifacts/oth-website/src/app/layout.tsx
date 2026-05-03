@@ -2,9 +2,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { emergencyNotice as mockNotice } from "@/lib/config";
 import { getEmergencyNotice } from "@/lib/db/queries";
-import { getRequestContext, getOptionalRequestContext } from "@cloudflare/next-on-pages";
+import { getRequestContext, getOptionalRequestContext } from "@/lib/cloudflare-shim";
 
-export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
 export const metadata = {

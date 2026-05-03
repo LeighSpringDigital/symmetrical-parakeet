@@ -1,6 +1,6 @@
 "use server";
 
-import { getOptionalRequestContext } from "@cloudflare/next-on-pages";
+import { getOptionalRequestContext } from "@/lib/cloudflare-shim";
 import { getDb } from "@/lib/db";
 import { events, siteSettings, emergencyNotice, menuItems } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";

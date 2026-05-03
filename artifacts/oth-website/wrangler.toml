@@ -1,9 +1,11 @@
 name = "old-tigers-head"
-compatibility_date = "2024-04-01"
+compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
+main = ".open-next/worker.js"
 
-# Cloudflare Pages build output (used by @cloudflare/next-on-pages)
-pages_build_output_dir = ".vercel/output/static"
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
 
 # D1 Database for CMS content, settings, and events
 # [[d1_databases]]
@@ -17,4 +19,4 @@ pages_build_output_dir = ".vercel/output/static"
 # bucket_name = "oth-media"
 
 [vars]
-SITE_URL = "https://old-tigers-head.pages.dev"
+SITE_URL = "https://old-tigers-head.leighthedigitaldiscofairy.workers.dev"

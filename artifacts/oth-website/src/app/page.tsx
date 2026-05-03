@@ -1,8 +1,7 @@
 import HomeClient from "@/components/HomeClient";
 import { getEvents, getSiteSettings } from "@/lib/db/queries";
-import { getOptionalRequestContext } from "@cloudflare/next-on-pages";
+import { getOptionalRequestContext } from "@/lib/cloudflare-shim";
 
-export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {

@@ -1,10 +1,8 @@
-import { getRequestContext } from "@cloudflare/next-on-pages";
+import { getOptionalRequestContext } from "@/lib/cloudflare-shim";
 import { getMenuItems } from "@/lib/db/queries";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import { getOptionalRequestContext } from "@cloudflare/next-on-pages";
 
-export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
 export default async function MenuPage({ searchParams }: { searchParams: Promise<{ type?: string }> }) {

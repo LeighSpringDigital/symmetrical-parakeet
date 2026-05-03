@@ -4,8 +4,6 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Calendar, Clock, Ticket, Share2, Facebook, Instagram, Twitter, ChevronLeft } from "lucide-react";
 
-export const runtime = "edge";
-
 const eventsData: Record<string, any> = {
   "1": {
     title: "Friday Night Jazz",
