@@ -1,4 +1,4 @@
-export async function uploadToR2(bucket: R2Bucket, file: File, path: string) {
+export async function uploadToR2(bucket: any, file: File, path: string) {
   try {
     const arrayBuffer = await file.arrayBuffer();
     await bucket.put(path, arrayBuffer, {

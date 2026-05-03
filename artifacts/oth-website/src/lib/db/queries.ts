@@ -2,7 +2,7 @@ import { getDb } from "./index";
 import { events, menuItems, siteSettings, emergencyNotice } from "./schema";
 import { eq } from "drizzle-orm";
 
-export async function getEvents(d1: D1Database) {
+export async function getEvents(d1: any) {
   try {
     const db = getDb(d1);
     return await db.select().from(events).where(eq(events.isActive, true));
@@ -12,7 +12,7 @@ export async function getEvents(d1: D1Database) {
   }
 }
 
-export async function getMenuItems(d1: D1Database, type: string) {
+export async function getMenuItems(d1: any, type: string) {
   try {
     const db = getDb(d1);
     return await db.select().from(menuItems).where(eq(menuItems.menuType, type));
@@ -22,7 +22,7 @@ export async function getMenuItems(d1: D1Database, type: string) {
   }
 }
 
-export async function getSiteSettings(d1: D1Database) {
+export async function getSiteSettings(d1: any) {
   try {
     const db = getDb(d1);
     const settings = await db.select().from(siteSettings);
@@ -36,7 +36,7 @@ export async function getSiteSettings(d1: D1Database) {
   }
 }
 
-export async function getEmergencyNotice(d1: D1Database) {
+export async function getEmergencyNotice(d1: any) {
   try {
     const db = getDb(d1);
     const notice = await db.select().from(emergencyNotice).where(eq(emergencyNotice.id, 1)).get();
