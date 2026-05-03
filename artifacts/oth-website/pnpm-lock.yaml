@@ -37,7 +37,7 @@ importers:
         version: 3.6.0
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.2
+        version: 0.45.2(@cloudflare/workers-types@4.20260503.1)
       framer-motion:
         specifier: ^12.23.24
         version: 12.38.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -65,10 +65,13 @@ importers:
     devDependencies:
       '@cloudflare/next-on-pages':
         specifier: ^1.13.16
-        version: 1.13.16(next@16.2.4(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.87.0)
+        version: 1.13.16(@cloudflare/workers-types@4.20260503.1)(next@16.2.4(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.87.0(@cloudflare/workers-types@4.20260503.1))
+      '@cloudflare/workers-types':
+        specifier: ^4.20260503.1
+        version: 4.20260503.1
       '@opennextjs/cloudflare':
         specifier: ^1.19.5
-        version: 1.19.5(next@16.2.4(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.87.0)
+        version: 1.19.5(next@16.2.4(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.87.0(@cloudflare/workers-types@4.20260503.1))
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.2.4
@@ -83,7 +86,7 @@ importers:
         version: 19.2.3(@types/react@19.2.14)
       drizzle-zod:
         specifier: ^0.8.3
-        version: 0.8.3(drizzle-orm@0.45.2)(zod@3.25.76)
+        version: 0.8.3(drizzle-orm@0.45.2(@cloudflare/workers-types@4.20260503.1))(zod@3.25.76)
       eslint:
         specifier: ^9
         version: 9.39.4(jiti@2.6.1)
@@ -98,7 +101,7 @@ importers:
         version: 5.9.3
       wrangler:
         specifier: ^4.87.0
-        version: 4.87.0
+        version: 4.87.0(@cloudflare/workers-types@4.20260503.1)
 
 packages:
 
@@ -519,6 +522,9 @@ packages:
     engines: {node: '>=16'}
     cpu: [x64]
     os: [win32]
+
+  '@cloudflare/workers-types@4.20260503.1':
+    resolution: {integrity: sha512-8VKtafR4fNMtddutOnam3yq3AQvrl9bzuMio3B3AEAfrdx7xaaDV0Oyxz54P07lODwX0jydukGLC1rpDdYXAAA==}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -5226,7 +5232,7 @@ snapshots:
 
   '@cloudflare/kv-asset-handler@0.5.0': {}
 
-  '@cloudflare/next-on-pages@1.13.16(next@16.2.4(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.87.0)':
+  '@cloudflare/next-on-pages@1.13.16(@cloudflare/workers-types@4.20260503.1)(next@16.2.4(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.87.0(@cloudflare/workers-types@4.20260503.1))':
     dependencies:
       acorn: 8.16.0
       ast-types: 0.14.2
@@ -5241,7 +5247,9 @@ snapshots:
       package-manager-manager: 0.2.0
       pcre-to-regexp: 1.1.0
       semver: 7.7.4
-      wrangler: 4.87.0
+      wrangler: 4.87.0(@cloudflare/workers-types@4.20260503.1)
+    optionalDependencies:
+      '@cloudflare/workers-types': 4.20260503.1
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -5281,6 +5289,8 @@ snapshots:
 
   '@cloudflare/workerd-windows-64@1.20260430.1':
     optional: true
+
+  '@cloudflare/workers-types@4.20260503.1': {}
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -5785,7 +5795,7 @@ snapshots:
       - aws-crt
       - supports-color
 
-  '@opennextjs/cloudflare@1.19.5(next@16.2.4(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.87.0)':
+  '@opennextjs/cloudflare@1.19.5(next@16.2.4(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.87.0(@cloudflare/workers-types@4.20260503.1))':
     dependencies:
       '@ast-grep/napi': 0.40.5
       '@dotenvx/dotenvx': 1.31.0
@@ -5797,7 +5807,7 @@ snapshots:
       glob: 12.0.0
       next: 16.2.4(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       ts-tqdm: 0.8.6
-      wrangler: 4.87.0
+      wrangler: 4.87.0(@cloudflare/workers-types@4.20260503.1)
       yargs: 18.0.0
     transitivePeerDependencies:
       - aws-crt
@@ -7122,11 +7132,13 @@ snapshots:
 
   dotenv@16.6.1: {}
 
-  drizzle-orm@0.45.2: {}
+  drizzle-orm@0.45.2(@cloudflare/workers-types@4.20260503.1):
+    optionalDependencies:
+      '@cloudflare/workers-types': 4.20260503.1
 
-  drizzle-zod@0.8.3(drizzle-orm@0.45.2)(zod@3.25.76):
+  drizzle-zod@0.8.3(drizzle-orm@0.45.2(@cloudflare/workers-types@4.20260503.1))(zod@3.25.76):
     dependencies:
-      drizzle-orm: 0.45.2
+      drizzle-orm: 0.45.2(@cloudflare/workers-types@4.20260503.1)
       zod: 3.25.76
 
   dunder-proto@1.0.1:
@@ -9135,7 +9147,7 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20260430.1
       '@cloudflare/workerd-windows-64': 1.20260430.1
 
-  wrangler@4.87.0:
+  wrangler@4.87.0(@cloudflare/workers-types@4.20260503.1):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.5.0
       '@cloudflare/unenv-preset': 2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260430.1)
@@ -9146,6 +9158,7 @@ snapshots:
       unenv: 2.0.0-rc.24
       workerd: 1.20260430.1
     optionalDependencies:
+      '@cloudflare/workers-types': 4.20260503.1
       fsevents: 2.3.3
     transitivePeerDependencies:
       - bufferutil
