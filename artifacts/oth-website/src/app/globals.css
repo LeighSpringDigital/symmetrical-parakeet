@@ -15,7 +15,6 @@
 @layer base {
   * {
     font-family: 'Century Gothic', 'Avant Garde', CenturyGothic, AppleGothic, sans-serif;
-    font-variant: small-caps;
   }
 
   body {
@@ -24,8 +23,30 @@
     @apply antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6, nav, button, a {
-    letter-spacing: 0.1em;
+  /* 
+   * Small caps throughout: first letter renders at full cap height,
+   * remaining letters as smaller caps. Applied to all headings,
+   * nav elements, buttons, and links sitewide.
+   */
+  h1, h2, h3, h4, h5, h6 {
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+  }
+
+  nav a, nav button, nav span {
+    font-variant: small-caps;
+    letter-spacing: 0.15em;
+  }
+
+  button, a {
+    font-variant: small-caps;
+    letter-spacing: 0.12em;
+  }
+
+  /* Body copy stays readable — no small-caps on paragraphs */
+  p, li, td, th, label, input, textarea {
+    font-variant: normal;
+    letter-spacing: 0.02em;
   }
 }
 
@@ -34,5 +55,19 @@
   scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+/* Print styles for menu */
+@media print {
+  nav, footer, .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .print-menu {
+    padding: 2rem;
   }
 }
