@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const metadata = {
   title: "Contact | The Old Tiger's Head · Lee Green SE12",
   description: "351 Lee High Road, London SE12 8RU. Opening hours, directions, parking, and buses.",
@@ -5,7 +7,7 @@ export const metadata = {
 
 export default function FindUs() {
   return (
-    <main className="bg-navy text-white pt-[68px]">
+    <main className="bg-navy text-white pt-[72px]">
 
       <div className="bg-navy py-14 px-6 border-b border-white/10">
         <div className="max-w-5xl mx-auto">
@@ -13,13 +15,31 @@ export default function FindUs() {
         </div>
       </div>
 
+      {/* Contact buttons — prominent */}
+      <section className="bg-gold py-10 px-6">
+        <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+          <a href="tel:02045680111"
+            className="bg-navy text-gold font-black uppercase tracking-widest px-6 py-4 hover:bg-white hover:text-navy transition-colors sc text-sm">
+            📞 Call Us
+          </a>
+          <a href="mailto:enquiries@theoldtigershead.com"
+            className="bg-navy text-gold font-black uppercase tracking-widest px-6 py-4 hover:bg-white hover:text-navy transition-colors sc text-sm">
+            ✉ Email Us
+          </a>
+          <Link href="/book"
+            className="bg-navy text-gold font-black uppercase tracking-widest px-6 py-4 hover:bg-white hover:text-navy transition-colors sc text-sm">
+            📅 Book a Table
+          </Link>
+        </div>
+      </section>
+
       {/* Details + Map — Cream */}
       <section className="bg-cream py-16 px-6">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
           <div className="space-y-10">
             <div>
               <h2 className="text-navy font-black uppercase text-sm tracking-widest mb-4 sc">Address</h2>
-              <p className="text-navy/70 leading-relaxed">
+              <p className="text-navy/70 leading-relaxed text-sm">
                 351 Lee High Road<br />London SE12 8RU<br /><br />
                 At the Lee Green crossroads — junction of the A20, A205, and A4000.
               </p>
@@ -40,13 +60,6 @@ export default function FindUs() {
               </div>
             </div>
             <div>
-              <h2 className="text-navy font-black uppercase text-sm tracking-widest mb-4 sc">Get in Touch</h2>
-              <div className="space-y-3 text-navy/70 text-sm">
-                <a href="tel:02045680111" className="block hover:text-gold transition-colors">020 4568 0111</a>
-                <a href="mailto:enquiries@theoldtigershead.com" className="block hover:text-gold transition-colors">enquiries@theoldtigershead.com</a>
-              </div>
-            </div>
-            <div>
               <h2 className="text-navy font-black uppercase text-sm tracking-widest mb-4 sc">Getting Here</h2>
               <div className="space-y-3 text-navy/70 text-sm">
                 <p><span className="font-bold text-navy">Bus:</span> 261, 321, and 178 stop directly outside. SL4 Superloop nearby.</p>
@@ -54,6 +67,9 @@ export default function FindUs() {
                 <p><span className="font-bold text-navy">Parking:</span> On-street nearby. Sainsbury's car park two minutes' walk.</p>
               </div>
             </div>
+            <Link href="/faq" className="inline-block border border-navy/20 text-navy/50 text-xs font-black uppercase tracking-widest px-6 py-3 hover:border-navy hover:text-navy transition-colors sc">
+              View FAQ →
+            </Link>
           </div>
 
           <div className="flex flex-col gap-4">
@@ -68,9 +84,6 @@ export default function FindUs() {
               target="_blank" rel="noopener noreferrer"
               className="border border-navy/20 text-navy/50 text-xs font-black uppercase tracking-widest px-6 py-3 text-center hover:border-navy hover:text-navy transition-colors sc">
               Open in Google Maps
-            </a>
-            <a href="/faq" className="border border-navy/20 text-navy/50 text-xs font-black uppercase tracking-widest px-6 py-3 text-center hover:border-navy hover:text-navy transition-colors sc">
-              View FAQ
             </a>
           </div>
         </div>

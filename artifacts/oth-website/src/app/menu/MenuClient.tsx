@@ -7,7 +7,7 @@ const TABS = [
   { key: "today", label: "Today" },
   { key: "sunday", label: "Sunday" },
   { key: "lunch", label: "Lunch" },
-  { key: "children", label: "Children's" },
+  { key: "children", label: "Children" },
 ];
 
 const MENU: Record<string, {section:string; items:{name:string; price:string; desc:string}[]}[]> = {
@@ -74,7 +74,7 @@ export default function MenuClient({ initialItems }: { initialItems: any[] | nul
   const data = MENU[tab] || MENU.today;
 
   return (
-    <main className="bg-cream pt-[68px] min-h-screen">
+    <main className="bg-cream pt-[72px] min-h-screen">
       <div className="bg-navy py-14 px-6 border-b border-white/10">
         <div className="max-w-5xl mx-auto flex items-end justify-between">
           <h1 className="text-5xl md:text-7xl font-black uppercase text-gold sc">Menu</h1>
@@ -85,11 +85,11 @@ export default function MenuClient({ initialItems }: { initialItems: any[] | nul
       </div>
 
       <div className="max-w-5xl mx-auto px-6 py-12">
-        {/* Tabs */}
-        <div className="flex gap-2 flex-wrap mb-12 no-print">
+        {/* Equal-width tabs */}
+        <div className="grid grid-cols-4 gap-2 mb-10 no-print">
           {TABS.map(t => (
             <button key={t.key} onClick={() => setTab(t.key)}
-              className={`px-6 py-2.5 border-2 text-xs font-black uppercase tracking-wider transition-all sc ${
+              className={`py-3 border-2 text-xs font-black uppercase tracking-wide transition-all sc text-center ${
                 tab===t.key ? "bg-navy border-navy text-gold" : "border-navy/30 text-navy hover:border-navy"
               }`}>
               {t.label}

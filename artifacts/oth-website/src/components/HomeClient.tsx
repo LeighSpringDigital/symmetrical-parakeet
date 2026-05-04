@@ -2,12 +2,12 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Printer } from "lucide-react";
+import { ChevronLeft, ChevronRight, Printer, Star } from "lucide-react";
 import { featureFlags as mockFlags } from "@/lib/config";
 
 const EVENTS = [
   { id: 2, title: "Sunday Roast", date: "Every Sunday", sub: "Last sitting 5pm", img: "/food-roast-beef.webp" },
-  { id: 1, title: "Garden BBQ", date: "Every Saturday", sub: "From 1pm · No booking needed", img: "/food-fish-bar.jpg" },
+  { id: 1, title: "Garden BBQ", date: "Every Saturday", sub: "From 1pm · No booking needed", img: "/beer-garden.webp" },
   { id: 3, title: "Quiz Night", date: "Every Sunday", sub: "7:30pm · Free entry", img: "/quiz.jpg" },
   { id: 4, title: "Comedy Night", date: "First Thursday", sub: "8pm · Tiger Room", img: "/comedy.jpg" },
   { id: 5, title: "Live Sport", date: "Match Days", sub: "Big screen · Great atmosphere", img: "/sport.jpg" },
@@ -17,7 +17,7 @@ const MENU_TABS = [
   { key: "today", label: "Today" },
   { key: "sunday", label: "Sunday" },
   { key: "lunch", label: "Lunch" },
-  { key: "children", label: "Children's" },
+  { key: "children", label: "Children" },
 ];
 
 const MENU: Record<string, {section:string; items:{name:string; price:string; desc:string}[]}[]> = {
@@ -40,7 +40,7 @@ const MENU: Record<string, {section:string; items:{name:string; price:string; de
     { section: "The Roast", items: [
       { name: "Sirloin of Beef", price: "£22.00", desc: "28-day dry-aged · Yorkshire pudding · roast potatoes · seasonal vegetables · 48-hour gravy" },
       { name: "Leg of Lamb", price: "£21.00", desc: "Slow-roasted · rosemary jus · all the trimmings" },
-      { name: "Roast Chicken", price: "£19.50", desc: "Free-range · stuffing · bacon · the full works" },
+      { name: "Roast Chicken", price: "£19.50", desc: "Free-range · stuffing · bacon" },
       { name: "Nut Roast", price: "£17.00", desc: "Seasonal vegetables · mushroom gravy" },
     ]},
     { section: "Extras", items: [
@@ -83,7 +83,6 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
   const scrollRef = useRef<HTMLDivElement>(null);
   const [tab, setTab] = useState("today");
   const events = (initialEvents && initialEvents.length > 0) ? initialEvents : EVENTS;
-  const flags = settings || mockFlags;
 
   const scroll = (dir: "left"|"right") => {
     if (!scrollRef.current) return;
@@ -94,65 +93,69 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
   return (
     <main>
 
-      {/* ══ 1. HERO — Navy with video ══════════════════════════════ */}
+      {/* ══ 1. HERO ══════════════════════════════════════════════════ */}
       <section className="relative h-screen flex flex-col items-center justify-center text-center overflow-hidden bg-navy">
-        <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-60">
+        <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-55">
           <source src="/hero-video.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-navy/30 via-transparent to-navy/70" />
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-navy/20 via-transparent to-navy/80" />
         <div className="relative z-10 px-6">
-          <p className="text-gold font-black uppercase tracking-[0.5em] mb-1 text-sm md:text-base sc">The Old</p>
-          <h1 className="text-gold font-black uppercase leading-none sc" style={{fontSize:"clamp(3.5rem,9vw,8rem)",letterSpacing:"0.05em"}}>
+          <p className="text-gold font-black uppercase tracking-[0.5em] mb-1 text-sm sc">The Old</p>
+          <h1 className="text-gold font-black uppercase leading-none sc" style={{fontSize:"clamp(3.5rem,8vw,7rem)", letterSpacing:"0.06em"}}>
             Tigers Head
           </h1>
           <p className="text-white/50 font-bold uppercase tracking-[0.4em] text-xs mt-5 mb-10">
             Est. 1750 · Lee Green, London
           </p>
-          <Link href="/book"
-            className="inline-block bg-gold text-navy font-black uppercase tracking-[0.2em] px-10 py-4 hover:bg-white transition-colors sc text-sm">
+          <Link href="/book" className="inline-block bg-gold text-navy font-black uppercase tracking-[0.2em] px-10 py-4 hover:bg-white transition-colors sc text-sm">
             Book a Table
           </Link>
         </div>
       </section>
 
-      {/* ══ 2. WELCOME — Cream ══════════════════════════════════════ */}
+      {/* ══ 2. WELCOME — Cream ═══════════════════════════════════════ */}
       <section className="bg-cream py-20 px-6">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-navy font-black uppercase text-3xl md:text-4xl mb-6 sc">Welcome to The Tiger</h2>
+          <h2 className="text-navy font-black uppercase text-3xl md:text-4xl mb-6 sc">Welcome</h2>
           <p className="text-navy/70 text-lg leading-relaxed">
-            Grade II listed, established 1750, at the heart of Lee Green. 
-            A pub run by people who care — about the food, the building, and the people who walk through the door. 
-            Your family is welcome here.
+            Situated in the heart of South East London, The Old Tiger's Head is a dog-friendly pub 
+            that blends three centuries of history with a warm, welcoming atmosphere. 
+            A neighbourhood favourite offering the best of British cuisine, 
+            with a focus on seasonality and top-quality ingredients.
           </p>
         </div>
       </section>
 
-      {/* ══ 3. FOOD PHOTO — Full width divider ══════════════════════ */}
-      <div className="w-full h-[50vh] md:h-[60vh] overflow-hidden">
+      {/* ══ 3. FOOD PHOTO DIVIDER — roast beef ══════════════════════ */}
+      <div className="w-full overflow-hidden" style={{height:"55vh"}}>
         <img src="/food-roast-beef.webp" alt="Sunday roast at The Old Tiger's Head"
-          className="w-full h-full object-cover object-center" />
+          className="w-full h-full object-cover" style={{objectPosition:"center 30%"}} />
       </div>
 
-      {/* ══ 4. SUNDAY ROAST — Navy ══════════════════════════════════ */}
+      {/* ══ 4. SUNDAY ROAST — Navy ═══════════════════════════════════ */}
       <section className="bg-navy py-20 px-6">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Every Sunday</p>
             <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc">Sunday Roast</h2>
             <p className="text-white/70 leading-relaxed mb-4">
-              Proper joints, 48-hour gravy, hand-made Yorkshire puddings, roast potatoes, 
-              and everything your Sunday should have. 
-              Served from noon until 5pm — and it sells out most weeks.
+              Proper joints, 48-hour gravy, hand-made Yorkshire puddings, and all the trimmings. 
+              Served from noon until 5pm. High chairs available — children's roast on the menu.
             </p>
-            <p className="text-white/50 text-sm mb-8">High chairs available. Children's roast on the menu.</p>
             <Link href="/book" className="inline-block bg-gold text-navy font-black uppercase tracking-[0.2em] px-8 py-3.5 hover:bg-white transition-colors sc text-sm">
               Book a Table
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <img src="/food-yorkshire.webp" alt="Yorkshire puddings" className="w-full h-48 object-cover" />
-            <img src="/food-roast-chicken.jpg" alt="Roast chicken" className="w-full h-48 object-cover" />
-            <img src="/food-crumble.jpg" alt="Berry crumble" className="w-full h-48 object-cover col-span-2" />
+            <div className="overflow-hidden" style={{height:"200px"}}>
+              <img src="/food-yorkshire.webp" alt="Yorkshire puddings" className="w-full h-full object-cover" style={{objectPosition:"center 20%"}} />
+            </div>
+            <div className="overflow-hidden" style={{height:"200px"}}>
+              <img src="/food-roast-chicken.jpg" alt="Roast chicken" className="w-full h-full object-cover" style={{objectPosition:"center 25%"}} />
+            </div>
+            <div className="overflow-hidden col-span-2" style={{height:"180px"}}>
+              <img src="/food-crumble.jpg" alt="Berry crumble" className="w-full h-full object-cover" style={{objectPosition:"center 40%"}} />
+            </div>
           </div>
         </div>
       </section>
@@ -160,29 +163,32 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
       {/* ══ 5. MENU — Cream ══════════════════════════════════════════ */}
       <section id="menu" className="bg-cream py-20 px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
             <h2 className="text-navy font-black uppercase text-3xl md:text-4xl sc">Our Menu</h2>
-            <div className="flex items-center gap-2 flex-wrap">
-              {MENU_TABS.map(t => (
-                <button key={t.key} onClick={() => setTab(t.key)}
-                  className={`px-5 py-2 border-2 text-xs font-black uppercase tracking-wider transition-all sc ${
-                    tab===t.key ? "bg-navy border-navy text-gold" : "border-navy/30 text-navy hover:border-navy"
-                  }`}>
-                  {t.label}
-                </button>
-              ))}
-              <button onClick={() => window.print()} className="text-navy/30 hover:text-navy transition-colors p-2 no-print" title="Print menu">
+            <div className="flex items-center gap-2">
+              {/* Equal width tabs */}
+              <div className="grid grid-cols-4 gap-2 w-full md:w-auto">
+                {MENU_TABS.map(t => (
+                  <button key={t.key} onClick={() => setTab(t.key)}
+                    className={`py-2.5 border-2 text-xs font-black uppercase tracking-wide transition-all sc text-center whitespace-nowrap ${
+                      tab===t.key ? "bg-navy border-navy text-gold" : "border-navy/30 text-navy hover:border-navy"
+                    }`} style={{minWidth:"80px"}}>
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+              <button onClick={() => window.print()} className="text-navy/30 hover:text-navy transition-colors p-2 no-print ml-1" title="Print menu">
                 <Printer size={16} />
               </button>
             </div>
           </div>
-          <p className="text-navy/40 text-xs uppercase tracking-widest font-bold mb-10">
-            {tab === "sunday" ? "Served Sunday 12:00–17:00" : "Served daily 12:00–21:00"}
+          <p className="text-navy/30 text-xs uppercase tracking-widest font-bold mb-10">
+            {tab==="sunday" ? "Served Sunday 12:00 – 17:00" : "Served daily 12:00 – 21:00"}
           </p>
           <div className="grid md:grid-cols-3 gap-10">
             {(MENU[tab]||MENU.today).map(({section, items}) => (
               <div key={section}>
-                <h3 className="text-gold font-black uppercase text-xs tracking-widest border-b border-navy/10 pb-3 mb-5 sc">{section}</h3>
+                <h3 className="text-gold font-black uppercase text-xs tracking-widest border-b border-navy/10 pb-3 mb-6 sc">{section}</h3>
                 <div className="space-y-5">
                   {items.map(item => (
                     <div key={item.name} className="flex justify-between items-start gap-3">
@@ -203,25 +209,25 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         </div>
       </section>
 
-      {/* ══ 6. FISH & CHIPS PHOTO — Full width divider ══════════════ */}
-      <div className="w-full h-[45vh] overflow-hidden">
-        <img src="/food-fish-chips.jpg" alt="Beer battered haddock at The Old Tiger's Head"
-          className="w-full h-full object-cover object-center" />
+      {/* ══ 6. FISH & CHIPS PHOTO DIVIDER ════════════════════════════ */}
+      <div className="w-full overflow-hidden" style={{height:"50vh"}}>
+        <img src="/food-fish-chips.jpg" alt="Beer battered haddock"
+          className="w-full h-full object-cover" style={{objectPosition:"center 35%"}} />
       </div>
 
-      {/* ══ 7. BEER GARDEN — Navy ═══════════════════════════════════ */}
+      {/* ══ 7. BEER GARDEN — Navy ════════════════════════════════════ */}
       <section className="bg-navy py-20 px-6">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <img src="/casper.jpg" alt="The beer garden" className="w-full h-72 md:h-96 object-cover order-2 md:order-1" />
+          <div className="overflow-hidden order-2 md:order-1" style={{height:"380px"}}>
+            <img src="/beer-garden.webp" alt="The beer garden at The Old Tiger's Head"
+              className="w-full h-full object-cover" style={{objectPosition:"center center"}} />
+          </div>
           <div className="order-1 md:order-2">
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Open Daily from Noon</p>
             <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc">The Beer Garden</h2>
             <p className="text-white/70 leading-relaxed mb-4">
-              Sheltered, decked, and heated when needed. One of the best spots in Lee Green for a long afternoon. 
-              Dogs welcome. Saturday BBQs from 1pm in summer.
-            </p>
-            <p className="text-white/50 text-sm mb-8">
-              If you need a garden table for a group, mention it when you book.
+              Sheltered, decked, and heated when needed — and one of the best spots in Lee Green 
+              for a long afternoon. Dogs welcome. Saturday BBQs from 1pm in summer.
             </p>
             <Link href="/book" className="inline-block border-2 border-gold text-gold font-black uppercase tracking-[0.2em] px-8 py-3.5 hover:bg-gold hover:text-navy transition-colors sc text-sm">
               Reserve a Table
@@ -230,15 +236,13 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         </div>
       </section>
 
-      {/* ══ 8. WHAT'S ON — Cream ════════════════════════════════════ */}
+      {/* ══ 8. WHAT'S ON — Cream ═════════════════════════════════════ */}
       <section className="bg-cream py-20 overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="flex items-center justify-between mb-10">
             <h2 className="text-navy font-black uppercase text-3xl md:text-4xl sc">What's On</h2>
             <div className="flex items-center gap-3">
-              <Link href="/events" className="text-xs font-black uppercase tracking-widest text-navy/40 hover:text-navy transition-colors hidden md:block sc">
-                All Events
-              </Link>
+              <Link href="/events" className="text-xs font-black uppercase tracking-widest text-navy/40 hover:text-navy transition-colors hidden md:block sc">All Events</Link>
               <button onClick={() => scroll("left")} className="p-2 border-2 border-navy/20 text-navy hover:border-navy transition-colors"><ChevronLeft size={18}/></button>
               <button onClick={() => scroll("right")} className="p-2 border-2 border-navy/20 text-navy hover:border-navy transition-colors"><ChevronRight size={18}/></button>
             </div>
@@ -246,7 +250,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
           <div ref={scrollRef} className="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2">
             {events.map((ev:any) => (
               <Link key={ev.id} href={`/events/${ev.id}`}
-                className="min-w-[260px] md:min-w-[320px] aspect-[3/4] relative group snap-start overflow-hidden flex-shrink-0 border border-navy/10">
+                className="min-w-[260px] md:min-w-[300px] aspect-[3/4] relative group snap-start overflow-hidden flex-shrink-0 border border-navy/10">
                 <img src={ev.imageUrl||ev.img} alt={ev.title}
                   className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent" />
@@ -261,9 +265,9 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         </div>
       </section>
 
-      {/* ══ 9. PARTIES & TIGER CLUB — Navy, side by side ════════════ */}
+      {/* ══ 9. PARTIES & TIGER CLUB — Navy ══════════════════════════ */}
       <section className="bg-navy py-20 px-6">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
           <div className="border border-white/10 p-10">
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Private Events</p>
             <h2 className="text-white font-black uppercase text-3xl mb-4 sc">Parties</h2>
@@ -279,9 +283,11 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Membership</p>
             <h2 className="text-white font-black uppercase text-3xl mb-4 sc">The Tiger Club</h2>
             <p className="text-white/60 leading-relaxed mb-6 text-sm">
-              Priority booking, members-only events, and a team that knows your name. 
-              For the people who make this pub what it is.
+              Priority booking, members-only events, and a team that knows your name.
             </p>
+            <div className="flex justify-center mb-6">
+              <img src="/tiger-club-card.png" alt="Tiger Club membership card" className="w-48 rounded-lg shadow-xl" />
+            </div>
             <Link href="/community" className="inline-block border-2 border-gold text-gold font-black uppercase tracking-wider px-7 py-3 hover:bg-gold hover:text-navy transition-colors sc text-xs">
               Find Out More
             </Link>
@@ -289,10 +295,29 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         </div>
       </section>
 
-      {/* ══ 10. HISTORY STRIP — full bleed image with text ══════════ */}
-      <div className="relative h-[40vh] overflow-hidden">
+      {/* ══ 10. REVIEW CTA — Cream ═══════════════════════════════════ */}
+      <section className="bg-cream py-16 px-6">
+        <div className="max-w-2xl mx-auto text-center">
+          <div className="flex justify-center gap-1 mb-4">
+            {[...Array(5)].map((_, i) => <Star key={i} size={24} className="text-gold fill-gold" />)}
+          </div>
+          <h2 className="text-navy font-black uppercase text-2xl md:text-3xl mb-4 sc">Had a Good Time?</h2>
+          <p className="text-navy/60 mb-8 leading-relaxed">
+            Reviews help other people in Lee Green find us. If you enjoyed your visit, 
+            we'd love to hear about it.
+          </p>
+          <a href="https://g.page/r/GOOGLE_REVIEW_LINK/review" target="_blank" rel="noopener noreferrer"
+            className="inline-block bg-navy text-gold font-black uppercase tracking-[0.2em] px-10 py-4 hover:bg-gold hover:text-navy transition-colors sc text-sm">
+            Leave a Review
+          </a>
+          <p className="text-navy/30 text-xs mt-4">Opens Google Reviews</p>
+        </div>
+      </section>
+
+      {/* ══ 11. HISTORY STRIP ════════════════════════════════════════ */}
+      <div className="relative overflow-hidden" style={{height:"38vh"}}>
         <img src="/hist-oth-modern-red.jpg" alt="The Old Tiger's Head" className="absolute inset-0 w-full h-full object-cover grayscale" />
-        <div className="absolute inset-0 bg-navy/75 flex items-center justify-center text-center px-6">
+        <div className="absolute inset-0 bg-navy/80 flex items-center justify-center text-center px-6">
           <div>
             <p className="text-gold text-xs font-black tracking-[0.5em] uppercase mb-3 sc">Est. 1750</p>
             <h2 className="text-white font-black uppercase text-3xl md:text-5xl sc">Part of Lee Since 1750</h2>

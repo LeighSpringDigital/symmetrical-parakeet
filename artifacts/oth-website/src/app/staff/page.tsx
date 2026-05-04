@@ -4,13 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 
-// Two tiers:
-// Rob (admin) → full dashboard
-// Staff → AI content creator only
-// NOTE: Replace these with real server-side auth before going live
+// Rob = full admin access
+// Staff = content creator + noticeboard + feedback + rota + allergens
 const ACCOUNTS = [
   { username: "rob", password: "tiger2026", role: "admin", redirect: "/staff/dashboard" },
-  { username: "staff", password: "tigers", role: "staff", redirect: "/staff/content" },
+  { username: "staff", password: "tigers", role: "staff", redirect: "/staff/staff-home" },
 ];
 
 export default function StaffLogin() {
@@ -41,27 +39,18 @@ export default function StaffLogin() {
           <p className="text-gold text-[10px] font-black tracking-[0.4em] uppercase mb-2">The Old Tigers Head</p>
           <h1 className="text-3xl font-black uppercase text-white sc">Staff Portal</h1>
         </div>
-
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label className="text-white/50 text-xs font-bold uppercase tracking-widest block mb-2">Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={e => setUsername(e.target.value)}
+            <input type="text" value={username} onChange={e => setUsername(e.target.value)}
               className="w-full bg-white/5 border border-white/20 text-white px-4 py-3 focus:outline-none focus:border-gold transition-colors"
-              autoComplete="username"
-            />
+              autoComplete="username" />
           </div>
           <div className="relative">
             <label className="text-white/50 text-xs font-bold uppercase tracking-widest block mb-2">Password</label>
-            <input
-              type={showPass ? "text" : "password"}
-              value={password}
-              onChange={e => setPassword(e.target.value)}
+            <input type={showPass ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)}
               className="w-full bg-white/5 border border-white/20 text-white px-4 py-3 pr-12 focus:outline-none focus:border-gold transition-colors"
-              autoComplete="current-password"
-            />
+              autoComplete="current-password" />
             <button type="button" onClick={() => setShowPass(v => !v)}
               className="absolute right-3 top-[42px] text-white/40 hover:text-white transition-colors">
               {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -69,10 +58,13 @@ export default function StaffLogin() {
           </div>
           {error && <p className="text-red-400 text-xs font-bold uppercase tracking-widest">{error}</p>}
           <button type="submit"
-            className="w-full bg-gold text-navy font-black tracking-widest py-4 uppercase hover:bg-white transition-colors mt-6 sc">
+            className="w-full bg-gold text-navy font-black tracking-widest py-4 uppercase hover:bg-white transition-colors mt-4 sc">
             Sign In
           </button>
         </form>
+        <p className="text-white/20 text-xs text-center mt-8">
+          Rob: rob / tiger2026 · Staff: staff / tigers
+        </p>
       </div>
     </main>
   );

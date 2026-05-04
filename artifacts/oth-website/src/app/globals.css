@@ -21,56 +21,33 @@
     color: white;
     @apply antialiased;
   }
-  /* Body copy — normal, readable */
-  p, li, td, th, label, input, textarea, select, span.body {
+  p, li, td, th, label, input, textarea, select {
     font-variant: normal;
     letter-spacing: 0.02em;
   }
 }
 
 /*
- * SMALL CAPS — applied via .sc class
- * First letter of EACH WORD is full uppercase height.
- * Remaining letters are rendered as small capitals.
- * This is achieved by wrapping each word's first letter
- * via JS, OR by using font-variant: small-caps which 
- * renders the first letter of the element larger.
- * 
- * For reliable cross-browser enlarged first letter per word,
- * we use a combination: font-variant small-caps gives the
- * "all caps but smaller" effect, and we boost the first-letter.
+ * TRUE SMALL CAPS PER WORD
+ * font-variant: small-caps renders ALL letters as small capitals.
+ * Combined with text-transform: uppercase, every letter becomes uppercase.
+ * The visual effect of "first letter bigger" comes from the font itself
+ * rendering the initial caps of each word at full height when using
+ * font-variant: small-caps — this is how proper small caps typography works.
+ * We then use a JS-free CSS approach: wrap text in .sc and use
+ * font-variant: small-caps + a slightly larger font-size so the 
+ * capital letters stand out against the small-cap letters.
  */
 .sc {
   font-variant: small-caps;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
-/* Boost the very first letter of the element */
-.sc::first-letter {
-  font-size: 1.2em;
-  font-variant: normal;
-  text-transform: uppercase;
-  line-height: 0.85;
-}
-
-/* For nav links — tighter */
-.sc-nav {
+/* Nav links */
+.sc-sm {
   font-variant: small-caps;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.sc-nav::first-letter {
-  font-size: 1.15em;
-  font-variant: normal;
-  text-transform: uppercase;
-}
-
-/* Nav */
-nav a, nav button {
-  font-variant: small-caps;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
+  font-weight: 900;
 }
 
 @utility scrollbar-hide {
@@ -82,5 +59,4 @@ nav a, nav button {
 @media print {
   nav, footer, .no-print { display: none !important; }
   body { background: white !important; color: black !important; }
-  .print-only { display: block !important; }
 }
