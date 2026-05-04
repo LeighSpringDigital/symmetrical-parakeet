@@ -23,51 +23,51 @@
     @apply antialiased;
   }
 
-  /* 
-   * Small caps throughout: first letter renders at full cap height,
-   * remaining letters as smaller caps. Applied to all headings,
-   * nav elements, buttons, and links sitewide.
-   */
-  h1, h2, h3, h4, h5, h6 {
-    font-variant: small-caps;
-    letter-spacing: 0.08em;
-  }
-
-  nav a, nav button, nav span {
-    font-variant: small-caps;
-    letter-spacing: 0.15em;
-  }
-
-  button, a {
-    font-variant: small-caps;
-    letter-spacing: 0.12em;
-  }
-
-  /* Body copy stays readable — no small-caps on paragraphs */
-  p, li, td, th, label, input, textarea {
+  /* Body copy — normal variant, readable */
+  p, li, td, th, label, input, textarea, span {
     font-variant: normal;
     letter-spacing: 0.02em;
   }
 }
 
+/*
+ * SMALL CAPS HEADINGS
+ * First letter renders at full cap height (1.25em),
+ * remaining text in small-caps via font-variant.
+ * Apply .sc class to any heading element.
+ */
+.sc {
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+}
+
+.sc::first-letter {
+  font-size: 1.25em;
+  font-variant: normal;
+  line-height: 0.8;
+  margin-right: 0.01em;
+}
+
+/* Nav links small-caps */
+nav a, nav button {
+  font-variant: small-caps;
+  letter-spacing: 0.15em;
+}
+
+/* Buttons */
+button, .btn {
+  font-variant: small-caps;
+  letter-spacing: 0.12em;
+}
+
 @utility scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  &::-webkit-scrollbar { display: none; }
 }
 
-/* Print styles for menu */
+/* Print styles */
 @media print {
-  nav, footer, .no-print {
-    display: none !important;
-  }
-  body {
-    background: white !important;
-    color: black !important;
-  }
-  .print-menu {
-    padding: 2rem;
-  }
+  nav, footer, .no-print { display: none !important; }
+  body { background: white !important; color: black !important; }
 }

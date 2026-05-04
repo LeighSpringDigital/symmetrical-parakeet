@@ -2,71 +2,77 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Lock, User } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
+
+// Two tiers:
+// Rob (admin) → full dashboard
+// Staff → AI content creator only
+// NOTE: Replace these with real server-side auth before going live
+const ACCOUNTS = [
+  { username: "rob", password: "tiger2026", role: "admin", redirect: "/staff/dashboard" },
+  { username: "staff", password: "tigers", role: "staff", redirect: "/staff/content" },
+];
 
 export default function StaffLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === "test" && password === "test") {
-      // In a real app, we'd set a cookie or session here
-      router.push("/staff/dashboard");
+    const account = ACCOUNTS.find(a => a.username === username.toLowerCase() && a.password === password);
+    if (account) {
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("oth_role", account.role);
+        sessionStorage.setItem("oth_user", account.username);
+      }
+      router.push(account.redirect);
     } else {
-      setError("Invalid credentials");
+      setError("Incorrect username or password.");
     }
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-navy px-6">
-      <div className="w-full max-w-md bg-white/5 border border-white/10 p-12 text-center">
-        <h1 className="text-4xl font-black uppercase text-gold mb-8">Staff Portal</h1>
-        
-        <form onSubmit={handleLogin} className="space-y-6 text-left">
+    <main className="min-h-screen bg-navy flex items-center justify-center px-6">
+      <div className="w-full max-w-sm">
+        <div className="text-center mb-12">
+          <p className="text-gold text-[10px] font-black tracking-[0.4em] uppercase mb-2">The Old Tigers Head</p>
+          <h1 className="text-3xl font-black uppercase text-white sc">Staff Portal</h1>
+        </div>
+
+        <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">Username</label>
-            <div className="relative">
-              <User className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20" size={18} />
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="w-full bg-navy border border-white/10 py-4 pl-12 pr-4 text-white focus:border-gold outline-none transition-colors"
-                placeholder="Staff ID"
-              />
-            </div>
+            <label className="text-white/50 text-xs font-bold uppercase tracking-widest block mb-2">Username</label>
+            <input
+              type="text"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+              className="w-full bg-white/5 border border-white/20 text-white px-4 py-3 focus:outline-none focus:border-gold transition-colors"
+              autoComplete="username"
+            />
           </div>
-
-          <div>
-            <label className="block text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">Password</label>
-            <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20" size={18} />
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-navy border border-white/10 py-4 pl-12 pr-4 text-white focus:border-gold outline-none transition-colors"
-                placeholder="••••••••"
-              />
-            </div>
+          <div className="relative">
+            <label className="text-white/50 text-xs font-bold uppercase tracking-widest block mb-2">Password</label>
+            <input
+              type={showPass ? "text" : "password"}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              className="w-full bg-white/5 border border-white/20 text-white px-4 py-3 pr-12 focus:outline-none focus:border-gold transition-colors"
+              autoComplete="current-password"
+            />
+            <button type="button" onClick={() => setShowPass(v => !v)}
+              className="absolute right-3 top-[42px] text-white/40 hover:text-white transition-colors">
+              {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
           </div>
-
-          {error && <p className="text-red-500 text-xs font-bold uppercase tracking-widest">{error}</p>}
-
-          <button
-            type="submit"
-            className="w-full bg-gold text-navy font-black py-5 uppercase tracking-widest hover:bg-white transition-colors"
-          >
-            Enter Portal
+          {error && <p className="text-red-400 text-xs font-bold uppercase tracking-widest">{error}</p>}
+          <button type="submit"
+            className="w-full bg-gold text-navy font-black tracking-widest py-4 uppercase hover:bg-white transition-colors mt-6 sc">
+            Sign In
           </button>
         </form>
-
-        <p className="mt-12 text-[10px] font-bold uppercase tracking-widest text-white/20">
-          Authorized personnel only. All access is logged.
-        </p>
       </div>
     </main>
   );
