@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, Printer, Star } from "lucide-react";
 import { featureFlags as mockFlags } from "@/lib/config";
 
 const EVENTS = [
-  { id: 2, title: "Sunday Roast", date: "Every Sunday", sub: "Last sitting 5pm", img: "/food-roast-beef.webp" },
+  { id: 2, title: "Sunday Roast", date: "Every Sunday", sub: "Last sitting 5pm — book ahead", img: "/food-roast-beef.webp" },
   { id: 1, title: "Garden BBQ", date: "Every Saturday", sub: "From 1pm · No booking needed", img: "/beer-garden.webp" },
   { id: 3, title: "Quiz Night", date: "Every Sunday", sub: "7:30pm · Free entry", img: "/quiz.jpg" },
   { id: 4, title: "Comedy Night", date: "First Thursday", sub: "8pm · Tiger Room", img: "/comedy.jpg" },
@@ -306,7 +306,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
             Reviews help other people in Lee Green find us. If you enjoyed your visit, 
             we'd love to hear about it.
           </p>
-          <a href="https://g.page/r/GOOGLE_REVIEW_LINK/review" target="_blank" rel="noopener noreferrer"
+          <a href="https://search.google.com/local/writereview?placeid=ChIJf3aSzYkCdkgRQVYZ6Q3s7qA" target="_blank" rel="noopener noreferrer"
             className="inline-block bg-navy text-gold font-black uppercase tracking-[0.2em] px-10 py-4 hover:bg-gold hover:text-navy transition-colors sc text-sm">
             Leave a Review
           </a>

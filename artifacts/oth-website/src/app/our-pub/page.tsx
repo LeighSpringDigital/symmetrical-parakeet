@@ -28,6 +28,9 @@ export default function OurPub() {
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="border border-navy/10 p-8">
+              <div className="overflow-hidden mb-5 border border-navy/10" style={{height:"180px"}}>
+                <img src="/Rob.jpg" alt="Rob, Landlord" className="w-full h-full object-cover" style={{objectPosition:"center top"}} />
+              </div>
               <h3 className="text-2xl font-black uppercase text-gold mb-1 sc">Rob</h3>
               <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-4">Landlord</p>
               <p className="text-navy/70 text-sm leading-relaxed">
@@ -37,6 +40,9 @@ export default function OurPub() {
               </p>
             </div>
             <div className="border border-navy/10 p-8">
+              <div className="overflow-hidden mb-5 border border-navy/10" style={{height:"180px"}}>
+                <img src="/Rob.jpg" alt="Rob, Head Chef" className="w-full h-full object-cover" style={{objectPosition:"center top"}} />
+              </div>
               <h3 className="text-2xl font-black uppercase text-gold mb-1 sc">Rob</h3>
               <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-4">Head Chef</p>
               <p className="text-navy/70 text-sm leading-relaxed">

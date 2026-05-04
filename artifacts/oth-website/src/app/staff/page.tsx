@@ -64,7 +64,7 @@ export default function StaffLogin() {
           </button>
         </form>
         <p className="text-white/20 text-xs text-center mt-8">
-          Rob: rob / tiger2026 · Staff: staff / tigers
+          Contact Rob if you need your login details.
         </p>
       </div>
     </main>

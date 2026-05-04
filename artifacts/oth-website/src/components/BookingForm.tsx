@@ -18,9 +18,10 @@ export default function BookingForm({ type = "table" }: { type?: FormType }) {
     setLoading(true);
     setError("");
     try {
-      // Formspree — Rob to create free account at formspree.io
-      // Replace xyzabc with the form ID from Formspree dashboard
-      const res = await fetch("https://formspree.io/f/xyzabc", {
+      // TODO: Rob — create a free account at formspree.io, create a form, and paste the form ID below.
+      // The form ID is the part after /f/ in the endpoint URL (e.g. "xabc1234" from formspree.io/f/xabc1234)
+      const FORMSPREE_ID = "xyzabc"; // ← Replace this with your Formspree form ID
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify({ _subject: type === "party" ? "Party Enquiry — OTH" : "Table Booking — OTH", type, ...form }),
