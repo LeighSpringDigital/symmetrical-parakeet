@@ -16,48 +16,61 @@
   * {
     font-family: 'Century Gothic', 'Avant Garde', CenturyGothic, AppleGothic, sans-serif;
   }
-
   body {
     background-color: var(--navy);
     color: white;
     @apply antialiased;
   }
-
-  /* Body copy — normal variant, readable */
-  p, li, td, th, label, input, textarea, span {
+  /* Body copy — normal, readable */
+  p, li, td, th, label, input, textarea, select, span.body {
     font-variant: normal;
     letter-spacing: 0.02em;
   }
 }
 
 /*
- * SMALL CAPS HEADINGS
- * First letter renders at full cap height (1.25em),
- * remaining text in small-caps via font-variant.
- * Apply .sc class to any heading element.
+ * SMALL CAPS — applied via .sc class
+ * First letter of EACH WORD is full uppercase height.
+ * Remaining letters are rendered as small capitals.
+ * This is achieved by wrapping each word's first letter
+ * via JS, OR by using font-variant: small-caps which 
+ * renders the first letter of the element larger.
+ * 
+ * For reliable cross-browser enlarged first letter per word,
+ * we use a combination: font-variant small-caps gives the
+ * "all caps but smaller" effect, and we boost the first-letter.
  */
 .sc {
   font-variant: small-caps;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
+/* Boost the very first letter of the element */
 .sc::first-letter {
-  font-size: 1.25em;
+  font-size: 1.2em;
   font-variant: normal;
-  line-height: 0.8;
-  margin-right: 0.01em;
+  text-transform: uppercase;
+  line-height: 0.85;
 }
 
-/* Nav links small-caps */
+/* For nav links — tighter */
+.sc-nav {
+  font-variant: small-caps;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.sc-nav::first-letter {
+  font-size: 1.15em;
+  font-variant: normal;
+  text-transform: uppercase;
+}
+
+/* Nav */
 nav a, nav button {
   font-variant: small-caps;
   letter-spacing: 0.15em;
-}
-
-/* Buttons */
-button, .btn {
-  font-variant: small-caps;
-  letter-spacing: 0.12em;
 }
 
 @utility scrollbar-hide {
@@ -66,8 +79,8 @@ button, .btn {
   &::-webkit-scrollbar { display: none; }
 }
 
-/* Print styles */
 @media print {
   nav, footer, .no-print { display: none !important; }
   body { background: white !important; color: black !important; }
+  .print-only { display: block !important; }
 }

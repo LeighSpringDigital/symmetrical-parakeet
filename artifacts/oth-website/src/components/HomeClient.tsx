@@ -5,12 +5,12 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight, Printer } from "lucide-react";
 import { featureFlags as mockFlags } from "@/lib/config";
 
-const MOCK_EVENTS = [
-  { id: 1, title: "Garden BBQ", date: "Every Saturday · From 1pm", img: "/sunday-roast.jpg", desc: "The garden is open, the grill is on. No booking needed." },
-  { id: 2, title: "Sunday Roast", date: "Every Sunday · Last sitting 5pm", img: "/sunday-roast.jpg", desc: "Book by Thursday — it sells out every week." },
-  { id: 3, title: "Quiz Night", date: "Every Sunday · 7:30pm", img: "/quiz.jpg", desc: "Free entry. Teams of up to six." },
-  { id: 4, title: "Comedy Night", date: "First Thursday · 8pm", img: "/comedy.jpg", desc: "The Tiger Room. Proper stand-up." },
-  { id: 5, title: "Live Sport", date: "Match Days", img: "/sport.jpg", desc: "Big screen, great atmosphere." },
+const EVENTS = [
+  { id: 2, title: "Sunday Roast", date: "Every Sunday", sub: "Last sitting 5pm", img: "/food-roast-beef.webp" },
+  { id: 1, title: "Garden BBQ", date: "Every Saturday", sub: "From 1pm · No booking needed", img: "/food-fish-bar.jpg" },
+  { id: 3, title: "Quiz Night", date: "Every Sunday", sub: "7:30pm · Free entry", img: "/quiz.jpg" },
+  { id: 4, title: "Comedy Night", date: "First Thursday", sub: "8pm · Tiger Room", img: "/comedy.jpg" },
+  { id: 5, title: "Live Sport", date: "Match Days", sub: "Big screen · Great atmosphere", img: "/sport.jpg" },
 ];
 
 const MENU_TABS = [
@@ -20,7 +20,7 @@ const MENU_TABS = [
   { key: "children", label: "Children's" },
 ];
 
-const MENU_DATA: Record<string, { section: string; items: { name: string; price: string; desc: string }[] }[]> = {
+const MENU: Record<string, {section:string; items:{name:string; price:string; desc:string}[]}[]> = {
   today: [
     { section: "Starters", items: [
       { name: "Soup of the Day", price: "£7.50", desc: "With sourdough" },
@@ -33,15 +33,15 @@ const MENU_DATA: Record<string, { section: string; items: { name: string; price:
     ]},
     { section: "Puddings", items: [
       { name: "Sticky Toffee Pudding", price: "£8.00", desc: "Toffee sauce, vanilla ice cream" },
-      { name: "Cheese & Biscuits", price: "£10.50", desc: "Three British cheeses" },
+      { name: "Berry Crumble", price: "£8.00", desc: "Seasonal fruit, oat crumble, custard" },
     ]},
   ],
   sunday: [
     { section: "The Roast", items: [
-      { name: "Sirloin of Beef", price: "£22.00", desc: "28-day dry-aged, Yorkshire pudding, roast potatoes, seasonal vegetables, 48-hour gravy" },
-      { name: "Leg of Lamb", price: "£21.00", desc: "Slow-roasted, rosemary jus, all the trimmings" },
-      { name: "Roast Chicken", price: "£19.50", desc: "Free-range, stuffing, bacon, the full works" },
-      { name: "Nut Roast", price: "£17.00", desc: "Seasonal vegetables, mushroom gravy" },
+      { name: "Sirloin of Beef", price: "£22.00", desc: "28-day dry-aged · Yorkshire pudding · roast potatoes · seasonal vegetables · 48-hour gravy" },
+      { name: "Leg of Lamb", price: "£21.00", desc: "Slow-roasted · rosemary jus · all the trimmings" },
+      { name: "Roast Chicken", price: "£19.50", desc: "Free-range · stuffing · bacon · the full works" },
+      { name: "Nut Roast", price: "£17.00", desc: "Seasonal vegetables · mushroom gravy" },
     ]},
     { section: "Extras", items: [
       { name: "Extra Yorkshire Pudding", price: "£2.00", desc: "" },
@@ -50,7 +50,7 @@ const MENU_DATA: Record<string, { section: string; items: { name: string; price:
     ]},
     { section: "Puddings", items: [
       { name: "Sticky Toffee Pudding", price: "£8.00", desc: "Toffee sauce, vanilla ice cream" },
-      { name: "Apple & Blackberry Crumble", price: "£8.00", desc: "Oat crumble, custard or cream" },
+      { name: "Berry Crumble", price: "£8.00", desc: "Seasonal fruit, oat crumble, custard" },
     ]},
   ],
   lunch: [
@@ -60,7 +60,7 @@ const MENU_DATA: Record<string, { section: string; items: { name: string; price:
       { name: "Smoked Salmon Bagel", price: "£12.00", desc: "Cream cheese, capers, dill, lemon" },
     ]},
     { section: "Mains", items: [
-      { name: "Tiger Burger", price: "£16.50", desc: "Dry-aged beef, secret sauce, triple-cooked chips" },
+      { name: "Tiger Burger", price: "£16.50", desc: "Dry-aged beef, secret sauce, chips" },
       { name: "Beer Battered Haddock", price: "£17.00", desc: "Chips, mushy peas, tartare" },
       { name: "Caesar Salad", price: "£12.50", desc: "Romaine, parmesan, croutons, anchovy dressing" },
     ]},
@@ -79,108 +79,110 @@ const MENU_DATA: Record<string, { section: string; items: { name: string; price:
   ],
 };
 
-export default function HomeClient({ initialEvents, settings }: { initialEvents: any[] | null; settings: any | null }) {
+export default function HomeClient({ initialEvents, settings }: { initialEvents:any[]|null; settings:any|null }) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeTab, setActiveTab] = useState("today");
-  const displayEvents = (initialEvents && initialEvents.length > 0) ? initialEvents : MOCK_EVENTS;
+  const [tab, setTab] = useState("today");
+  const events = (initialEvents && initialEvents.length > 0) ? initialEvents : EVENTS;
   const flags = settings || mockFlags;
 
-  const scroll = (dir: "left" | "right") => {
+  const scroll = (dir: "left"|"right") => {
     if (!scrollRef.current) return;
     const { scrollLeft, clientWidth } = scrollRef.current;
-    scrollRef.current.scrollTo({ left: dir === "left" ? scrollLeft - clientWidth : scrollLeft + clientWidth, behavior: "smooth" });
+    scrollRef.current.scrollTo({ left: dir==="left" ? scrollLeft-clientWidth : scrollLeft+clientWidth, behavior:"smooth" });
   };
-
-  const menuData = MENU_DATA[activeTab] || MENU_DATA.today;
 
   return (
     <main>
 
-      {/* ── HERO ──────────────────────────────────── */}
-      <section className="relative h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
-        <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0">
+      {/* ══ 1. HERO — Navy with video ══════════════════════════════ */}
+      <section className="relative h-screen flex flex-col items-center justify-center text-center overflow-hidden bg-navy">
+        <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-60">
           <source src="/hero-video.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 z-0" style={{background:"linear-gradient(to bottom, rgba(0,20,40,0.35) 0%, rgba(20,10,0,0.55) 50%, rgba(0,41,66,0.8) 100%)"}} />
-        <div className="relative z-10">
-          <p className="text-gold text-sm md:text-base font-black tracking-[0.5em] uppercase mb-0 sc">The Old</p>
-          <h1 className="text-gold font-black uppercase leading-none sc" style={{fontSize:"clamp(4rem,12vw,11rem)"}}>
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-navy/30 via-transparent to-navy/70" />
+        <div className="relative z-10 px-6">
+          <p className="text-gold font-black uppercase tracking-[0.5em] mb-1 text-sm md:text-base sc">The Old</p>
+          <h1 className="text-gold font-black uppercase leading-none sc" style={{fontSize:"clamp(3.5rem,9vw,8rem)",letterSpacing:"0.05em"}}>
             Tigers Head
           </h1>
-          <p className="text-white/50 text-xs md:text-sm font-bold tracking-[0.5em] uppercase mt-4 mb-10">
+          <p className="text-white/50 font-bold uppercase tracking-[0.4em] text-xs mt-5 mb-10">
             Est. 1750 · Lee Green, London
           </p>
-          <Link href="/book" className="inline-block bg-gold text-navy font-black tracking-[0.2em] px-12 py-4 uppercase hover:bg-white transition-colors sc">
+          <Link href="/book"
+            className="inline-block bg-gold text-navy font-black uppercase tracking-[0.2em] px-10 py-4 hover:bg-white transition-colors sc text-sm">
             Book a Table
           </Link>
         </div>
       </section>
 
-      {/* ── INTRO ─────────────────────────────────── */}
-      <section className="relative min-h-[40vh] flex items-center">
-        <img src="/hist-oth-modern-red.jpg" alt="The Old Tiger's Head" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-navy/80" />
-        <div className="relative z-10 max-w-2xl mx-auto px-6 py-20 text-center">
-          <p className="text-white/85 text-lg md:text-xl leading-relaxed">
-            The Tiger has been at this crossroads since 1750. Grade II listed. 
-            Run by people who care about it. Open to everyone. 
-            There's a table here for you.
+      {/* ══ 2. WELCOME — Cream ══════════════════════════════════════ */}
+      <section className="bg-cream py-20 px-6">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-navy font-black uppercase text-3xl md:text-4xl mb-6 sc">Welcome to The Tiger</h2>
+          <p className="text-navy/70 text-lg leading-relaxed">
+            Grade II listed, established 1750, at the heart of Lee Green. 
+            A pub run by people who care — about the food, the building, and the people who walk through the door. 
+            Your family is welcome here.
           </p>
         </div>
       </section>
 
-      {/* ── SUNDAY ROAST ─────────────────────────── */}
-      <section className="relative min-h-[65vh] flex items-end overflow-hidden">
-        <img src="/sunday-roast.jpg" alt="Sunday Roast" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{background:"linear-gradient(to top, rgba(0,41,66,0.97) 0%, rgba(0,41,66,0.3) 65%, transparent 100%)"}} />
-        <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 pb-16 w-full grid md:grid-cols-2 gap-8 items-end">
+      {/* ══ 3. FOOD PHOTO — Full width divider ══════════════════════ */}
+      <div className="w-full h-[50vh] md:h-[60vh] overflow-hidden">
+        <img src="/food-roast-beef.webp" alt="Sunday roast at The Old Tiger's Head"
+          className="w-full h-full object-cover object-center" />
+      </div>
+
+      {/* ══ 4. SUNDAY ROAST — Navy ══════════════════════════════════ */}
+      <section className="bg-navy py-20 px-6">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-2">Every Sunday</p>
-            <h2 className="text-5xl md:text-7xl font-black uppercase text-white leading-none sc">Sunday<br/>Roast</h2>
-          </div>
-          <div>
-            <p className="text-white/80 text-base leading-relaxed mb-6">
-              Proper joints, 48-hour gravy, Yorkshire pudding, roast potatoes, seasonal vegetables. 
-              Everything your Sunday deserves. Last sitting at 5pm — and it sells out most weeks. 
-              Book by Thursday to be sure of a table.
+            <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Every Sunday</p>
+            <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc">Sunday Roast</h2>
+            <p className="text-white/70 leading-relaxed mb-4">
+              Proper joints, 48-hour gravy, hand-made Yorkshire puddings, roast potatoes, 
+              and everything your Sunday should have. 
+              Served from noon until 5pm — and it sells out most weeks.
             </p>
-            <div className="flex gap-3 flex-wrap">
-              <Link href="/book" className="bg-gold text-navy font-black tracking-widest px-8 py-3 uppercase hover:bg-white transition-colors sc">Book a Table</Link>
-              <button onClick={() => setActiveTab("sunday")} className="border-2 border-white text-white font-black tracking-widest px-6 py-3 uppercase hover:border-gold hover:text-gold transition-colors sc">See the Menu</button>
-            </div>
+            <p className="text-white/50 text-sm mb-8">High chairs available. Children's roast on the menu.</p>
+            <Link href="/book" className="inline-block bg-gold text-navy font-black uppercase tracking-[0.2em] px-8 py-3.5 hover:bg-white transition-colors sc text-sm">
+              Book a Table
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <img src="/food-yorkshire.webp" alt="Yorkshire puddings" className="w-full h-48 object-cover" />
+            <img src="/food-roast-chicken.jpg" alt="Roast chicken" className="w-full h-48 object-cover" />
+            <img src="/food-crumble.jpg" alt="Berry crumble" className="w-full h-48 object-cover col-span-2" />
           </div>
         </div>
       </section>
 
-      {/* ── FULL MENU SECTION ─────────────────────── */}
-      <section id="menu" className="py-20 bg-cream">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-            <div>
-              <h2 className="text-4xl md:text-5xl font-black uppercase text-navy sc">Our Menu</h2>
-              <p className="text-navy/50 text-sm mt-2 uppercase tracking-widest font-bold">Served 12:00 – 21:00 daily</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="flex gap-2 flex-wrap">
-                {MENU_TABS.map(tab => (
-                  <button key={tab.key} onClick={() => setActiveTab(tab.key)}
-                    className={`px-5 py-2 border-2 text-xs font-black uppercase tracking-widest transition-all sc ${
-                      activeTab === tab.key ? "bg-navy border-navy text-gold" : "border-navy text-navy hover:bg-navy hover:text-white"
-                    }`}>
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-              <button onClick={() => window.print()} className="text-navy/30 hover:text-navy transition-colors" title="Print menu">
-                <Printer size={18} />
+      {/* ══ 5. MENU — Cream ══════════════════════════════════════════ */}
+      <section id="menu" className="bg-cream py-20 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+            <h2 className="text-navy font-black uppercase text-3xl md:text-4xl sc">Our Menu</h2>
+            <div className="flex items-center gap-2 flex-wrap">
+              {MENU_TABS.map(t => (
+                <button key={t.key} onClick={() => setTab(t.key)}
+                  className={`px-5 py-2 border-2 text-xs font-black uppercase tracking-wider transition-all sc ${
+                    tab===t.key ? "bg-navy border-navy text-gold" : "border-navy/30 text-navy hover:border-navy"
+                  }`}>
+                  {t.label}
+                </button>
+              ))}
+              <button onClick={() => window.print()} className="text-navy/30 hover:text-navy transition-colors p-2 no-print" title="Print menu">
+                <Printer size={16} />
               </button>
             </div>
           </div>
-
+          <p className="text-navy/40 text-xs uppercase tracking-widest font-bold mb-10">
+            {tab === "sunday" ? "Served Sunday 12:00–17:00" : "Served daily 12:00–21:00"}
+          </p>
           <div className="grid md:grid-cols-3 gap-10">
-            {menuData.map(({ section, items }) => (
+            {(MENU[tab]||MENU.today).map(({section, items}) => (
               <div key={section}>
-                <h3 className="text-gold font-black uppercase tracking-widest text-xs border-b border-navy/10 pb-3 mb-6 sc">{section}</h3>
+                <h3 className="text-gold font-black uppercase text-xs tracking-widest border-b border-navy/10 pb-3 mb-5 sc">{section}</h3>
                 <div className="space-y-5">
                   {items.map(item => (
                     <div key={item.name} className="flex justify-between items-start gap-3">
@@ -195,59 +197,63 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
               </div>
             ))}
           </div>
-
-          <p className="text-navy/30 text-xs text-center mt-10 uppercase tracking-widest">
-            Please inform your server of any allergies. Menu subject to availability.
+          <p className="text-navy/25 text-xs text-center mt-10 uppercase tracking-widest">
+            Please inform your server of any allergies before ordering.
           </p>
         </div>
       </section>
 
-      {/* ── BEER GARDEN ───────────────────────────── */}
-      <section className="relative min-h-[65vh] flex items-end overflow-hidden">
-        <img src="/casper.jpg" alt="The beer garden" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{background:"linear-gradient(to top, rgba(0,41,66,0.97) 0%, rgba(0,41,66,0.3) 65%, transparent 100%)"}} />
-        <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 pb-16 w-full grid md:grid-cols-2 gap-8 items-end">
-          <div>
-            <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-2">Open Daily from Noon</p>
-            <h2 className="text-5xl md:text-7xl font-black uppercase text-white leading-none sc">The Beer<br/>Garden</h2>
-          </div>
-          <div>
-            <p className="text-white/80 text-base leading-relaxed mb-6">
-              One of the best spots in Lee Green — sheltered, decked, heated when needed, and open all year. 
-              Dogs welcome. Saturday BBQs from 1pm through the summer. 
-              If you want a table outside for a group, mention it when you book.
+      {/* ══ 6. FISH & CHIPS PHOTO — Full width divider ══════════════ */}
+      <div className="w-full h-[45vh] overflow-hidden">
+        <img src="/food-fish-chips.jpg" alt="Beer battered haddock at The Old Tiger's Head"
+          className="w-full h-full object-cover object-center" />
+      </div>
+
+      {/* ══ 7. BEER GARDEN — Navy ═══════════════════════════════════ */}
+      <section className="bg-navy py-20 px-6">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <img src="/casper.jpg" alt="The beer garden" className="w-full h-72 md:h-96 object-cover order-2 md:order-1" />
+          <div className="order-1 md:order-2">
+            <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Open Daily from Noon</p>
+            <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc">The Beer Garden</h2>
+            <p className="text-white/70 leading-relaxed mb-4">
+              Sheltered, decked, and heated when needed. One of the best spots in Lee Green for a long afternoon. 
+              Dogs welcome. Saturday BBQs from 1pm in summer.
             </p>
-            <Link href="/book" className="border-2 border-white text-white font-black tracking-widest px-8 py-3 uppercase hover:border-gold hover:text-gold transition-colors sc">
-              Reserve a Garden Table
+            <p className="text-white/50 text-sm mb-8">
+              If you need a garden table for a group, mention it when you book.
+            </p>
+            <Link href="/book" className="inline-block border-2 border-gold text-gold font-black uppercase tracking-[0.2em] px-8 py-3.5 hover:bg-gold hover:text-navy transition-colors sc text-sm">
+              Reserve a Table
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ── WHAT'S ON ─────────────────────────────── */}
-      <section id="whats-on" className="py-20 bg-navy overflow-hidden">
-        <div className="max-w-[1600px] mx-auto px-6 md:px-12">
+      {/* ══ 8. WHAT'S ON — Cream ════════════════════════════════════ */}
+      <section className="bg-cream py-20 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6">
           <div className="flex items-center justify-between mb-10">
-            <h2 className="text-4xl md:text-5xl font-black uppercase text-gold sc">What's On</h2>
+            <h2 className="text-navy font-black uppercase text-3xl md:text-4xl sc">What's On</h2>
             <div className="flex items-center gap-3">
-              <Link href="/events" className="hidden md:block text-xs font-black tracking-widest uppercase text-white/30 hover:text-gold transition-colors border border-white/10 px-4 py-2 hover:border-gold">
+              <Link href="/events" className="text-xs font-black uppercase tracking-widest text-navy/40 hover:text-navy transition-colors hidden md:block sc">
                 All Events
               </Link>
-              <button onClick={() => scroll("left")} className="p-2.5 border-2 border-gold text-gold hover:bg-gold hover:text-navy transition-colors"><ChevronLeft size={20} /></button>
-              <button onClick={() => scroll("right")} className="p-2.5 border-2 border-gold text-gold hover:bg-gold hover:text-navy transition-colors"><ChevronRight size={20} /></button>
+              <button onClick={() => scroll("left")} className="p-2 border-2 border-navy/20 text-navy hover:border-navy transition-colors"><ChevronLeft size={18}/></button>
+              <button onClick={() => scroll("right")} className="p-2 border-2 border-navy/20 text-navy hover:border-navy transition-colors"><ChevronRight size={18}/></button>
             </div>
           </div>
-          <div ref={scrollRef} className="flex gap-5 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4">
-            {displayEvents.map((event: any) => (
-              <Link key={event.id} href={`/events/${event.id}`}
-                className="min-w-[260px] md:min-w-[360px] aspect-[4/5] relative group snap-start overflow-hidden flex-shrink-0 border border-white/10">
-                <img src={event.imageUrl || event.img} alt={event.title}
+          <div ref={scrollRef} className="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2">
+            {events.map((ev:any) => (
+              <Link key={ev.id} href={`/events/${ev.id}`}
+                className="min-w-[260px] md:min-w-[320px] aspect-[3/4] relative group snap-start overflow-hidden flex-shrink-0 border border-navy/10">
+                <img src={ev.imageUrl||ev.img} alt={ev.title}
                   className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <p className="text-gold text-xs font-bold tracking-widest uppercase mb-1">{event.date}</p>
-                  <h3 className="text-white text-xl font-black uppercase sc">{event.title}</h3>
-                  {event.desc && <p className="text-white/50 text-xs mt-1">{event.desc}</p>}
+                  <p className="text-gold text-xs font-bold tracking-widest uppercase mb-1">{ev.date}</p>
+                  {ev.sub && <p className="text-white/60 text-xs mb-2">{ev.sub}</p>}
+                  <h3 className="text-white text-lg font-black uppercase sc">{ev.title}</h3>
                 </div>
               </Link>
             ))}
@@ -255,76 +261,48 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         </div>
       </section>
 
-      {/* ── TIGER CLUB ────────────────────────────── */}
-      <section className="py-20 bg-navy border-t border-white/10">
-        <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-          <div className="bg-navy flex items-center justify-center">
-            <img src="/LoyaltyCard_bg002942.png" alt="Tiger Club card" className="w-full max-w-xs" />
-          </div>
-          <div>
-            <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-4">Membership</p>
-            <h2 className="text-4xl font-black uppercase text-white mb-4 sc">The Tiger Club</h2>
-            <p className="text-white/60 leading-relaxed mb-8">
-              Priority booking, members-only events, and a team that knows your name. 
-              For the people who consider this pub theirs.
+      {/* ══ 9. PARTIES & TIGER CLUB — Navy, side by side ════════════ */}
+      <section className="bg-navy py-20 px-6">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
+          <div className="border border-white/10 p-10">
+            <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Private Events</p>
+            <h2 className="text-white font-black uppercase text-3xl mb-4 sc">Parties</h2>
+            <p className="text-white/60 leading-relaxed mb-6 text-sm">
+              The Tiger Room seats 60 for dinner, 80 standing. High ceilings, original woodwork, 
+              its own bar and entrance. Birthdays, anniversaries, corporate dinners — talk to us.
             </p>
-            <Link href="/community#tiger-club" className="inline-block bg-gold text-navy font-black tracking-widest px-10 py-4 uppercase hover:bg-white transition-colors sc">
+            <Link href="/parties" className="inline-block bg-gold text-navy font-black uppercase tracking-wider px-7 py-3 hover:bg-white transition-colors sc text-xs">
+              Enquire Now
+            </Link>
+          </div>
+          <div className="border border-white/10 p-10">
+            <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Membership</p>
+            <h2 className="text-white font-black uppercase text-3xl mb-4 sc">The Tiger Club</h2>
+            <p className="text-white/60 leading-relaxed mb-6 text-sm">
+              Priority booking, members-only events, and a team that knows your name. 
+              For the people who make this pub what it is.
+            </p>
+            <Link href="/community" className="inline-block border-2 border-gold text-gold font-black uppercase tracking-wider px-7 py-3 hover:bg-gold hover:text-navy transition-colors sc text-xs">
               Find Out More
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ── HISTORY STRIP ─────────────────────────── */}
-      <section className="relative py-28 overflow-hidden">
-        <img src="/hist-1900s-lee-high-road.jpg" alt="Lee Green historical" className="absolute inset-0 w-full h-full object-cover grayscale" />
-        <div className="absolute inset-0 bg-navy/82" />
-        <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-black uppercase text-white mb-6 sc">Part of Lee<br/>Since 1750</h2>
-          <p className="text-white/60 text-base leading-relaxed mb-8 max-w-xl mx-auto">
-            Originally a coaching inn, rebuilt in 1896, Grade II listed. 
-            The Tiger has been the centre of this neighbourhood through everything Lee has seen.
-          </p>
-          <Link href="/our-pub#story" className="inline-block border-2 border-gold text-gold font-black tracking-widest px-8 py-3 uppercase hover:bg-gold hover:text-navy transition-all sc">
-            Our Story
-          </Link>
+      {/* ══ 10. HISTORY STRIP — full bleed image with text ══════════ */}
+      <div className="relative h-[40vh] overflow-hidden">
+        <img src="/hist-oth-modern-red.jpg" alt="The Old Tiger's Head" className="absolute inset-0 w-full h-full object-cover grayscale" />
+        <div className="absolute inset-0 bg-navy/75 flex items-center justify-center text-center px-6">
+          <div>
+            <p className="text-gold text-xs font-black tracking-[0.5em] uppercase mb-3 sc">Est. 1750</p>
+            <h2 className="text-white font-black uppercase text-3xl md:text-5xl sc">Part of Lee Since 1750</h2>
+            <Link href="/our-pub#story" className="inline-block mt-6 border border-gold text-gold font-black uppercase tracking-widest px-6 py-2.5 hover:bg-gold hover:text-navy transition-all sc text-xs">
+              Our Story
+            </Link>
+          </div>
         </div>
-      </section>
+      </div>
 
-      {/* ── FOOTER ────────────────────────────────── */}
-      <footer className="py-16 bg-navy border-t border-white/10">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-10 mb-12">
-          <div>
-            <p className="text-gold font-black uppercase tracking-widest text-xs mb-4 sc">The Old Tigers Head</p>
-            <p className="text-white/40 text-sm leading-relaxed">351 Lee High Road<br/>London SE12 8RU</p>
-          </div>
-          <div>
-            <p className="text-gold font-black uppercase tracking-widest text-xs mb-4 sc">Opening Hours</p>
-            <div className="text-white/40 text-sm space-y-1">
-              <p>Mon–Thu: 12:00–23:00</p>
-              <p>Fri–Sat: 12:00–00:00</p>
-              <p>Sunday: 12:00–22:00</p>
-              <p className="text-white/20 text-xs mt-2">Kitchen closes at 21:00</p>
-            </div>
-          </div>
-          <div>
-            <p className="text-gold font-black uppercase tracking-widest text-xs mb-4 sc">Get in Touch</p>
-            <div className="text-white/40 text-sm space-y-2">
-              <a href="tel:02045680111" className="block hover:text-gold transition-colors">020 4568 0111</a>
-              <a href="mailto:enquiries@theoldtigershead.com" className="block hover:text-gold transition-colors">enquiries@theoldtigershead.com</a>
-            </div>
-          </div>
-        </div>
-        <div className="max-w-6xl mx-auto px-6 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-white/20 text-[10px] font-bold uppercase tracking-[0.25em] gap-4">
-          <p>© 2026 The Old Tigers Head · Lee Green · London SE12 8RU</p>
-          <div className="flex gap-6">
-            <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
-            <Link href="/find-us" className="hover:text-white transition-colors">Find Us</Link>
-            <Link href="/our-pub" className="hover:text-white transition-colors">About</Link>
-            <Link href="/staff" className="hover:text-white transition-colors">Staff</Link>
-          </div>
-        </div>
-      </footer>
     </main>
   );
 }
