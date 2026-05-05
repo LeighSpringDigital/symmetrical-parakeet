@@ -43,7 +43,7 @@ const eventsData: Record<string, any> = {
     time: "Various",
     price: "Free Entry",
     img: "/sport.jpg",
-    description: "Watch the big games with a proper atmosphere. We show all major international and premiership rugby matches on our large screens. There's no better place in Lee to cheer on your team with a crowd of fellow fans.",
+    description: "Watch the big games in the right atmosphere. We show all major international and premiership rugby matches on our large screens. There is no better place in Lee to cheer on your team with a crowd of fellow fans.",
   },
 };
 

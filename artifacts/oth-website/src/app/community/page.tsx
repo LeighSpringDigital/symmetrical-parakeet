@@ -24,16 +24,16 @@ export default function Community() {
             <h2 className="text-navy font-black uppercase text-3xl md:text-4xl mb-6 sc">The Tiger Club</h2>
             <p className="text-navy/70 leading-relaxed mb-6">
               Priority booking, exclusive events, and a team that knows your name. 
-              Sign up and we'll be in touch.
+              Book your fifth table and choose your reward — dinner or a bottle of wine, on us.
             </p>
             <ul className="space-y-3 mb-8">
               {[
                 "Priority booking — 48 hours before general release",
-                "Personalised service at every visit",
-                "Exclusive members events and offers",
-                "First access to new menus and announcements",
+                "Every fifth booking: your choice of a free dinner or a bottle of wine",
+                "Personalised service at every visit — we will know your name and your order",
                 "Members welcome hours: Monday–Thursday 5–7pm",
-                "The Tiger's Letter — our monthly newsletter",
+                "Early access to new menus and seasonal announcements",
+                "The Tiger's Letter — our monthly members newsletter",
               ].map(b => (
                 <li key={b} className="flex items-start gap-3 text-navy/60 text-sm">
                   <span className="text-gold mt-1.5 flex-shrink-0 text-xs">—</span>{b}

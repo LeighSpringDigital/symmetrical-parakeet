@@ -283,7 +283,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Membership</p>
             <h2 className="text-white font-black uppercase text-3xl mb-4 sc"><SmallCaps>The Tiger Club</SmallCaps></h2>
             <p className="text-white/60 leading-relaxed mb-6 text-sm">
-              Priority booking, members-only events, and a team that knows your name.
+              Priority booking, members-only events, and a team that knows your name. Book your fifth table and choose your reward — dinner or a bottle of wine, on us.
             </p>
             <div className="flex justify-center mb-6">
               <img src="/tiger-club-card-navy.png" alt="Tiger Club membership card" className="w-64" style={{filter:"drop-shadow(0 8px 32px rgba(0,0,0,0.4))"}} />
