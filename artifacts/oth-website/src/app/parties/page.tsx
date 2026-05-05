@@ -10,7 +10,7 @@ export default function PartiesPage() {
     <main className="bg-navy text-white pt-[68px]">
 
       <div className="relative h-[30vh] overflow-hidden flex items-end">
-        <img src="/charitydinner.jpg" alt="Parties at The Old Tiger's Head" className="absolute inset-0 w-full h-full object-cover" />
+        <img src="/parties-toast.jpg" alt="Parties at The Old Tiger's Head" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-navy/70" />
         <div className="relative z-10 max-w-5xl mx-auto px-6 pb-10 w-full">
           <h1 className="text-5xl md:text-7xl font-black uppercase text-gold sc">Parties</h1>

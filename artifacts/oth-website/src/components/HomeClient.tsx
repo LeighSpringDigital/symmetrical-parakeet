@@ -6,8 +6,8 @@ import { ChevronLeft, ChevronRight, Printer, Star } from "lucide-react";
 import { featureFlags as mockFlags } from "@/lib/config";
 
 const EVENTS = [
-  { id: 2, title: "Sunday Roast", date: "Every Sunday", sub: "Last sitting 5pm — book ahead", img: "/food-roast-beef.webp" },
-  { id: 1, title: "Garden BBQ", date: "Every Saturday", sub: "From 1pm · No booking needed", img: "/beer-garden.webp" },
+  { id: 2, title: "Sunday Roast", date: "Every Sunday", sub: "Last sitting 5pm — book ahead", img: "/food-roast-beef-new.png" },
+  { id: 1, title: "Garden BBQ", date: "Every Saturday", sub: "From 1pm · No booking needed", img: "/garden-festoon.png" },
   { id: 3, title: "Quiz Night", date: "Every Sunday", sub: "7:30pm · Free entry", img: "/quiz.jpg" },
   { id: 4, title: "Comedy Night", date: "First Thursday", sub: "8pm · Tiger Room", img: "/comedy.jpg" },
   { id: 5, title: "Live Sport", date: "Match Days", sub: "Big screen · Great atmosphere", img: "/sport.jpg" },
@@ -100,9 +100,8 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         </video>
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-navy/20 via-transparent to-navy/80" />
         <div className="relative z-10 px-6">
-          <p className="text-gold font-black uppercase tracking-[0.5em] mb-1 text-sm sc">The Old</p>
-          <h1 className="text-gold font-black uppercase leading-none sc" style={{fontSize:"clamp(3.5rem,8vw,7rem)", letterSpacing:"0.06em"}}>
-            Tigers Head
+          <h1 className="text-gold font-black uppercase leading-none sc" style={{fontSize:"clamp(3rem,7vw,6.5rem)", letterSpacing:"0.06em"}}>
+            The Old Tiger&apos;s Head
           </h1>
           <p className="text-white/50 font-bold uppercase tracking-[0.4em] text-xs mt-5 mb-10">
             Est. 1750 · Lee Green, London
@@ -118,17 +117,17 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-navy font-black uppercase text-3xl md:text-4xl mb-6 sc">Welcome</h2>
           <p className="text-navy/70 text-lg leading-relaxed">
-            Situated in the heart of South East London, The Old Tiger's Head is a dog-friendly pub 
-            that blends three centuries of history with a warm, welcoming atmosphere. 
-            A neighbourhood favourite offering the best of British cuisine, 
-            with a focus on seasonality and top-quality ingredients.
+            The Old Tiger's Head has stood at the epicentre of Lee Green since 1750. 
+            Grade II listed, the Victorian bar, etched glass and high ceilings are all exactly as they were. 
+            What has changed is everything behind them: the kitchen, the cellar, the standards and the team. 
+            A neighbourhood pub for families, friends and regulars. The food is made here, the welcome is genuine, and the lease runs fifteen years.
           </p>
         </div>
       </section>
 
       {/* ══ 3. FOOD PHOTO DIVIDER — roast beef ══════════════════════ */}
       <div className="w-full overflow-hidden" style={{height:"55vh"}}>
-        <img src="/food-roast-beef.webp" alt="Sunday roast at The Old Tiger's Head"
+        <img src="/food-roast-beef-new.png" alt="Sunday roast at The Old Tiger's Head"
           className="w-full h-full object-cover" style={{objectPosition:"center 30%"}} />
       </div>
 
@@ -148,13 +147,13 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="overflow-hidden" style={{height:"200px"}}>
-              <img src="/food-yorkshire.webp" alt="Yorkshire puddings" className="w-full h-full object-cover" style={{objectPosition:"center 20%"}} />
+              <img src="/food-roast-yorkshire.png" alt="Yorkshire puddings" className="w-full h-full object-cover" style={{objectPosition:"center 20%"}} />
             </div>
             <div className="overflow-hidden" style={{height:"200px"}}>
-              <img src="/food-roast-chicken.jpg" alt="Roast chicken" className="w-full h-full object-cover" style={{objectPosition:"center 25%"}} />
+              <img src="/food-roast-chicken-new.png" alt="Roast chicken" className="w-full h-full object-cover" style={{objectPosition:"center 25%"}} />
             </div>
             <div className="overflow-hidden col-span-2" style={{height:"180px"}}>
-              <img src="/food-crumble.jpg" alt="Berry crumble" className="w-full h-full object-cover" style={{objectPosition:"center 40%"}} />
+              <img src="/food-crumble-new.png" alt="Berry crumble" className="w-full h-full object-cover" style={{objectPosition:"center 40%"}} />
             </div>
           </div>
         </div>
@@ -211,7 +210,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
 
       {/* ══ 6. FISH & CHIPS PHOTO DIVIDER ════════════════════════════ */}
       <div className="w-full overflow-hidden" style={{height:"50vh"}}>
-        <img src="/food-fish-chips.jpg" alt="Beer battered haddock"
+        <img src="/food-fish-chips-single.png" alt="Beer battered haddock"
           className="w-full h-full object-cover" style={{objectPosition:"center 35%"}} />
       </div>
 
@@ -219,7 +218,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
       <section className="bg-navy py-20 px-6">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div className="overflow-hidden order-2 md:order-1" style={{height:"380px"}}>
-            <img src="/beer-garden.webp" alt="The beer garden at The Old Tiger's Head"
+            <img src="/garden-festoon.png" alt="The beer garden at The Old Tiger's Head"
               className="w-full h-full object-cover" style={{objectPosition:"center center"}} />
           </div>
           <div className="order-1 md:order-2">
@@ -286,7 +285,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
               Priority booking, members-only events, and a team that knows your name.
             </p>
             <div className="flex justify-center mb-6">
-              <img src="/tiger-club-card.png" alt="Tiger Club membership card" className="w-48 rounded-lg shadow-xl" />
+              <img src="/tiger-club-card-navy.png" alt="Tiger Club membership card" className="w-64" style={{filter:"drop-shadow(0 8px 32px rgba(0,0,0,0.4))"}} />
             </div>
             <Link href="/community" className="inline-block border-2 border-gold text-gold font-black uppercase tracking-wider px-7 py-3 hover:bg-gold hover:text-navy transition-colors sc text-xs">
               Find Out More
@@ -320,7 +319,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         <div className="absolute inset-0 bg-navy/80 flex items-center justify-center text-center px-6">
           <div>
             <p className="text-gold text-xs font-black tracking-[0.5em] uppercase mb-3 sc">Est. 1750</p>
-            <h2 className="text-white font-black uppercase text-3xl md:text-5xl sc">Part of Lee Since 1750</h2>
+            <h2 className="text-white font-black uppercase text-3xl md:text-5xl sc">At The Epicentre Of Lee Since 1750</h2>
             <Link href="/our-pub#story" className="inline-block mt-6 border border-gold text-gold font-black uppercase tracking-widest px-6 py-2.5 hover:bg-gold hover:text-navy transition-all sc text-xs">
               Our Story
             </Link>

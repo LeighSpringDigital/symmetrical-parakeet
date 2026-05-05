@@ -23,7 +23,7 @@ export default function OurPub() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-navy font-black uppercase text-3xl md:text-4xl mb-10 sc">Meet the Team</h2>
           <div className="overflow-hidden mb-8 border border-navy/10" style={{height:"320px"}}>
-            <img src="/groupphoto.jpg" alt="The team at The Old Tiger's Head"
+            <img src="/staff-bar-woman.jpg" alt="The team at The Old Tiger's Head"
               className="w-full h-full object-cover" style={{objectPosition:"center 20%"}} />
           </div>
           <div className="grid md:grid-cols-2 gap-6">

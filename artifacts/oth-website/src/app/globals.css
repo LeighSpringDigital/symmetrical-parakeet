@@ -28,24 +28,25 @@
 }
 
 /*
- * TRUE SMALL CAPS PER WORD
- * font-variant: small-caps renders ALL letters as small capitals.
- * Combined with text-transform: uppercase, every letter becomes uppercase.
- * The visual effect of "first letter bigger" comes from the font itself
- * rendering the initial caps of each word at full height when using
- * font-variant: small-caps — this is how proper small caps typography works.
- * We then use a JS-free CSS approach: wrap text in .sc and use
- * font-variant: small-caps + a slightly larger font-size so the 
- * capital letters stand out against the small-cap letters.
+ * HEADING TYPOGRAPHY — SMALL CAPS TREATMENT
+ * Every word has its first letter at full cap height.
+ * Remaining letters render as uppercase but slightly smaller.
+ * Achieved via font-variant-caps: small-caps + text-transform: uppercase.
+ * This is the Century Gothic / Avant Garde small-caps convention.
+ * NEVER use font-size tricks or separate spans — this is CSS-only.
  */
 .sc {
+  font-variant-caps: small-caps;
   font-variant: small-caps;
+  text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
-/* Nav links */
+/* Nav links — tighter tracking */
 .sc-sm {
+  font-variant-caps: small-caps;
   font-variant: small-caps;
+  text-transform: uppercase;
   letter-spacing: 0.12em;
   font-weight: 900;
 }
