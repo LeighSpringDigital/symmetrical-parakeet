@@ -45,8 +45,10 @@ export default function Navbar() {
       >
         <div className="h-full flex items-center px-5 md:px-10 max-w-[1600px] mx-auto gap-6">
 
-          {/* Logo — single instance, always visible */}
-          <Logo />
+          {/* Logo — desktop only in nav bar */}
+          <div className="hidden lg:block">
+            <Logo />
+          </div>
 
           {/* DESKTOP nav links — centre */}
           <div className="hidden lg:flex items-center gap-7 flex-1 justify-center">
@@ -77,12 +79,12 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* MOBILE right — book + hamburger */}
-          <div className="lg:hidden flex items-center gap-3 ml-auto flex-shrink-0">
-            <Link href="/book" className="bg-gold text-navy px-4 py-2 font-black text-xs tracking-widest uppercase">Book</Link>
+          {/* MOBILE — hamburger LEFT, book RIGHT */}
+          <div className="lg:hidden flex items-center justify-between w-full">
             <button onClick={() => setMobileOpen(true)} className="text-white p-1.5" aria-label="Open menu">
               <Menu size={22} />
             </button>
+            <Link href="/book" className="bg-gold text-navy px-4 py-2 font-black text-xs tracking-widest uppercase">Book</Link>
           </div>
         </div>
       </nav>

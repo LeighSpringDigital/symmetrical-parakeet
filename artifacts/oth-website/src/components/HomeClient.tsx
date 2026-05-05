@@ -16,8 +16,8 @@ const EVENTS = [
 
 const MENU_TABS = [
   { key: "today", label: "Today" },
-  { key: "sunday", label: "Sunday" },
   { key: "lunch", label: "Lunch" },
+  { key: "sunday", label: "Sunday" },
   { key: "children", label: "Children" },
 ];
 
@@ -252,7 +252,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
               <Link key={ev.id} href={`/events/${ev.id}`}
                 className="min-w-[260px] md:min-w-[300px] aspect-[3/4] relative group snap-start overflow-hidden flex-shrink-0 border border-navy/10">
                 <img src={ev.imageUrl||ev.img} alt={ev.title}
-                  className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
+                  className="absolute inset-0 w-full h-full object-cover md:grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <p className="text-gold text-xs font-bold tracking-widest uppercase mb-1">{ev.date}</p>
