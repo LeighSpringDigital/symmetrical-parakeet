@@ -19,7 +19,7 @@ const eventsData: Record<string, any> = {
     time: "12:00 - 17:00",
     price: "From £16.50",
     img: "/sunday-roast.jpg",
-    description: "The legendary Old Tigers Head Sunday Roast. We source the finest cuts from local butchers, served with massive Yorkshire puddings, honey-glazed carrots, parsnips, seasonal greens, and our signature 48-hour gravy. It's the talk of SE12 for a reason. Book ahead to avoid disappointment.",
+    description: "Our Sunday roast is served from noon until 5pm. We source our cuts from local butchers, served with hand-made Yorkshire puddings, honey-glazed carrots, parsnips, seasonal greens, and our signature 48-hour gravy. Book ahead — it sells out most weeks.",
   },
   "3": {
     title: "Quiz Night",

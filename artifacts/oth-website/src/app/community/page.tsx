@@ -23,15 +23,14 @@ export default function Community() {
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Membership</p>
             <h2 className="text-navy font-black uppercase text-3xl md:text-4xl mb-6 sc">The Tiger Club</h2>
             <p className="text-navy/70 leading-relaxed mb-6">
-              Priority booking, exclusive events, and a team that knows your name. 
-              Book your fifth table and choose your reward — dinner or a bottle of wine, on us.
+              A way for us to provide you truly personalised service, to keep in touch about news and special events, and to offer you perks as a thank you for your support.
             </p>
             <ul className="space-y-3 mb-8">
               {[
-                "Priority booking — 48 hours before general release",
-                "Every fifth booking: your choice of a free dinner or a bottle of wine",
+                "A complimentary glass of bubbly on your birthday",
+                "Every fifth visit as a party of 4 or more: your main course or a bottle of wine for the table, on us",
                 "Personalised service at every visit — we will know your name and your order",
-                "Members welcome hours: Monday–Thursday 5–7pm",
+                "Members supper clubs and coffee mornings",
                 "Early access to new menus and seasonal announcements",
                 "The Tiger's Letter — our monthly members newsletter",
               ].map(b => (
@@ -57,8 +56,8 @@ export default function Community() {
           <h2 className="text-gold font-black uppercase text-3xl mb-10 sc">Pub News</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: "The Garden Is Open", date: "May 2026", body: "The beer garden is open from noon daily. Saturday BBQs running through the summer — no booking needed." },
-              { title: "New on the Menu", date: "May 2026", body: "Three new dishes on the evening menu. Full details on the menu page." },
+              { title: "The Garden Is Open", date: "May 2026", body: "Summer is finally here and the garden is resplendent. It has a dedicated outside bar, beach huts, and this year a brand new BBQ. All that's missing is you." },
+              { title: "Refurbishment Coming Soon", date: "May 2026", body: "Our historic home is having a refreshing paint job to help us provide a bright, polished space for you to enjoy." },
             ].map(({ title, date, body }) => (
               <div key={title} className="border border-white/10 p-8 hover:border-gold transition-colors">
                 <p className="text-gold text-xs font-bold uppercase tracking-widest mb-3">{date}</p>

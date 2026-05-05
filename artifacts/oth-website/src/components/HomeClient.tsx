@@ -119,7 +119,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
           <h2 className="text-navy font-black uppercase text-3xl md:text-4xl mb-6 sc"><SmallCaps>Welcome</SmallCaps></h2>
           <p className="text-navy/70 text-lg leading-relaxed">
             The Old Tiger's Head has stood at the epicentre of Lee Green since 1750. 
-            Grade II listed, the Victorian bar, etched glass and high ceilings are all exactly as they were. 
+            Grade II listed, the Victorian bar and high ceilings are all exactly as they were. 
             What has changed is everything behind them: the kitchen, the cellar, the standards and the team. 
             A neighbourhood pub for families, friends and regulars. The food is made here, the welcome is genuine, and the lease runs fifteen years.
           </p>
@@ -139,7 +139,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Every Sunday</p>
             <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc"><SmallCaps>Sunday Roast</SmallCaps></h2>
             <p className="text-white/70 leading-relaxed mb-4">
-              Proper joints, 48-hour gravy, hand-made Yorkshire puddings, and all the trimmings. 
+              48-hour gravy, hand-made Yorkshire puddings, and all the trimmings. 
               Served from noon until 5pm. High chairs available — children's roast on the menu.
             </p>
             <Link href="/book" className="inline-block bg-gold text-navy font-black uppercase tracking-[0.2em] px-8 py-3.5 hover:bg-white transition-colors sc text-sm">
@@ -226,7 +226,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Open Daily from Noon</p>
             <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc"><SmallCaps>The Beer Garden</SmallCaps></h2>
             <p className="text-white/70 leading-relaxed mb-4">
-              Sheltered, decked, and heated when needed — and one of the best spots in Lee Green 
+              Sheltered, decked, and heated when needed, our hidden oasis is the best spot in Lee Green 
               for a long afternoon. Dogs welcome. Saturday BBQs from 1pm in summer.
             </p>
             <Link href="/book" className="inline-block border-2 border-gold text-gold font-black uppercase tracking-[0.2em] px-8 py-3.5 hover:bg-gold hover:text-navy transition-colors sc text-sm">
@@ -272,8 +272,8 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Private Events</p>
             <h2 className="text-white font-black uppercase text-3xl mb-4 sc"><SmallCaps>Parties</SmallCaps></h2>
             <p className="text-white/60 leading-relaxed mb-6 text-sm">
-              The Tiger Room seats 60 for dinner, 80 standing. High ceilings, original woodwork, 
-              its own bar and entrance. Birthdays, anniversaries, corporate dinners — talk to us.
+              The Tiger Room runs the full width of the building. High ceilings, original woodwork, 
+              its own bar and private entrance. Seats 60 for dinner or holds 80 for a standing reception.
             </p>
             <Link href="/parties" className="inline-block bg-gold text-navy font-black uppercase tracking-wider px-7 py-3 hover:bg-white transition-colors sc text-xs">
               Enquire Now
@@ -283,7 +283,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Membership</p>
             <h2 className="text-white font-black uppercase text-3xl mb-4 sc"><SmallCaps>The Tiger Club</SmallCaps></h2>
             <p className="text-white/60 leading-relaxed mb-6 text-sm">
-              Priority booking, members-only events, and a team that knows your name. Book your fifth table and choose your reward — dinner or a bottle of wine, on us.
+              Stay up to date with pub news and be first to hear about special events. Our team will always remember your personal needs and preferences. Every 5th time you visit as a party of 4 or more, your main course or a bottle of wine for the table is on us.
             </p>
             <div className="flex justify-center mb-6">
               <img src="/tiger-club-card-black.png" alt="Tiger Club membership card" className="w-72" style={{mixBlendMode:"screen"}} />

@@ -23,8 +23,7 @@ export default function PartiesPage() {
           <div>
             <h2 className="text-navy font-black uppercase text-2xl md:text-3xl mb-6 sc">The Tiger Room</h2>
             <p className="text-navy/70 leading-relaxed mb-5 text-sm">
-              The Tiger Room runs the full width of the building. High ceilings, original woodwork, 
-              its own bar and private entrance. Seats 60 for dinner or holds 80 for a standing reception.
+              The Tiger Room is our dedicated private events space, located on the ground floor. Rich in character and steeped in history, the room offers an intimate and versatile setting, ideal for everything from birthday celebrations and live bands to comedy nights and special occasions.
             </p>
             <p className="text-navy/70 leading-relaxed mb-8 text-sm">
               Birthdays, anniversaries, retirements, corporate dinners, charity evenings, wakes. 

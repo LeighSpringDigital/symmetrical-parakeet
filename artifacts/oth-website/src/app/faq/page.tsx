@@ -34,7 +34,7 @@ const faqs = [
     questions: [
       {
         q: "Are children welcome?",
-        a: "Yes. We have a children's menu, and families are welcome throughout the pub until 9pm. After 9pm we ask that children are not in the main bar area.",
+        a: "Yes. We have a children's menu, and families are welcome throughout the pub until 7pm. After 7pm we ask that children are not in the main bar area.",
       },
       {
         q: "Do you have high chairs?",
@@ -115,10 +115,6 @@ const faqs = [
       {
         q: "Can I book the pub for a wake or memorial event?",
         a: "Yes. We handle these with care and discretion. Please call us directly on 020 4568 0111 to discuss your requirements.",
-      },
-      {
-        q: "Do I need a ticket for jazz night?",
-        a: "No. Friday Night Jazz is free entry — just show up. Doors are at 8pm and the music runs until late. Booking a table is recommended if you want to eat, but you're welcome to just come for a drink and the music.",
       },
     ],
   },

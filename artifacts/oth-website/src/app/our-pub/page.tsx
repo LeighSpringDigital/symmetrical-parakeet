@@ -34,9 +34,7 @@ export default function OurPub() {
               <h3 className="text-2xl font-black uppercase text-gold mb-1 sc">Rob</h3>
               <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-4">Landlord</p>
               <p className="text-navy/70 text-sm leading-relaxed">
-                Rob took on The Tiger on a 15-year lease with one goal: make it the place Lee Green deserves. 
-                He takes as much care of the building as he does his customers, 
-                and will usually know what you're having before you've sat down.
+                Over the decades he spent running some of London's biggest pubs, Rob assembled an exceptional, hand-picked team who simply love food, drink and customers. Their passion for what they do has transformed The Old Tiger's Head as the neighbourhood's primary social headquarters.
               </p>
             </div>
             <div className="border border-navy/10 p-8">
@@ -46,10 +44,7 @@ export default function OurPub() {
               <h3 className="text-2xl font-black uppercase text-gold mb-1 sc">Rob</h3>
               <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-4">Head Chef</p>
               <p className="text-navy/70 text-sm leading-relaxed">
-                The fish and chips have people coming from Blackheath. 
-                The 48-hour gravy on the Sunday roast is his. 
-                Rob's kitchen is built on top-quality, seasonal ingredients — 
-                cooked properly and served without fuss.
+                Our Sunday roasts are led by Chef Rob, whose signature roast beef is a masterclass in patience and tradition. Every plate is finished with a rich, velvety gravy made from a deep-flavoured stock made from scratch in-house.
               </p>
             </div>
           </div>
