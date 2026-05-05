@@ -7,6 +7,9 @@ main = ".open-next/worker.js"
 directory = ".open-next/assets"
 binding = "ASSETS"
 
+[ai]
+binding = "AI"
+
 # D1 Database for CMS content, settings, and events
 # [[d1_databases]]
 # binding = "DB"

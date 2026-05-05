@@ -71,18 +71,13 @@ Format: ${format}`;
     const userPrompt = `Write a ${format} about: ${finalTopic}.${extra ? ` Additional context: ${extra}` : ""}`;
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          system: systemPrompt,
-          messages: [{ role: "user", content: userPrompt }],
-        }),
+        body: JSON.stringify({ system: systemPrompt, user: userPrompt }),
       });
       const data = await res.json();
-      const text = data.content?.map((b: any) => b.text || "").join("") || "No response — please try again.";
+      const text = data.text || "No response — please try again.";
       setResult(text);
     } catch {
       setResult("Something went wrong. Please try again.");
