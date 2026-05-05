@@ -1,54 +1,173 @@
-"use client";
-import Link from "next/link";
-import { AlertCircle, Calendar, Utensils, Settings, Megaphone, MessageSquare, Clock, Leaf, Sparkles } from "lucide-react";
+'use client';
 
-export default function StaffDashboard() {
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
+const sections = [
+  {
+    title: 'Content Creator',
+    description: 'Generate brand-voice captions, scripts, and review responses.',
+    href: '/staff/content',
+    icon: '✍️',
+    color: '#C9A227',
+  },
+  {
+    title: 'Social Media Hub',
+    description: 'Urgency calendar, asset bank, post log, analytics, and Buffer scheduling.',
+    href: '/staff/social-hub',
+    icon: '📡',
+    color: '#C9A227',
+    badge: 'New',
+  },
+  {
+    title: 'Tiger Table Club',
+    description: 'Look up members, record qualifying visits, and issue rewards at the bar.',
+    href: '/staff/loyalty',
+    icon: '🐯',
+    color: '#C9A227',
+    badge: 'New',
+  },
+  {
+    title: 'Events',
+    description: 'Manage the events calendar and what\'s on listings.',
+    href: '/staff/events',
+    icon: '🎭',
+    color: '#002942',
+  },
+  {
+    title: 'Menu',
+    description: 'Update food and drink menus.',
+    href: '/staff/menu',
+    icon: '🍽️',
+    color: '#002942',
+  },
+  {
+    title: 'Noticeboard',
+    description: 'Post notices and updates for the team.',
+    href: '/staff/noticeboard',
+    icon: '📋',
+    color: '#002942',
+  },
+  {
+    title: 'Rota',
+    description: 'View and manage staff shifts.',
+    href: '/staff/rota',
+    icon: '📅',
+    color: '#002942',
+  },
+  {
+    title: 'Allergens',
+    description: 'Manage allergen information for menu items.',
+    href: '/staff/allergens',
+    icon: '⚠️',
+    color: '#002942',
+  },
+  {
+    title: 'Settings',
+    description: 'Portal settings and configuration.',
+    href: '/staff/settings',
+    icon: '⚙️',
+    color: '#002942',
+  },
+];
+
+export default function DashboardPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const auth = sessionStorage.getItem('staff_auth');
+    if (!auth) router.replace('/staff');
+  }, [router]);
+
   return (
-    <main className="min-h-screen bg-navy text-white pt-28 px-6 pb-20">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+    <main style={{
+      minHeight: '100vh',
+      background: '#0d1b2a',
+      fontFamily: '"Century Gothic", "Avant Garde", "Futura", "Trebuchet MS", sans-serif',
+      color: '#f5f0e8',
+    }}>
+      {/* Header */}
+      <div style={{
+        background: '#002942',
+        borderBottom: '2px solid #C9A227',
+        padding: '20px 32px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <div style={{
+            width: 42, height: 42,
+            background: '#C9A227',
+            borderRadius: 6,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 22, fontWeight: 700, color: '#002942',
+          }}>T</div>
           <div>
-            <h1 className="text-4xl md:text-5xl font-black uppercase text-gold sc">Dashboard</h1>
-            <p className="text-white/30 uppercase tracking-widest text-xs font-bold mt-2">Staff Portal — The Old Tigers Head</p>
+            <div style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              The Old Tiger's Head
+            </div>
+            <div style={{ fontSize: 12, color: '#7fa8c4' }}>Staff Portal</div>
           </div>
-          <Link href="/staff/notice"
-            className="flex items-center gap-3 bg-red-600 text-white font-black px-8 py-4 uppercase tracking-widest hover:bg-white hover:text-red-600 transition-all">
-            <AlertCircle size={20} /> Emergency Notice
-          </Link>
         </div>
+        <button
+          onClick={() => { sessionStorage.clear(); router.replace('/staff'); }}
+          style={{
+            background: 'none', border: '1px solid #1e3a52',
+            borderRadius: 6, color: '#7fa8c4',
+            fontFamily: 'inherit', fontSize: 12, fontWeight: 600,
+            padding: '8px 16px', cursor: 'pointer',
+            letterSpacing: '0.05em', textTransform: 'uppercase',
+          }}
+        >
+          Sign out
+        </button>
+      </div>
 
-        {/* Site Settings — top */}
-        <Link href="/staff/settings"
-          className="flex items-center gap-6 p-5 bg-gold/10 border border-gold/30 hover:border-gold transition-all w-full mb-6 group">
-          <Settings size={24} className="text-gold group-hover:rotate-45 transition-transform duration-300" />
-          <div>
-            <h3 className="font-black uppercase text-gold tracking-widest text-sm sc">Site Settings</h3>
-            <p className="text-white/30 text-xs uppercase tracking-widest mt-0.5">Feature flags and global toggles</p>
-          </div>
-        </Link>
-
-        {/* Main grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <Card href="/staff/content" icon={<Sparkles size={28} />} title="Content Creator" desc="AI-powered captions and post ideas" highlight />
-          <Card href="/staff/events" icon={<Calendar size={28} />} title="Events" desc="Manage What's On listings" />
-          <Card href="/staff/menu" icon={<Utensils size={28} />} title="Menu Manager" desc="Edit dishes, prices, availability" />
-          <Card href="/staff/noticeboard" icon={<Megaphone size={28} />} title="Noticeboard" desc="Staff notices and updates from Rob" />
-          <Card href="/staff/feedback" icon={<MessageSquare size={28} />} title="Feedback" desc="Share ideas or concerns with management" />
-          <Card href="/staff/rota" icon={<Clock size={28} />} title="Staff Rota" desc="View the current week's schedule" />
-          <Card href="/staff/allergens" icon={<Leaf size={28} />} title="Allergen Guide" desc="Dish-by-dish allergen reference" />
+      {/* Grid */}
+      <div style={{ padding: '36px 32px', maxWidth: 1100, margin: '0 auto' }}>
+        <h1 style={{ fontSize: 22, fontWeight: 700, marginBottom: 28, color: '#f5f0e8' }}>
+          Dashboard
+        </h1>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+          gap: 18,
+        }}>
+          {sections.map((s) => (
+            <Link key={s.href} href={s.href} style={{ textDecoration: 'none' }}>
+              <div style={{
+                background: '#001d30',
+                border: `1px solid ${s.badge ? '#C9A22744' : '#1e3a52'}`,
+                borderLeft: `4px solid ${s.color}`,
+                borderRadius: 8,
+                padding: '20px 22px',
+                cursor: 'pointer',
+                transition: 'border-color 0.15s',
+                position: 'relative',
+              }}>
+                {s.badge && (
+                  <span style={{
+                    position: 'absolute', top: 14, right: 14,
+                    background: '#C9A227', color: '#002942',
+                    fontSize: 10, fontWeight: 700,
+                    padding: '2px 8px', borderRadius: 10,
+                    letterSpacing: '0.06em', textTransform: 'uppercase',
+                  }}>{s.badge}</span>
+                )}
+                <div style={{ fontSize: 28, marginBottom: 12 }}>{s.icon}</div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: '#f5f0e8', marginBottom: 6 }}>
+                  {s.title}
+                </div>
+                <div style={{ fontSize: 13, color: '#7fa8c4', lineHeight: 1.5 }}>
+                  {s.description}
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </main>
-  );
-}
-
-function Card({ href, icon, title, desc, highlight }: { href: string; icon: React.ReactNode; title: string; desc: string; highlight?: boolean }) {
-  return (
-    <Link href={href}
-      className={`p-7 border transition-all group ${highlight ? "border-gold/30 bg-gold/5 hover:border-gold" : "border-white/10 hover:border-gold"}`}>
-      <div className={`mb-5 group-hover:scale-110 transition-transform ${highlight ? "text-gold" : "text-gold"}`}>{icon}</div>
-      <h3 className="font-black uppercase text-white text-sm tracking-wider sc mb-1">{title}</h3>
-      <p className="text-white/30 text-xs uppercase tracking-widest">{desc}</p>
-    </Link>
   );
 }

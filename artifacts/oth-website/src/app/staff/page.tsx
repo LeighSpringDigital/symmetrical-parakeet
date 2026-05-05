@@ -25,6 +25,7 @@ export default function StaffLogin() {
       if (typeof window !== "undefined") {
         sessionStorage.setItem("oth_role", account.role);
         sessionStorage.setItem("oth_user", account.username);
+        sessionStorage.setItem("staff_auth", account.role);
       }
       router.push(account.redirect);
     } else {

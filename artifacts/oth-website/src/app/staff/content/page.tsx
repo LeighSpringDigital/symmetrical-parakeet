@@ -1,207 +1,327 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Sparkles, Copy, Check, LogOut } from "lucide-react";
-import { useRouter } from "next/navigation";
+/**
+ * Staff Content Creator
+ *
+ * Generates brand-voice captions, scripts, and review responses.
+ * API calls go to /api/generate (server-side proxy) — the Anthropic key
+ * is never sent to or visible in the browser.
+ */
 
-const PILLARS = [
-  {
-    id: "food",
-    label: "Food & Drink",
-    icon: "🍺",
-    desc: "Strongest sellers — Sunday roast, fish & chips, beer garden BBQ, drinks.",
-    prompts: ["Sunday roast feature", "Fish & chips", "Beer garden BBQ", "New dish on the menu", "Drinks special"],
-  },
-  {
-    id: "people",
-    label: "People & Atmosphere",
-    icon: "🐯",
-    desc: "The room and the crowd — the team, the regulars, the space.",
-    prompts: ["Behind the bar", "Meet the team", "A quiet midweek afternoon", "Friday night atmosphere", "The greyhound"],
-  },
-  {
-    id: "events",
-    label: "Events & Offers",
-    icon: "📅",
-    desc: "The reason to visit — what's on, why now, why here.",
-    prompts: ["Quiz night", "Comedy night", "Live sport", "Tiger Club members event", "Garden BBQ Saturday"],
-  },
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
+type ContentType =
+  | 'instagram_caption'
+  | 'facebook_post'
+  | 'google_review_response'
+  | 'reel_script'
+  | 'event_post'
+  | 'story_caption';
+
+interface FormState {
+  contentType: ContentType;
+  topic: string;
+  additionalContext: string;
+  campaignTag: string;
+}
+
+const CONTENT_TYPES: { key: ContentType; label: string; description: string }[] = [
+  { key: 'instagram_caption',      label: 'Instagram Caption',       description: 'Feed post caption with hashtags' },
+  { key: 'facebook_post',          label: 'Facebook Post',           description: 'Longer-form community post' },
+  { key: 'google_review_response', label: 'Google Review Response',  description: 'Warm, personal reply to a review' },
+  { key: 'reel_script',            label: 'Reel Script',             description: 'Voiceover script for a short video' },
+  { key: 'event_post',             label: 'Event Post',              description: 'What\'s On announcement' },
+  { key: 'story_caption',          label: 'Story Caption',           description: 'Short, punchy Instagram Story text' },
 ];
 
-const FORMATS = [
-  { id: "instagram", label: "Instagram caption" },
-  { id: "facebook", label: "Facebook post" },
-  { id: "google", label: "Google Business update" },
-  { id: "review", label: "Review response" },
+const CAMPAIGN_TAGS = [
+  { value: '', label: 'No campaign tag' },
+  { value: 'operational_audit', label: 'Operational Audit' },
+  { value: 'sunday_roast', label: 'Sunday Roast' },
+  { value: 'tiger_table_club', label: 'Tiger Table Club' },
+  { value: 'event_preview', label: 'Event Preview' },
+  { value: 'community', label: 'Community' },
+  { value: 'seasonal', label: 'Seasonal' },
 ];
 
-export default function ContentCreator() {
-  const [pillar, setPillar] = useState("");
-  const [topic, setTopic] = useState("");
-  const [customTopic, setCustomTopic] = useState("");
-  const [format, setFormat] = useState("instagram");
-  const [extra, setExtra] = useState("");
-  const [result, setResult] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
+export default function ContentPage() {
   const router = useRouter();
 
-  const selectedPillar = PILLARS.find(p => p.id === pillar);
+  const [form, setForm] = useState<FormState>({
+    contentType: 'instagram_caption',
+    topic: '',
+    additionalContext: '',
+    campaignTag: '',
+  });
 
-  const generate = async () => {
-    const finalTopic = topic === "custom" ? customTopic : topic;
-    if (!pillar || !finalTopic) return;
-    setLoading(true);
-    setResult("");
+  const [generating, setGenerating] = useState(false);
+  const [output, setOutput] = useState('');
+  const [error, setError] = useState('');
+  const [copied, setCopied] = useState(false);
 
-    const systemPrompt = `You write social media content for The Old Tiger's Head, a Grade II listed community pub in Lee Green, London SE12, established 1750.
+  useEffect(() => {
+    const auth = sessionStorage.getItem('staff_auth');
+    if (!auth) router.replace('/staff');
+  }, [router]);
 
-Brand voice rules:
-- Warm, direct, and confident. Never pretentious or salesy.
-- Speak as a team to a valued neighbour who has a stake in the pub.
-- Name real things: the Sunday roast, the beer garden, the Tiger Room.
-- Never use: "locals", "hidden gem", "cosy", "vibrant", clichés.
-- Never mention discounts or deals unless specifically asked.
-- Complete sentences. No fragments. No excessive punctuation.
-- For Instagram: end with 2-3 relevant hashtags maximum (#LeeGreen #SE12 #OldTigersHead).
+  const buildPrompt = () => {
+    const typeLabel = CONTENT_TYPES.find(t => t.key === form.contentType)?.label ?? form.contentType;
+    const campaignNote = form.campaignTag
+      ? `\n\nCampaign series: ${form.campaignTag}. Ensure the content fits this series' tone.`
+      : '';
+    const contextNote = form.additionalContext.trim()
+      ? `\n\nAdditional context from staff: ${form.additionalContext.trim()}`
+      : '';
 
-Content pillar: ${selectedPillar?.label}
-Format: ${format}`;
-
-    const userPrompt = `Write a ${format} about: ${finalTopic}.${extra ? ` Additional context: ${extra}` : ""}`;
-
-    try {
-      const res = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ system: systemPrompt, user: userPrompt }),
-      });
-      const data = await res.json();
-      const text = data.text || "No response — please try again.";
-      setResult(text);
-    } catch {
-      setResult("Something went wrong. Please try again.");
-    }
-    setLoading(false);
+    return `Generate a ${typeLabel} for The Old Tiger's Head about the following:\n\n${form.topic.trim()}${campaignNote}${contextNote}\n\nReturn only the finished copy — no preamble, no explanation, no quotation marks around the output.`;
   };
 
-  const copy = () => {
-    navigator.clipboard.writeText(result);
+  const handleGenerate = async () => {
+    if (!form.topic.trim()) return;
+    setGenerating(true);
+    setError('');
+    setOutput('');
+
+    try {
+      // Calls /api/generate — the key stays server-side
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          messages: [{ role: 'user', content: buildPrompt() }],
+          max_tokens: 600,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error ?? 'Generation failed. Please try again.');
+        return;
+      }
+
+      const text = data.content?.[0]?.text ?? '';
+      setOutput(text);
+
+    } catch {
+      setError('Connection error. Check your internet and try again.');
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(output);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
-  return (
-    <main className="min-h-screen bg-navy text-white pt-24 px-6 pb-20">
-      <div className="max-w-3xl mx-auto">
+  const s = {
+    page: {
+      minHeight: '100vh',
+      background: '#0d1b2a',
+      fontFamily: '"Century Gothic", "Avant Garde", "Futura", "Trebuchet MS", sans-serif',
+      color: '#f5f0e8',
+    } as React.CSSProperties,
+    header: {
+      background: '#002942',
+      borderBottom: '2px solid #C9A227',
+      padding: '16px 28px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: 16,
+    } as React.CSSProperties,
+    content: {
+      padding: '32px 28px',
+      maxWidth: 800,
+      margin: '0 auto',
+    } as React.CSSProperties,
+    card: {
+      background: '#001d30',
+      border: '1px solid #1e3a52',
+      borderRadius: 10,
+      padding: 28,
+      marginBottom: 20,
+    } as React.CSSProperties,
+    label: {
+      display: 'block',
+      fontSize: 11,
+      fontWeight: 700,
+      letterSpacing: '0.08em',
+      textTransform: 'uppercase' as const,
+      color: '#7fa8c4',
+      marginBottom: 8,
+    },
+    input: {
+      width: '100%',
+      background: '#002942',
+      border: '1px solid #1e3a52',
+      borderRadius: 6,
+      color: '#f5f0e8',
+      fontFamily: 'inherit',
+      fontSize: 14,
+      padding: '11px 14px',
+      boxSizing: 'border-box' as const,
+      outline: 'none',
+      resize: 'vertical' as const,
+    } as React.CSSProperties,
+    select: {
+      width: '100%',
+      background: '#002942',
+      border: '1px solid #1e3a52',
+      borderRadius: 6,
+      color: '#f5f0e8',
+      fontFamily: 'inherit',
+      fontSize: 14,
+      padding: '11px 14px',
+      outline: 'none',
+    } as React.CSSProperties,
+    btn: {
+      background: '#C9A227',
+      border: 'none',
+      borderRadius: 7,
+      color: '#002942',
+      fontFamily: 'inherit',
+      fontSize: 13,
+      fontWeight: 700,
+      letterSpacing: '0.05em',
+      padding: '12px 24px',
+      cursor: 'pointer',
+      textTransform: 'uppercase' as const,
+    } as React.CSSProperties,
+  };
 
-        <div className="flex justify-between items-start mb-12">
-          <div>
-            <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-2">Staff Portal</p>
-            <h1 className="text-3xl md:text-5xl font-black uppercase sc">Content Creator</h1>
+  return (
+    <div style={s.page}>
+      <header style={s.header}>
+        <Link href="/staff/dashboard" style={{ color: '#7fa8c4', fontSize: 13, textDecoration: 'none' }}>
+          ← Dashboard
+        </Link>
+        <span style={{ color: '#1e3a52' }}>|</span>
+        <span style={{ fontSize: 15, fontWeight: 700, color: '#f5f0e8' }}>AI Content Creator</span>
+      </header>
+
+      <div style={s.content}>
+        <h1 style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>Content Creator</h1>
+        <p style={{ fontSize: 13, color: '#7fa8c4', marginBottom: 28, lineHeight: 1.6 }}>
+          Brand voice is locked. Every output follows the Old Tiger's Head tone rules.
+          Submit ideas below — Rob approves before anything goes live.
+        </p>
+
+        <div style={s.card}>
+          {/* Content type */}
+          <div style={{ marginBottom: 20 }}>
+            <label style={s.label}>Content type</label>
+            <select
+              style={s.select}
+              value={form.contentType}
+              onChange={e => setForm(f => ({ ...f, contentType: e.target.value as ContentType }))}
+            >
+              {CONTENT_TYPES.map(t => (
+                <option key={t.key} value={t.key}>{t.label} — {t.description}</option>
+              ))}
+            </select>
           </div>
-          <button onClick={() => router.push("/staff")}
-            className="flex items-center gap-2 text-white/30 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest">
-            <LogOut size={14} /> Sign out
+
+          {/* Campaign tag */}
+          <div style={{ marginBottom: 20 }}>
+            <label style={s.label}>Campaign series (optional)</label>
+            <select
+              style={s.select}
+              value={form.campaignTag}
+              onChange={e => setForm(f => ({ ...f, campaignTag: e.target.value }))}
+            >
+              {CAMPAIGN_TAGS.map(t => (
+                <option key={t.value} value={t.value}>{t.label}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Topic */}
+          <div style={{ marginBottom: 20 }}>
+            <label style={s.label}>
+              Topic or subject *
+            </label>
+            <textarea
+              style={{ ...s.input, minHeight: 90 }}
+              placeholder="e.g. Jazz night this Friday at 8pm — live quartet, no booking needed, first come first served"
+              value={form.topic}
+              onChange={e => setForm(f => ({ ...f, topic: e.target.value }))}
+            />
+          </div>
+
+          {/* Additional context */}
+          <div style={{ marginBottom: 24 }}>
+            <label style={s.label}>Additional context (optional)</label>
+            <textarea
+              style={{ ...s.input, minHeight: 60 }}
+              placeholder="e.g. Include the booking link. Mention Paolo is cooking."
+              value={form.additionalContext}
+              onChange={e => setForm(f => ({ ...f, additionalContext: e.target.value }))}
+            />
+          </div>
+
+          <button
+            style={{ ...s.btn, opacity: generating || !form.topic.trim() ? 0.6 : 1 }}
+            onClick={handleGenerate}
+            disabled={generating || !form.topic.trim()}
+          >
+            {generating ? 'Generating...' : 'Generate content'}
           </button>
         </div>
 
-        <div className="space-y-8">
+        {/* Error */}
+        {error && (
+          <div style={{
+            background: '#1a0808', border: '1px solid #ef4444',
+            borderRadius: 8, padding: '14px 18px', marginBottom: 20,
+            fontSize: 14, color: '#ef4444',
+          }}>
+            {error}
+          </div>
+        )}
 
-          {/* Step 1: Pillar */}
-          <div>
-            <p className="text-gold text-xs font-black tracking-widest uppercase mb-4 sc">1. Choose a content pillar</p>
-            <div className="grid grid-cols-3 gap-3">
-              {PILLARS.map(p => (
-                <button key={p.id} onClick={() => { setPillar(p.id); setTopic(""); }}
-                  className={`p-4 border-2 text-left transition-all ${pillar === p.id ? "border-gold bg-gold/10" : "border-white/10 hover:border-white/30"}`}>
-                  <span className="text-2xl block mb-2">{p.icon}</span>
-                  <span className="text-xs font-black uppercase tracking-wider text-white block sc">{p.label}</span>
-                  <span className="text-white/40 text-[10px] mt-1 block">{p.desc}</span>
-                </button>
-              ))}
+        {/* Output */}
+        {output && (
+          <div style={s.card}>
+            <div style={{
+              display: 'flex', alignItems: 'center',
+              justifyContent: 'space-between', marginBottom: 16,
+            }}>
+              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#C9A227' }}>
+                Generated output
+              </div>
+              <button
+                onClick={handleCopy}
+                style={{
+                  background: copied ? '#22c55e22' : 'transparent',
+                  border: `1px solid ${copied ? '#22c55e' : '#1e3a52'}`,
+                  borderRadius: 6,
+                  color: copied ? '#22c55e' : '#7fa8c4',
+                  fontFamily: 'inherit',
+                  fontSize: 12, fontWeight: 600,
+                  padding: '6px 14px', cursor: 'pointer',
+                  textTransform: 'uppercase', letterSpacing: '0.05em',
+                }}
+              >
+                {copied ? 'Copied' : 'Copy'}
+              </button>
+            </div>
+            <div style={{
+              fontSize: 14, color: '#f5f0e8', lineHeight: 1.8,
+              whiteSpace: 'pre-wrap',
+              background: '#002942', borderRadius: 6, padding: '16px 18px',
+            }}>
+              {output}
+            </div>
+            <div style={{ fontSize: 12, color: '#7fa8c4', marginTop: 14, lineHeight: 1.6 }}>
+              Review this carefully before use. Send to Rob for approval via the staff portal workflow before scheduling.
             </div>
           </div>
-
-          {/* Step 2: Topic */}
-          {selectedPillar && (
-            <div>
-              <p className="text-gold text-xs font-black tracking-widest uppercase mb-4 sc">2. What's the post about?</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {selectedPillar.prompts.map(p => (
-                  <button key={p} onClick={() => setTopic(p)}
-                    className={`px-4 py-2 border text-xs font-bold uppercase tracking-wider transition-all ${topic === p ? "border-gold bg-gold text-navy" : "border-white/20 text-white/60 hover:border-white/50"}`}>
-                    {p}
-                  </button>
-                ))}
-                <button onClick={() => setTopic("custom")}
-                  className={`px-4 py-2 border text-xs font-bold uppercase tracking-wider transition-all ${topic === "custom" ? "border-gold bg-gold text-navy" : "border-white/20 text-white/60 hover:border-white/50"}`}>
-                  Custom…
-                </button>
-              </div>
-              {topic === "custom" && (
-                <input type="text" value={customTopic} onChange={e => setCustomTopic(e.target.value)}
-                  placeholder="Describe what you want to post about…"
-                  className="w-full bg-white/5 border border-white/20 text-white px-4 py-3 focus:outline-none focus:border-gold transition-colors text-sm" />
-              )}
-            </div>
-          )}
-
-          {/* Step 3: Format */}
-          {topic && (
-            <div>
-              <p className="text-gold text-xs font-black tracking-widest uppercase mb-4 sc">3. Format</p>
-              <div className="flex flex-wrap gap-2">
-                {FORMATS.map(f => (
-                  <button key={f.id} onClick={() => setFormat(f.id)}
-                    className={`px-4 py-2 border text-xs font-bold uppercase tracking-wider transition-all ${format === f.id ? "border-gold bg-gold text-navy" : "border-white/20 text-white/60 hover:border-white/50"}`}>
-                    {f.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Step 4: Extra context */}
-          {topic && (
-            <div>
-              <p className="text-gold text-xs font-black tracking-widest uppercase mb-4 sc">4. Anything to add? <span className="text-white/30 normal-case">(optional)</span></p>
-              <input type="text" value={extra} onChange={e => setExtra(e.target.value)}
-                placeholder="e.g. It's a bank holiday weekend / We still have tables available…"
-                className="w-full bg-white/5 border border-white/20 text-white px-4 py-3 focus:outline-none focus:border-gold transition-colors text-sm" />
-            </div>
-          )}
-
-          {/* Generate */}
-          {topic && (
-            <button onClick={generate} disabled={loading}
-              className="w-full bg-gold text-navy font-black tracking-widest py-4 uppercase hover:bg-white transition-colors flex items-center justify-center gap-3 disabled:opacity-50 sc">
-              <Sparkles size={18} />
-              {loading ? "Writing…" : "Generate Content"}
-            </button>
-          )}
-
-          {/* Result */}
-          {result && (
-            <div className="border border-gold/30 bg-white/5 p-6 relative">
-              <p className="text-white/90 text-sm leading-relaxed whitespace-pre-wrap">{result}</p>
-              <button onClick={copy}
-                className="absolute top-4 right-4 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/40 hover:text-gold transition-colors">
-                {copied ? <><Check size={14} /> Copied</> : <><Copy size={14} /> Copy</>}
-              </button>
-              <div className="mt-6 pt-4 border-t border-white/10 flex gap-3">
-                <button onClick={generate}
-                  className="text-xs font-bold uppercase tracking-widest text-white/40 hover:text-gold transition-colors">
-                  Regenerate
-                </button>
-              </div>
-              <p className="text-white/20 text-[10px] mt-4 uppercase tracking-widest">
-                All content requires Rob's approval before posting.
-              </p>
-            </div>
-          )}
-        </div>
+        )}
       </div>
-    </main>
+    </div>
   );
 }
