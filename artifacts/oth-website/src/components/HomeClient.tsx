@@ -96,10 +96,14 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
 
       {/* ══ 1. HERO ══════════════════════════════════════════════════ */}
       <section className="relative h-screen flex flex-col items-center justify-center text-center overflow-hidden bg-navy">
-        <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-55">
-          <source src="/hero-video.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-navy/20 via-transparent to-navy/80" />
+        {/* Hero image — exterior at night */}
+        <img
+          src="/hero-exterior.jpg"
+          alt="The Old Tiger's Head, Lee Green"
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          style={{objectPosition:"center 60%", opacity:0.65}}
+        />
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-navy/40 via-navy/10 to-navy/85" />
         <div className="relative z-10 px-6 text-center">
           <h1 className="text-gold font-black leading-none" style={{fontSize:"clamp(2.4rem,8vw,6.5rem)", letterSpacing:"0.05em"}}>
             <SmallCaps>The Old Tiger&apos;s Head</SmallCaps>

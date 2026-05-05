@@ -10,9 +10,9 @@ export default function OurPub() {
     <main className="bg-navy text-white pt-[72px]">
 
       {/* Compact hero */}
-      <div className="relative overflow-hidden flex items-end" style={{height:"30vh"}}>
-        <img src="/hist-oth-modern-red.jpg" alt="The Old Tiger's Head" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-navy/70" />
+      <div className="relative overflow-hidden flex items-end" style={{height:"40vh"}}>
+        <img src="/hero-exterior.jpg" alt="The Old Tiger's Head" className="absolute inset-0 w-full h-full object-cover" style={{objectPosition:"center 55%"}} />
+        <div className="absolute inset-0 bg-navy/60" />
         <div className="relative z-10 max-w-5xl mx-auto px-6 pb-10 w-full">
           <h1 className="text-5xl md:text-7xl font-black uppercase text-gold sc">About</h1>
         </div>
