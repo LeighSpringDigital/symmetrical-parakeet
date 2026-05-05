@@ -101,7 +101,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         </video>
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-navy/20 via-transparent to-navy/80" />
         <div className="relative z-10 px-6">
-          <h1 className="text-gold font-black leading-none" style={{fontSize:"clamp(3rem,7vw,6.5rem)", letterSpacing:"0.06em"}}>
+          <h1 className="text-gold font-black leading-none" style={{fontSize:"clamp(2.4rem,8vw,6.5rem)", letterSpacing:"0.05em"}}>
             <SmallCaps>The Old Tiger&apos;s Head</SmallCaps>
           </h1>
           <p className="text-white/50 font-bold uppercase tracking-[0.4em] text-xs mt-5 mb-10">
@@ -320,7 +320,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         <div className="absolute inset-0 bg-navy/80 flex items-center justify-center text-center px-6">
           <div>
             <p className="text-gold text-xs font-black tracking-[0.5em] uppercase mb-3 sc">Est. 1750</p>
-            <h2 className="text-white font-black uppercase text-3xl md:text-5xl sc"><SmallCaps>At The Epicentre Of Lee Since 1750</SmallCaps></h2>
+            <h2 className="text-white font-black uppercase sc" style={{fontSize:"clamp(1.4rem,4vw,3.5rem)"}}><SmallCaps>At The Epicentre Of Lee Since 1750</SmallCaps></h2>
             <Link href="/our-pub#story" className="inline-block mt-6 border border-gold text-gold font-black uppercase tracking-widest px-6 py-2.5 hover:bg-gold hover:text-navy transition-all sc text-xs">
               Our Story
             </Link>

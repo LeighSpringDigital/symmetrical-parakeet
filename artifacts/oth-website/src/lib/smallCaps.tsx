@@ -5,14 +5,14 @@ import React from "react";
  * Each word: first letter at full size, remaining letters at 75% size uppercase.
  * Works regardless of whether the font has a native small-caps variant.
  */
-export function SmallCaps({ children, className = "" }: { children: string | React.ReactNode; className?: string }) {
+export function SmallCaps({ children, className = "", style }: { children: string | React.ReactNode; className?: string; style?: React.CSSProperties }) {
   // If children is not a plain string (e.g. a variable), render uppercase only
   if (typeof children !== "string") {
-    return <span className={className} style={{textTransform:"uppercase", letterSpacing:"0.08em"}}>{children}</span>;
+    return <span className={className} style={{textTransform:"uppercase", letterSpacing:"0.08em", ...style}}>{children}</span>;
   }
   const words = children.split(" ");
   return (
-    <span className={className}>
+    <span className={className} style={style}>
       {words.map((word, wi) => (
         <span key={wi} style={{whiteSpace:"nowrap"}}>
           {wi > 0 && " "}
