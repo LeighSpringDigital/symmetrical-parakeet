@@ -44,8 +44,8 @@ export default function Community() {
               Join the Tiger Club
             </a>
           </div>
-          <div className="bg-navy p-12 flex items-center justify-center">
-            <img src="/tiger-club-card-black.png" alt="Tiger Club membership card" className="w-full max-w-sm" style={{mixBlendMode:"screen"}} />
+          <div className="bg-cream p-12 flex items-center justify-center">
+            <img src="/tiger-club-card-transparent.png" alt="Tiger Club membership card" className="w-full max-w-sm"  />
           </div>
         </div>
       </section>
