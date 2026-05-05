@@ -45,8 +45,8 @@ export default function Community() {
               Join the Tiger Club
             </a>
           </div>
-          <div className="bg-cream p-8 flex items-center justify-center">
-            <img src="/tiger-club-card-cream.png" alt="Tiger Club membership card" className="w-full max-w-sm" style={{filter:"drop-shadow(0 8px 24px rgba(0,41,66,0.18))"}} />
+          <div className="bg-navy p-12 flex items-center justify-center">
+            <img src="/tiger-club-card-black.png" alt="Tiger Club membership card" className="w-full max-w-sm" style={{filter:"drop-shadow(0 8px 32px rgba(0,0,0,0.5))"}} />
           </div>
         </div>
       </section>

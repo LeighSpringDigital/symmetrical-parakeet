@@ -286,7 +286,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
               Priority booking, members-only events, and a team that knows your name. Book your fifth table and choose your reward — dinner or a bottle of wine, on us.
             </p>
             <div className="flex justify-center mb-6">
-              <img src="/tiger-club-card-navy.png" alt="Tiger Club membership card" className="w-64" style={{filter:"drop-shadow(0 8px 32px rgba(0,0,0,0.4))"}} />
+              <img src="/tiger-club-card-black.png" alt="Tiger Club membership card" className="w-72" style={{filter:"drop-shadow(0 8px 32px rgba(0,0,0,0.6))"}} />
             </div>
             <Link href="/community" className="inline-block border-2 border-gold text-gold font-black uppercase tracking-wider px-7 py-3 hover:bg-gold hover:text-navy transition-colors sc text-xs">
               Find Out More
