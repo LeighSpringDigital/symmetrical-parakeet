@@ -5,8 +5,9 @@ export const metadata = {
   description: "Get in touch with The Old Tiger's Head. Book a table, enquire about private hire, or ask us anything.",
 };
 
-export default function ContactPage({ searchParams }: { searchParams: { type?: string } }) {
-  const preset = searchParams?.type ?? "table";
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ type?: string }> }) {
+  const params = await searchParams;
+  const preset = params?.type ?? "table";
   return (
     <main className="bg-cream pt-[68px] min-h-screen">
       <div className="bg-navy py-14 px-6 border-b border-white/10">

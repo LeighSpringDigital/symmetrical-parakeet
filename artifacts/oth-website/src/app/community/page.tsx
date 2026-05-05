@@ -16,7 +16,7 @@ export default function Community() {
         </div>
       </div>
 
-      {/* Tiger Club — Cream */}
+      {/* Tiger Club — Cream throughout */}
       <section className="bg-cream py-16 px-6" id="tiger-club">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div>
@@ -41,11 +41,13 @@ export default function Community() {
             </ul>
             <a href="mailto:enquiries@theoldtigershead.com?subject=Tiger%20Club%20Membership"
               className="inline-block bg-navy text-gold font-black tracking-widest px-10 py-4 uppercase hover:bg-gold hover:text-navy transition-colors sc text-sm">
-              Join the Tiger Club
+              Join The Tiger Club
             </a>
           </div>
-          <div className="bg-navy p-12 flex items-center justify-center">
-            <img src="/tiger-club-card-transparent.png" alt="Tiger Club membership card" className="w-full max-w-sm" style={{mixBlendMode:"screen"}} />
+          {/* Card sits on cream — no inner container needed */}
+          <div className="flex items-center justify-center py-8">
+            <img src="/tiger-club-card-cream.png" alt="Tiger Club membership card"
+              className="w-full max-w-sm drop-shadow-2xl" />
           </div>
         </div>
       </section>

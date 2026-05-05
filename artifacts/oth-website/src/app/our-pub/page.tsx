@@ -21,39 +21,39 @@ export default function OurPub() {
       {/* Meet the Team — Cream */}
       <section className="bg-cream py-16 px-6">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-navy font-black uppercase text-3xl md:text-4xl mb-10 sc">Meet the Team</h2>
+          <h2 className="text-navy font-black uppercase text-3xl md:text-4xl mb-10 sc">Meet The Team</h2>
           <div className="overflow-hidden mb-8 border border-navy/10" style={{height:"320px"}}>
-            <img src="/staff-bar-woman.jpg" alt="The team at The Old Tiger's Head"
-              className="w-full h-full object-cover" style={{objectPosition:"center 20%"}} />
+            <img src="/interior-bar.jpg" alt="Inside The Old Tiger's Head"
+              className="w-full h-full object-cover" style={{objectPosition:"center 40%"}} />
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="border border-navy/10 p-8">
-              <div className="overflow-hidden mb-5 border border-navy/10" style={{height:"180px"}}>
-                <img src="/Rob.jpg" alt="Rob, Landlord" className="w-full h-full object-cover" style={{objectPosition:"center top"}} />
+              <div className="overflow-hidden mb-5 border border-navy/10" style={{height:"220px"}}>
+                <img src="/rob-landlord.jpg" alt="Rob, Landlord" className="w-full h-full object-cover" style={{objectPosition:"center top"}} />
               </div>
               <h3 className="text-2xl font-black uppercase text-gold mb-1 sc">Rob</h3>
               <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-4">Landlord</p>
               <p className="text-navy/70 text-sm leading-relaxed">
-                Over the decades he spent running some of London's biggest pubs, Rob assembled an exceptional, hand-picked team who simply love food, drink and customers. Their passion for what they do has transformed The Old Tiger's Head as the neighbourhood's primary social headquarters.
+                Over the decades he spent running some of London's biggest pubs, Rob assembled an exceptional, hand-picked team who simply love food, drink and customers. Their passion for what they do has transformed The Old Tiger's Head into the neighbourhood's primary social headquarters.
               </p>
             </div>
-            <div className="border border-navy/10 p-8">
-              <div className="overflow-hidden mb-5 border border-navy/10" style={{height:"180px"}}>
-                <img src="/Rob.jpg" alt="Rob, Head Chef" className="w-full h-full object-cover" style={{objectPosition:"center top"}} />
+            <div className="border border-navy/10 p-8 flex flex-col">
+              <div className="overflow-hidden mb-5 border border-navy/10" style={{height:"220px"}}>
+                <img src="/dog-party.jpg" alt="Dogs welcome at The Old Tiger's Head" className="w-full h-full object-cover" style={{objectPosition:"center 30%"}} />
               </div>
-              <h3 className="text-2xl font-black uppercase text-gold mb-1 sc">Rob</h3>
-              <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-4">Head Chef</p>
+              <h3 className="text-2xl font-black uppercase text-gold mb-1 sc">Dogs Welcome</h3>
+              <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-4">Four-Legged Regulars</p>
               <p className="text-navy/70 text-sm leading-relaxed">
-                Our Sunday roasts are led by Chef Rob, whose signature roast beef is a masterclass in patience and tradition. Every plate is finished with a rich, velvety gravy made from a deep-flavoured stock made from scratch in-house.
+                Well-behaved dogs are welcome throughout the pub and in the beer garden. Water bowls on request. Our four-legged regulars are among our most loyal customers.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Food photo divider — plating shot, not sausage */}
+      {/* Food photo divider */}
       <div className="w-full overflow-hidden" style={{height:"40vh"}}>
-        <img src="/food-plating.jpg" alt="Food at The Old Tiger's Head"
+        <img src="/food-plating-new.png" alt="Food at The Old Tiger's Head"
           className="w-full h-full object-cover" style={{objectPosition:"center 30%"}} />
       </div>
 
@@ -64,21 +64,21 @@ export default function OurPub() {
 
           <div className="space-y-5 text-white/70 leading-relaxed mb-12">
             <p>
-              The Old Tiger's Head has stood at the Lee Green crossroads since 1750, 
-              when it opened as a coaching inn serving travellers on the road out of London. 
+              The Old Tiger's Head has stood at the Lee Green crossroads since 1750,
+              when it opened as a coaching inn serving travellers on the road out of London.
               It quickly became a gathering point for the community — a role it has never stopped playing.
             </p>
             <p>
-              The current building was constructed in 1896, and is now Grade II listed. 
-              The original etched glass windows, the carved wooden bar, and the high ceilings are all still here. 
-              In the early 20th century the pub was a regular stop for tram workers from the Lee Green depot. 
-              During the Second World War it kept its doors open through the Blitz, 
+              The current building was constructed in 1896 and is now Grade II listed.
+              The carved wooden bar and the high ceilings are all still here.
+              In the early 20th century the pub was a regular stop for tram workers from the Lee Green depot.
+              During the Second World War it kept its doors open through the Blitz,
               serving the neighbourhood when it needed it most.
             </p>
             <p>
-              After decades as one of South East London's best-known community pubs, 
-              the Tiger closed. The neighbourhood noticed. 
-              When it reopened under Rob's stewardship on a 15-year lease, 
+              After decades as one of South East London's best-known community pubs,
+              the Tiger closed. The neighbourhood noticed.
+              When it reopened under Rob's stewardship on a 15-year lease,
               people came back — and they keep coming.
             </p>
           </div>

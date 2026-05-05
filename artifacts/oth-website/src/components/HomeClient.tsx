@@ -268,30 +268,31 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         </div>
       </section>
 
-      {/* ══ 9. PARTIES & TIGER CLUB — Navy ══════════════════════════ */}
+      {/* ══ 9. PARTIES & TIGER CLUB ══════════════════════════════════ */}
       <section className="bg-navy py-20 px-6">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
           <div className="border border-white/10 p-10">
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Private Events</p>
             <h2 className="text-white font-black uppercase text-3xl mb-4 sc"><SmallCaps>Parties</SmallCaps></h2>
             <p className="text-white/60 leading-relaxed mb-6 text-sm">
-              The Tiger Room runs the full width of the building. High ceilings, original woodwork, 
+              The Tiger Room runs the full width of the building. High ceilings, original woodwork,
               its own bar and private entrance. Seats 60 for dinner or holds 80 for a standing reception.
             </p>
             <Link href="/parties" className="inline-block bg-gold text-navy font-black uppercase tracking-wider px-7 py-3 hover:bg-white transition-colors sc text-xs">
               Enquire Now
             </Link>
           </div>
-          <div className="border border-white/10 p-10">
+          {/* Tiger Club — cream panel so card sits naturally */}
+          <div className="bg-cream p-10 flex flex-col">
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Membership</p>
-            <h2 className="text-white font-black uppercase text-3xl mb-4 sc"><SmallCaps>The Tiger Club</SmallCaps></h2>
-            <p className="text-white/60 leading-relaxed mb-6 text-sm">
+            <h2 className="text-navy font-black uppercase text-3xl mb-4 sc"><SmallCaps>The Tiger Club</SmallCaps></h2>
+            <p className="text-navy/60 leading-relaxed mb-6 text-sm">
               Stay up to date with pub news and be first to hear about special events. Our team will always remember your personal needs and preferences. Every 5th time you visit as a party of 4 or more, your main course or a bottle of wine for the table is on us.
             </p>
-            <div className="flex justify-center mb-6">
-              <img src="/tiger-club-card-transparent.png" alt="Tiger Club membership card" className="w-72" style={{mixBlendMode:"screen"}} />
+            <div className="flex justify-center my-4 flex-1 items-center">
+              <img src="/tiger-club-card-cream.png" alt="Tiger Club membership card" className="w-72 drop-shadow-lg" />
             </div>
-            <Link href="/community" className="inline-block border-2 border-gold text-gold font-black uppercase tracking-wider px-7 py-3 hover:bg-gold hover:text-navy transition-colors sc text-xs">
+            <Link href="/community" className="inline-block border-2 border-navy text-navy font-black uppercase tracking-wider px-7 py-3 hover:bg-navy hover:text-gold transition-colors sc text-xs text-center">
               Find Out More
             </Link>
           </div>
