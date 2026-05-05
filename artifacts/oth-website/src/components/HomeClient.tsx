@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Printer, Star } from "lucide-react";
 import { featureFlags as mockFlags } from "@/lib/config";
+import { SmallCaps } from "@/lib/smallCaps";
 
 const EVENTS = [
   { id: 2, title: "Sunday Roast", date: "Every Sunday", sub: "Last sitting 5pm — book ahead", img: "/food-roast-beef-new.png" },
@@ -100,8 +101,8 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         </video>
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-navy/20 via-transparent to-navy/80" />
         <div className="relative z-10 px-6">
-          <h1 className="text-gold font-black uppercase leading-none sc" style={{fontSize:"clamp(3rem,7vw,6.5rem)", letterSpacing:"0.06em"}}>
-            The Old Tiger&apos;s Head
+          <h1 className="text-gold font-black leading-none" style={{fontSize:"clamp(3rem,7vw,6.5rem)", letterSpacing:"0.06em"}}>
+            <SmallCaps>The Old Tiger&apos;s Head</SmallCaps>
           </h1>
           <p className="text-white/50 font-bold uppercase tracking-[0.4em] text-xs mt-5 mb-10">
             Est. 1750 · Lee Green, London
@@ -115,7 +116,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
       {/* ══ 2. WELCOME — Cream ═══════════════════════════════════════ */}
       <section className="bg-cream py-20 px-6">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-navy font-black uppercase text-3xl md:text-4xl mb-6 sc">Welcome</h2>
+          <h2 className="text-navy font-black uppercase text-3xl md:text-4xl mb-6 sc"><SmallCaps>Welcome</SmallCaps></h2>
           <p className="text-navy/70 text-lg leading-relaxed">
             The Old Tiger's Head has stood at the epicentre of Lee Green since 1750. 
             Grade II listed, the Victorian bar, etched glass and high ceilings are all exactly as they were. 
@@ -136,7 +137,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Every Sunday</p>
-            <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc">Sunday Roast</h2>
+            <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc"><SmallCaps>Sunday Roast</SmallCaps></h2>
             <p className="text-white/70 leading-relaxed mb-4">
               Proper joints, 48-hour gravy, hand-made Yorkshire puddings, and all the trimmings. 
               Served from noon until 5pm. High chairs available — children's roast on the menu.
@@ -163,7 +164,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
       <section id="menu" className="bg-cream py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
-            <h2 className="text-navy font-black uppercase text-3xl md:text-4xl sc">Our Menu</h2>
+            <h2 className="text-navy font-black uppercase text-3xl md:text-4xl sc"><SmallCaps>Our Menu</SmallCaps></h2>
             <div className="flex items-center gap-2">
               {/* Equal width tabs */}
               <div className="grid grid-cols-4 gap-2 w-full md:w-auto">
@@ -187,7 +188,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
           <div className="grid md:grid-cols-3 gap-10">
             {(MENU[tab]||MENU.today).map(({section, items}) => (
               <div key={section}>
-                <h3 className="text-gold font-black uppercase text-xs tracking-widest border-b border-navy/10 pb-3 mb-6 sc">{section}</h3>
+                <h3 className="text-gold font-black uppercase text-xs tracking-widest border-b border-navy/10 pb-3 mb-6 sc"><SmallCaps>{section}</SmallCaps></h3>
                 <div className="space-y-5">
                   {items.map(item => (
                     <div key={item.name} className="flex justify-between items-start gap-3">
@@ -223,7 +224,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
           </div>
           <div className="order-1 md:order-2">
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Open Daily from Noon</p>
-            <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc">The Beer Garden</h2>
+            <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc"><SmallCaps>The Beer Garden</SmallCaps></h2>
             <p className="text-white/70 leading-relaxed mb-4">
               Sheltered, decked, and heated when needed — and one of the best spots in Lee Green 
               for a long afternoon. Dogs welcome. Saturday BBQs from 1pm in summer.
@@ -239,7 +240,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
       <section className="bg-cream py-20 overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="flex items-center justify-between mb-10">
-            <h2 className="text-navy font-black uppercase text-3xl md:text-4xl sc">What's On</h2>
+            <h2 className="text-navy font-black uppercase text-3xl md:text-4xl sc"><SmallCaps>What's On</SmallCaps></h2>
             <div className="flex items-center gap-3">
               <Link href="/events" className="text-xs font-black uppercase tracking-widest text-navy/40 hover:text-navy transition-colors hidden md:block sc">All Events</Link>
               <button onClick={() => scroll("left")} className="p-2 border-2 border-navy/20 text-navy hover:border-navy transition-colors"><ChevronLeft size={18}/></button>
@@ -256,7 +257,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <p className="text-gold text-xs font-bold tracking-widest uppercase mb-1">{ev.date}</p>
                   {ev.sub && <p className="text-white/60 text-xs mb-2">{ev.sub}</p>}
-                  <h3 className="text-white text-lg font-black uppercase sc">{ev.title}</h3>
+                  <h3 className="text-white text-lg font-black uppercase sc"><SmallCaps>{ev.title}</SmallCaps></h3>
                 </div>
               </Link>
             ))}
@@ -269,7 +270,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
           <div className="border border-white/10 p-10">
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Private Events</p>
-            <h2 className="text-white font-black uppercase text-3xl mb-4 sc">Parties</h2>
+            <h2 className="text-white font-black uppercase text-3xl mb-4 sc"><SmallCaps>Parties</SmallCaps></h2>
             <p className="text-white/60 leading-relaxed mb-6 text-sm">
               The Tiger Room seats 60 for dinner, 80 standing. High ceilings, original woodwork, 
               its own bar and entrance. Birthdays, anniversaries, corporate dinners — talk to us.
@@ -280,7 +281,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
           </div>
           <div className="border border-white/10 p-10">
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Membership</p>
-            <h2 className="text-white font-black uppercase text-3xl mb-4 sc">The Tiger Club</h2>
+            <h2 className="text-white font-black uppercase text-3xl mb-4 sc"><SmallCaps>The Tiger Club</SmallCaps></h2>
             <p className="text-white/60 leading-relaxed mb-6 text-sm">
               Priority booking, members-only events, and a team that knows your name.
             </p>
@@ -300,7 +301,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
           <div className="flex justify-center gap-1 mb-4">
             {[...Array(5)].map((_, i) => <Star key={i} size={24} className="text-gold fill-gold" />)}
           </div>
-          <h2 className="text-navy font-black uppercase text-2xl md:text-3xl mb-4 sc">Had a Good Time?</h2>
+          <h2 className="text-navy font-black uppercase text-2xl md:text-3xl mb-4 sc"><SmallCaps>Had a Good Time?</SmallCaps></h2>
           <p className="text-navy/60 mb-8 leading-relaxed">
             Reviews help other people in Lee Green find us. If you enjoyed your visit, 
             we'd love to hear about it.
@@ -319,7 +320,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         <div className="absolute inset-0 bg-navy/80 flex items-center justify-center text-center px-6">
           <div>
             <p className="text-gold text-xs font-black tracking-[0.5em] uppercase mb-3 sc">Est. 1750</p>
-            <h2 className="text-white font-black uppercase text-3xl md:text-5xl sc">At The Epicentre Of Lee Since 1750</h2>
+            <h2 className="text-white font-black uppercase text-3xl md:text-5xl sc"><SmallCaps>At The Epicentre Of Lee Since 1750</SmallCaps></h2>
             <Link href="/our-pub#story" className="inline-block mt-6 border border-gold text-gold font-black uppercase tracking-widest px-6 py-2.5 hover:bg-gold hover:text-navy transition-all sc text-xs">
               Our Story
             </Link>

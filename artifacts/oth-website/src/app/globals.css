@@ -28,27 +28,30 @@
 }
 
 /*
- * HEADING TYPOGRAPHY — SMALL CAPS TREATMENT
- * Every word has its first letter at full cap height.
- * Remaining letters render as uppercase but slightly smaller.
- * Achieved via font-variant-caps: small-caps + text-transform: uppercase.
- * This is the Century Gothic / Avant Garde small-caps convention.
- * NEVER use font-size tricks or separate spans — this is CSS-only.
+ * SMALL CAPS — Century Gothic does not have a native small-caps variant.
+ * We simulate it: each word's first letter renders at full size,
+ * remaining letters render uppercase at 75% size.
+ * The .sc class marks an element for JS-enhanced small caps via SmallCaps component.
+ * For pure-CSS contexts, we use text-transform: uppercase as fallback.
  */
 .sc {
-  font-variant-caps: small-caps;
-  font-variant: small-caps;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
-/* Nav links — tighter tracking */
 .sc-sm {
-  font-variant-caps: small-caps;
-  font-variant: small-caps;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-weight: 900;
+}
+
+/* Small caps simulation: first letter of each word at full size */
+.sc-word > .sc-first {
+  font-size: 1em;
+}
+.sc-word > .sc-rest {
+  font-size: 0.75em;
+  letter-spacing: 0.08em;
 }
 
 @utility scrollbar-hide {
