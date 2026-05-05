@@ -20,15 +20,15 @@ export default function FindUs() {
         <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
           <a href="tel:02045680111"
             className="bg-navy text-gold font-black uppercase tracking-widest px-6 py-4 hover:bg-white hover:text-navy transition-colors sc text-sm">
-            📞 Call Us
+            Call Us
           </a>
           <a href="mailto:enquiries@theoldtigershead.com"
             className="bg-navy text-gold font-black uppercase tracking-widest px-6 py-4 hover:bg-white hover:text-navy transition-colors sc text-sm">
-            ✉ Email Us
+            Email Us
           </a>
-          <Link href="/book"
+          <Link href="/contact"
             className="bg-navy text-gold font-black uppercase tracking-widest px-6 py-4 hover:bg-white hover:text-navy transition-colors sc text-sm">
-            📅 Book a Table
+            Make An Enquiry
           </Link>
         </div>
       </section>

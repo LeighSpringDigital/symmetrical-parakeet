@@ -100,14 +100,17 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
           <source src="/hero-video.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-navy/20 via-transparent to-navy/80" />
-        <div className="relative z-10 px-6">
+        <div className="relative z-10 px-6 text-center">
           <h1 className="text-gold font-black leading-none" style={{fontSize:"clamp(2.4rem,8vw,6.5rem)", letterSpacing:"0.05em"}}>
             <SmallCaps>The Old Tiger&apos;s Head</SmallCaps>
           </h1>
-          <p className="text-white/50 font-bold uppercase tracking-[0.4em] text-xs mt-5 mb-10">
+          <p className="text-white/50 font-bold uppercase tracking-[0.4em] text-xs mt-4">
             Est. 1750 · Lee Green, London
           </p>
-          <Link href="/book" className="inline-block bg-gold text-navy font-black uppercase tracking-[0.2em] px-10 py-4 hover:bg-white transition-colors sc text-sm">
+          <p className="text-white/70 text-base md:text-lg mt-4 mb-10 max-w-lg mx-auto leading-relaxed" style={{fontStyle:"italic"}}>
+            A pub worth crossing London for — and a five-minute walk for the lucky ones.
+          </p>
+          <Link href="/contact" className="inline-block bg-gold text-navy font-black uppercase tracking-[0.2em] px-10 py-4 hover:bg-white transition-colors sc text-sm">
             Book a Table
           </Link>
         </div>
@@ -142,7 +145,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
               48-hour gravy, hand-made Yorkshire puddings, and all the trimmings. 
               Served from noon until 5pm. High chairs available — children's roast on the menu.
             </p>
-            <Link href="/book" className="inline-block bg-gold text-navy font-black uppercase tracking-[0.2em] px-8 py-3.5 hover:bg-white transition-colors sc text-sm">
+            <Link href="/contact" className="inline-block bg-gold text-navy font-black uppercase tracking-[0.2em] px-8 py-3.5 hover:bg-white transition-colors sc text-sm">
               Book a Table
             </Link>
           </div>
@@ -229,7 +232,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
               Sheltered, decked, and heated when needed, our hidden oasis is the best spot in Lee Green 
               for a long afternoon. Dogs welcome. Saturday BBQs from 1pm in summer.
             </p>
-            <Link href="/book" className="inline-block border-2 border-gold text-gold font-black uppercase tracking-[0.2em] px-8 py-3.5 hover:bg-gold hover:text-navy transition-colors sc text-sm">
+            <Link href="/contact" className="inline-block border-2 border-gold text-gold font-black uppercase tracking-[0.2em] px-8 py-3.5 hover:bg-gold hover:text-navy transition-colors sc text-sm">
               Reserve a Table
             </Link>
           </div>

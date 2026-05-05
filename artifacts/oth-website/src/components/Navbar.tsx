@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { label: "Parties", href: "/parties" },
   { label: "About", href: "/our-pub" },
   { label: "Join", href: "/community" },
-  { label: "Contact", href: "/find-us" },
+  { label: "Contact", href: "/contact" },
 ];
 
 function Logo() {
@@ -73,18 +73,23 @@ export default function Navbar() {
               className="text-white/50 hover:text-gold transition-colors" aria-label="Facebook">
               <Facebook size={17} />
             </a>
-            <Link href="/book"
+            <Link href="/contact"
               className="ml-1 bg-gold text-navy px-6 py-2 font-black text-xs tracking-[0.2em] uppercase hover:bg-white transition-colors">
               Book
             </Link>
           </div>
 
-          {/* MOBILE — hamburger LEFT, book RIGHT */}
+          {/* MOBILE — hamburger LEFT, title CENTRE, book RIGHT */}
           <div className="lg:hidden flex items-center justify-between w-full">
-            <button onClick={() => setMobileOpen(true)} className="text-white p-1.5" aria-label="Open menu">
+            <button onClick={() => setMobileOpen(true)} className="text-white p-1.5 flex-shrink-0" aria-label="Open menu">
               <Menu size={22} />
             </button>
-            <Link href="/book" className="bg-gold text-navy px-4 py-2 font-black text-xs tracking-widest uppercase">Book</Link>
+            <Link href="/" className="absolute left-1/2 -translate-x-1/2 leading-none">
+              <span className="block font-black text-gold text-center" style={{fontSize:"0.85rem", letterSpacing:"0.14em"}}>
+                <SmallCaps>The Old Tiger&apos;s Head</SmallCaps>
+              </span>
+            </Link>
+            <Link href="/contact" className="bg-gold text-navy px-4 py-2 font-black text-xs tracking-widest uppercase flex-shrink-0">Book</Link>
           </div>
         </div>
       </nav>
@@ -104,7 +109,7 @@ export default function Navbar() {
               <SmallCaps>{l.label}</SmallCaps>
             </Link>
           ))}
-          <Link href="/book" onClick={() => setMobileOpen(false)}
+          <Link href="/contact" onClick={() => setMobileOpen(false)}
             className="mt-4 bg-gold text-navy py-4 font-black text-xl uppercase tracking-widest hover:bg-white transition-colors">
             <SmallCaps>Book A Table</SmallCaps>
           </Link>

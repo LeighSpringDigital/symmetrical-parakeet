@@ -1,4 +1,4 @@
-import BookingForm from "@/components/BookingForm";
+import EnquiryForm from "@/components/EnquiryForm";
 
 export const metadata = {
   title: "Parties | The Old Tiger's Head · Lee Green SE12",
@@ -49,8 +49,8 @@ export default function PartiesPage() {
             </p>
           </div>
           <div>
-            <h2 className="text-navy font-black uppercase text-2xl mb-6 sc">Make an Enquiry</h2>
-            <BookingForm type="party" />
+            <h2 className="text-navy font-black uppercase text-2xl mb-6 sc">Make An Enquiry</h2>
+            <EnquiryForm preset="party" />
           </div>
         </div>
       </section>
