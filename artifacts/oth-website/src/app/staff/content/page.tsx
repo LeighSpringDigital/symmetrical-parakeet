@@ -95,7 +95,7 @@ export default function ContentPage() {
         }),
       });
 
-      const data = await res.json();
+      const data = await res.json() as { error?: string; content?: { type: string; text: string }[] };
 
       if (!res.ok) {
         setError(data.error ?? 'Generation failed. Please try again.');
@@ -257,7 +257,7 @@ export default function ContentPage() {
             <label style={s.label}>Additional context (optional)</label>
             <textarea
               style={{ ...s.input, minHeight: 60 }}
-              placeholder="e.g. Include the booking link. Mention Paolo is cooking."
+              placeholder="e.g. Include the booking link. Mention Rob is behind the bar."
               value={form.additionalContext}
               onChange={e => setForm(f => ({ ...f, additionalContext: e.target.value }))}
             />
