@@ -22,9 +22,9 @@ export default function OurPub() {
       <section className="bg-cream py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-navy font-black uppercase text-3xl md:text-4xl mb-10 sc">Meet The Team</h2>
-          <div className="overflow-hidden mb-8 border border-navy/10" style={{height:"320px"}}>
-            <img src="/interior-bar.jpg" alt="Inside The Old Tiger's Head"
-              className="w-full h-full object-cover" style={{objectPosition:"center 40%"}} />
+          <div className="overflow-hidden mb-8 border border-navy/10" style={{height:"420px"}}>
+            <img src="/team-photo.png" alt="The team at The Old Tiger's Head"
+              className="w-full h-full object-cover" style={{objectPosition:"center 20%"}} />
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="border border-navy/10 p-8">
@@ -39,12 +39,12 @@ export default function OurPub() {
             </div>
             <div className="border border-navy/10 p-8 flex flex-col">
               <div className="overflow-hidden mb-5 border border-navy/10" style={{height:"220px"}}>
-                <img src="/dog-party.jpg" alt="Dogs welcome at The Old Tiger's Head" className="w-full h-full object-cover" style={{objectPosition:"center 30%"}} />
+                <img src="/interior-bar.jpg" alt="Inside The Old Tiger's Head" className="w-full h-full object-cover" style={{objectPosition:"center 50%"}} />
               </div>
-              <h3 className="text-2xl font-black uppercase text-gold mb-1 sc">Dogs Welcome</h3>
-              <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-4">Four-Legged Regulars</p>
+              <h3 className="text-2xl font-black uppercase text-gold mb-1 sc">The Building</h3>
+              <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-4">Grade II Listed, Est. 1750</p>
               <p className="text-navy/70 text-sm leading-relaxed">
-                Well-behaved dogs are welcome throughout the pub and in the beer garden. Water bowls on request. Our four-legged regulars are among our most loyal customers.
+                The Victorian bar, the original woodwork and the high ceilings are all exactly as they were. What has changed is everything behind them — the kitchen, the cellar, and the standards. A building this good deserved a team to match.
               </p>
             </div>
           </div>
