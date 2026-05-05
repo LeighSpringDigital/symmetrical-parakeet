@@ -286,7 +286,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
               Stay up to date with pub news and be first to hear about special events. Our team will always remember your personal needs and preferences. Every 5th time you visit as a party of 4 or more, your main course or a bottle of wine for the table is on us.
             </p>
             <div className="flex justify-center mb-6">
-              <img src="/tiger-club-card-transparent.png" alt="Tiger Club membership card" className="w-72"  />
+              <img src="/tiger-club-card-transparent.png" alt="Tiger Club membership card" className="w-72" style={{mixBlendMode:"screen"}} />
             </div>
             <Link href="/community" className="inline-block border-2 border-gold text-gold font-black uppercase tracking-wider px-7 py-3 hover:bg-gold hover:text-navy transition-colors sc text-xs">
               Find Out More
