@@ -1,81 +1,88 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Printer, Star } from "lucide-react";
 import { featureFlags as mockFlags } from "@/lib/config";
 import { SmallCaps } from "@/lib/smallCaps";
 
+const HERO_IMAGES = [
+  { src: "/food-roast-chicken-new.png", pos: "center 25%", alt: "Roast chicken at The Old Tiger's Head" },
+  { src: "/sunday-roast.jpg",           pos: "center 35%", alt: "Sunday roast" },
+  { src: "/interior-bar.jpg",           pos: "center center", alt: "Interior of The Old Tiger's Head" },
+  { src: "/beer-garden.webp",           pos: "center 40%", alt: "Beer garden" },
+];
+
 const EVENTS = [
-  { id: 2, title: "Sunday Roast", date: "Every Sunday", sub: "Last sitting 5pm — book ahead", img: "/food-roast-beef-new.png" },
-  { id: 1, title: "Garden BBQ", date: "Every Saturday", sub: "From 1pm · No booking needed", img: "/garden-festoon.png" },
-  { id: 3, title: "Quiz Night", date: "Every Sunday", sub: "7:30pm · Free entry", img: "/quiz.jpg" },
-  { id: 4, title: "Comedy Night", date: "First Thursday", sub: "8pm · Tiger Room", img: "/comedy.jpg" },
-  { id: 5, title: "Live Sport", date: "Match Days", sub: "Big screen · Great atmosphere", img: "/sport.jpg" },
+  { id: 2, title: "Sunday Roast",  date: "Every Sunday",     sub: "Last sitting 5pm — book ahead",    img: "/food-roast-beef-new.png" },
+  { id: 1, title: "Garden BBQ",    date: "Every Thursday",   sub: "From 6pm · No booking needed",     img: "/garden-festoon.png" },
+  { id: 3, title: "Quiz Night",    date: "Every Sunday",     sub: "7:30pm · Free entry",               img: "/quiz.jpg" },
+  { id: 4, title: "Comedy Night",  date: "First Thursday",   sub: "8pm · Tiger Room",                  img: "/comedy.jpg" },
+  { id: 5, title: "Live Sport",    date: "Match Days",       sub: "Big screen · Great atmosphere",     img: "/sport.jpg" },
 ];
 
 const MENU_TABS = [
-  { key: "today", label: "Today" },
-  { key: "lunch", label: "Lunch" },
-  { key: "sunday", label: "Sunday" },
+  { key: "today",    label: "Today" },
+  { key: "lunch",    label: "Lunch" },
+  { key: "sunday",   label: "Sunday" },
   { key: "children", label: "Children" },
 ];
 
 const MENU: Record<string, {section:string; items:{name:string; price:string; desc:string}[]}[]> = {
   today: [
     { section: "Starters", items: [
-      { name: "Soup of the Day", price: "£7.50", desc: "With sourdough" },
-      { name: "Chicken Liver Pâté", price: "£9.00", desc: "Brioche, cornichons, red onion marmalade" },
+      { name: "Soup of the Day",       price: "£7.50",  desc: "With sourdough" },
+      { name: "Chicken Liver Pâté",    price: "£9.00",  desc: "Brioche, cornichons, red onion marmalade" },
     ]},
     { section: "Mains", items: [
-      { name: "Tiger Burger", price: "£16.50", desc: "Dry-aged beef, secret sauce, triple-cooked chips" },
+      { name: "Tiger Burger",          price: "£16.50", desc: "Dry-aged beef, secret sauce, triple-cooked chips" },
       { name: "Beer Battered Haddock", price: "£17.00", desc: "Chips, mushy peas, tartare" },
       { name: "Wild Mushroom Risotto", price: "£15.50", desc: "Aged parmesan, truffle oil" },
     ]},
     { section: "Puddings", items: [
-      { name: "Sticky Toffee Pudding", price: "£8.00", desc: "Toffee sauce, vanilla ice cream" },
-      { name: "Berry Crumble", price: "£8.00", desc: "Seasonal fruit, oat crumble, custard" },
+      { name: "Sticky Toffee Pudding", price: "£8.00",  desc: "Toffee sauce, vanilla ice cream" },
+      { name: "Berry Crumble",         price: "£8.00",  desc: "Seasonal fruit, oat crumble, custard" },
     ]},
   ],
   sunday: [
     { section: "The Roast", items: [
-      { name: "Sirloin of Beef", price: "£22.00", desc: "28-day dry-aged · Yorkshire pudding · roast potatoes · seasonal vegetables · 48-hour gravy" },
-      { name: "Leg of Lamb", price: "£21.00", desc: "Slow-roasted · rosemary jus · all the trimmings" },
-      { name: "Roast Chicken", price: "£19.50", desc: "Free-range · stuffing · bacon" },
-      { name: "Nut Roast", price: "£17.00", desc: "Seasonal vegetables · mushroom gravy" },
+      { name: "Sirloin of Beef",       price: "£22.00", desc: "28-day dry-aged · Yorkshire pudding · roast potatoes · seasonal vegetables · 48-hour gravy" },
+      { name: "Leg of Lamb",           price: "£21.00", desc: "Slow-roasted · rosemary jus · all the trimmings" },
+      { name: "Roast Chicken",         price: "£19.50", desc: "Free-range · stuffing · bacon" },
+      { name: "Nut Roast",             price: "£17.00", desc: "Seasonal vegetables · mushroom gravy" },
     ]},
     { section: "Extras", items: [
       { name: "Extra Yorkshire Pudding", price: "£2.00", desc: "" },
-      { name: "Extra Gravy", price: "£2.50", desc: "Beef or mushroom" },
-      { name: "Cauliflower Cheese", price: "£5.00", desc: "Baked, gratiné" },
+      { name: "Extra Gravy",             price: "£2.50", desc: "Beef or mushroom" },
+      { name: "Cauliflower Cheese",      price: "£5.00", desc: "Baked, gratiné" },
     ]},
     { section: "Puddings", items: [
       { name: "Sticky Toffee Pudding", price: "£8.00", desc: "Toffee sauce, vanilla ice cream" },
-      { name: "Berry Crumble", price: "£8.00", desc: "Seasonal fruit, oat crumble, custard" },
+      { name: "Berry Crumble",         price: "£8.00", desc: "Seasonal fruit, oat crumble, custard" },
     ]},
   ],
   lunch: [
     { section: "Boards & Sandwiches", items: [
-      { name: "Ploughman's Board", price: "£13.50", desc: "Two cheeses, ham hock, pickles, bread, apple" },
-      { name: "Club Sandwich", price: "£13.00", desc: "Chicken, bacon, lettuce, tomato, mayo, chips" },
-      { name: "Smoked Salmon Bagel", price: "£12.00", desc: "Cream cheese, capers, dill, lemon" },
+      { name: "Ploughman's Board",    price: "£13.50", desc: "Two cheeses, ham hock, pickles, bread, apple" },
+      { name: "Club Sandwich",        price: "£13.00", desc: "Chicken, bacon, lettuce, tomato, mayo, chips" },
+      { name: "Smoked Salmon Bagel",  price: "£12.00", desc: "Cream cheese, capers, dill, lemon" },
     ]},
     { section: "Mains", items: [
-      { name: "Tiger Burger", price: "£16.50", desc: "Dry-aged beef, secret sauce, chips" },
+      { name: "Tiger Burger",          price: "£16.50", desc: "Dry-aged beef, secret sauce, chips" },
       { name: "Beer Battered Haddock", price: "£17.00", desc: "Chips, mushy peas, tartare" },
-      { name: "Caesar Salad", price: "£12.50", desc: "Romaine, parmesan, croutons, anchovy dressing" },
+      { name: "Caesar Salad",          price: "£12.50", desc: "Romaine, parmesan, croutons, anchovy dressing" },
     ]},
   ],
   children: [
     { section: "Children's Menu", items: [
-      { name: "Mini Beef Burger", price: "£8.50", desc: "With chips and salad" },
-      { name: "Fish Goujons", price: "£8.50", desc: "Chips, peas, ketchup" },
-      { name: "Pasta with Tomato Sauce", price: "£7.50", desc: "With parmesan" },
-      { name: "Children's Sunday Roast", price: "£10.00", desc: "Chicken or beef, all the trimmings" },
+      { name: "Mini Beef Burger",            price: "£8.50",  desc: "With chips and salad" },
+      { name: "Fish Goujons",                price: "£8.50",  desc: "Chips, peas, ketchup" },
+      { name: "Pasta with Tomato Sauce",     price: "£7.50",  desc: "With parmesan" },
+      { name: "Children's Sunday Roast",     price: "£10.00", desc: "Chicken or beef, all the trimmings" },
     ]},
     { section: "Puddings", items: [
-      { name: "Ice Cream", price: "£4.50", desc: "Two scoops" },
-      { name: "Warm Brownie", price: "£5.50", desc: "Vanilla ice cream" },
+      { name: "Ice Cream",   price: "£4.50", desc: "Two scoops" },
+      { name: "Warm Brownie",price: "£5.50", desc: "Vanilla ice cream" },
     ]},
   ],
 };
@@ -83,7 +90,14 @@ const MENU: Record<string, {section:string; items:{name:string; price:string; de
 export default function HomeClient({ initialEvents, settings }: { initialEvents:any[]|null; settings:any|null }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [tab, setTab] = useState("today");
+  const [heroStep, setHeroStep] = useState(0);
+  const heroIdx = heroStep % HERO_IMAGES.length;
   const events = (initialEvents && initialEvents.length > 0) ? initialEvents : EVENTS;
+
+  useEffect(() => {
+    const timer = setInterval(() => setHeroStep(s => s + 1), 7000);
+    return () => clearInterval(timer);
+  }, []);
 
   const scroll = (dir: "left"|"right") => {
     if (!scrollRef.current) return;
@@ -94,17 +108,30 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
   return (
     <main>
 
-      {/* ══ 1. HERO ══════════════════════════════════════════════════ */}
+      {/* ══ 1. HERO — cross-fade carousel with Ken Burns ══════════════ */}
       <section className="relative h-screen flex flex-col items-center justify-center text-center overflow-hidden bg-navy">
-        {/* Hero image — exterior at night */}
-        <img
-          src="/hero-exterior.jpg"
-          alt="The Old Tiger's Head, Lee Green"
-          className="absolute inset-0 w-full h-full object-cover z-0"
-          style={{objectPosition:"center 60%", opacity:0.65}}
-        />
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-navy/40 via-navy/10 to-navy/85" />
-        <div className="relative z-10 px-6 text-center">
+        {HERO_IMAGES.map((img, idx) => {
+          const N = HERO_IMAGES.length;
+          // Increments exactly when this image becomes active — forces animation restart via key
+          const activationCount = Math.floor((heroStep - idx + N) / N);
+          return (
+            <div
+              key={idx}
+              className="absolute inset-0 transition-opacity duration-[1500ms] ease-in-out"
+              style={{ opacity: heroIdx === idx ? 1 : 0 }}
+            >
+              <img
+                key={activationCount}
+                src={img.src}
+                alt={img.alt}
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ objectPosition: img.pos, animation: "kenburns 8s ease-out forwards" }}
+              />
+            </div>
+          );
+        })}
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-navy/40 via-navy/10 to-navy/85" />
+        <div className="relative z-20 px-6 text-center">
           <h1 className="text-gold font-black leading-none" style={{fontSize:"clamp(2.4rem,8vw,6.5rem)", letterSpacing:"0.05em"}}>
             <SmallCaps>The Old Tiger&apos;s Head</SmallCaps>
           </h1>
@@ -114,40 +141,59 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
           <p className="text-white/70 text-base md:text-lg mt-4 mb-10 max-w-lg mx-auto leading-relaxed" style={{fontStyle:"italic"}}>
             A pub worth crossing London for — and a five-minute walk for the lucky ones.
           </p>
-          <Link href="/contact" className="inline-block bg-gold text-navy font-black uppercase tracking-[0.2em] px-10 py-4 hover:bg-white transition-colors sc text-sm">
-            Book a Table
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href="/contact" className="inline-block bg-gold text-navy font-black uppercase tracking-[0.2em] px-10 py-4 hover:bg-white transition-colors sc text-sm">
+              Book Your Table
+            </Link>
+            <Link href="#menu" className="inline-block border-2 border-gold text-gold font-black uppercase tracking-[0.2em] px-10 py-4 hover:bg-gold hover:text-navy transition-colors sc text-sm">
+              View Menu
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ══ 2. WELCOME — Cream ═══════════════════════════════════════ */}
-      <section className="bg-cream py-20 px-6">
+      {/* ══ 2. OUR STORY — Cream ══════════════════════════════════════ */}
+      <section className="bg-cream py-24 px-6">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-navy font-black uppercase text-3xl md:text-4xl mb-6 sc"><SmallCaps>Welcome</SmallCaps></h2>
+          <p className="text-gold text-[10px] font-black tracking-[0.5em] uppercase mb-4">Est. 1750</p>
+          <h2 className="text-navy font-black uppercase text-3xl md:text-5xl mb-8 sc"><SmallCaps>Our Story</SmallCaps></h2>
+          <p className="text-navy/70 text-lg leading-relaxed mb-6">
+            The Old Tiger&apos;s Head has stood at the heart of Lee Green since 1750. Its high ceilings and graceful
+            Victorian architecture create a timeless setting, while our dedicated team works to deliver warm,
+            thoughtful hospitality every day.
+          </p>
           <p className="text-navy/70 text-lg leading-relaxed">
-            The Old Tiger's Head has stood at the epicentre of Lee Green since 1750. 
-            Grade II listed, the Victorian bar and high ceilings are all exactly as they were. 
-            What has changed is everything behind them: the kitchen, the cellar, the standards and the team. 
-            A neighbourhood pub for families, friends and regulars. The food is made here, the welcome is genuine, and the lease runs fifteen years.
+            This is a relaxed place where families gather, dogs settle happily by the table, and friends enjoy
+            easy conversation. You will find us welcoming you with a peaceful beer garden and a varied calendar
+            of events throughout the year. We look forward to welcoming you, whether for a quiet coffee, a
+            shared meal, or a special celebration.
           </p>
         </div>
       </section>
 
-      {/* ══ 3. FOOD PHOTO DIVIDER — roast beef ══════════════════════ */}
-      <div className="w-full overflow-hidden" style={{height:"55vh"}}>
+      {/* ══ 3. FOOD PHOTO DIVIDER — roast beef ═══════════════════════ */}
+      <div className="w-full overflow-hidden relative" style={{height:"55vh"}}>
         <img src="/food-roast-beef-new.png" alt="Sunday roast at The Old Tiger's Head"
           className="w-full h-full object-cover" style={{objectPosition:"center 30%"}} />
+        {/* Soft gradient bleed into next section */}
+        <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent to-navy pointer-events-none" />
       </div>
 
-      {/* ══ 4. SUNDAY ROAST — Navy ═══════════════════════════════════ */}
-      <section className="bg-navy py-20 px-6">
+      {/* ══ 4. OUR SUNDAY TABLE — Navy ═══════════════════════════════ */}
+      <section className="bg-navy py-24 px-6 -mt-20 relative z-10">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Every Sunday</p>
-            <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc"><SmallCaps>Sunday Roast</SmallCaps></h2>
+            <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc"><SmallCaps>Our Sunday Table</SmallCaps></h2>
             <p className="text-white/70 leading-relaxed mb-4">
-              48-hour gravy, hand-made Yorkshire puddings, and all the trimmings. 
-              Served from noon until 5pm. High chairs available — children's roast on the menu.
+              Our Sunday roasts bring everyone together. Choose from slow-roasted pork belly, roast rump of
+              beef, leg of lamb, or half roast chicken, all served with golden Yorkshire puddings, cauliflower
+              cheese, roast potatoes, and rich gravy made fresh in our kitchen.
+            </p>
+            <p className="text-white/70 leading-relaxed mb-8">
+              Finish with comforting puddings such as berry crumble or lemon meringue pie. Sundays here feel
+              special, whether you are joining family, meeting friends, or enjoying a gentle walk with the dog
+              beforehand. Book your table and make the day your own.
             </p>
             <Link href="/contact" className="inline-block bg-gold text-navy font-black uppercase tracking-[0.2em] px-8 py-3.5 hover:bg-white transition-colors sc text-sm">
               Book a Table
@@ -168,12 +214,11 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
       </section>
 
       {/* ══ 5. MENU — Cream ══════════════════════════════════════════ */}
-      <section id="menu" className="bg-cream py-20 px-6">
+      <section id="menu" className="bg-cream py-24 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
             <h2 className="text-navy font-black uppercase text-3xl md:text-4xl sc"><SmallCaps>Our Menu</SmallCaps></h2>
             <div className="flex items-center gap-2">
-              {/* Equal width tabs */}
               <div className="grid grid-cols-4 gap-2 w-full md:w-auto">
                 {MENU_TABS.map(t => (
                   <button key={t.key} onClick={() => setTab(t.key)}
@@ -217,13 +262,14 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
       </section>
 
       {/* ══ 6. FISH & CHIPS PHOTO DIVIDER ════════════════════════════ */}
-      <div className="w-full overflow-hidden" style={{height:"50vh"}}>
+      <div className="w-full overflow-hidden relative" style={{height:"50vh"}}>
         <img src="/food-fish-chips-single.png" alt="Beer battered haddock"
           className="w-full h-full object-cover" style={{objectPosition:"center 35%"}} />
+        <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent to-navy pointer-events-none" />
       </div>
 
-      {/* ══ 7. BEER GARDEN — Navy ════════════════════════════════════ */}
-      <section className="bg-navy py-20 px-6">
+      {/* ══ 7. THE GARDEN — Navy ═════════════════════════════════════ */}
+      <section className="bg-navy py-24 px-6 -mt-20 relative z-10">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div className="overflow-hidden order-2 md:order-1" style={{height:"380px"}}>
             <img src="/garden-festoon.png" alt="The beer garden at The Old Tiger's Head"
@@ -231,10 +277,15 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
           </div>
           <div className="order-1 md:order-2">
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Open Daily from Noon</p>
-            <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc"><SmallCaps>The Beer Garden</SmallCaps></h2>
+            <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc"><SmallCaps>The Garden</SmallCaps></h2>
             <p className="text-white/70 leading-relaxed mb-4">
-              Sheltered, decked, and heated when needed, our hidden oasis is the best spot in Lee Green 
-              for a long afternoon. Dogs welcome. Saturday BBQs from 1pm in summer.
+              Our sheltered and sunny beer garden is a true hidden gem in Lee Green. With plenty of space,
+              heating when the evenings cool, and a relaxed atmosphere, it is the perfect spot for long
+              afternoons. Dogs are warmly welcomed.
+            </p>
+            <p className="text-white/70 leading-relaxed mb-8">
+              This summer we are excited to fire up the barbecue every Thursday. Come and enjoy good food,
+              cool drinks, and easy company in the open air.
             </p>
             <Link href="/contact" className="inline-block border-2 border-gold text-gold font-black uppercase tracking-[0.2em] px-8 py-3.5 hover:bg-gold hover:text-navy transition-colors sc text-sm">
               Reserve a Table
@@ -244,13 +295,13 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
       </section>
 
       {/* ══ 8. WHAT'S ON — Cream ═════════════════════════════════════ */}
-      <section className="bg-cream py-20 overflow-hidden">
+      <section className="bg-cream py-24 overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="flex items-center justify-between mb-10">
-            <h2 className="text-navy font-black uppercase text-3xl md:text-4xl sc"><SmallCaps>What's On</SmallCaps></h2>
+            <h2 className="text-navy font-black uppercase text-3xl md:text-4xl sc"><SmallCaps>What&apos;s On</SmallCaps></h2>
             <div className="flex items-center gap-3">
               <Link href="/events" className="text-xs font-black uppercase tracking-widest text-navy/40 hover:text-navy transition-colors hidden md:block sc">All Events</Link>
-              <button onClick={() => scroll("left")} className="p-2 border-2 border-navy/20 text-navy hover:border-navy transition-colors"><ChevronLeft size={18}/></button>
+              <button onClick={() => scroll("left")}  className="p-2 border-2 border-navy/20 text-navy hover:border-navy transition-colors"><ChevronLeft  size={18}/></button>
               <button onClick={() => scroll("right")} className="p-2 border-2 border-navy/20 text-navy hover:border-navy transition-colors"><ChevronRight size={18}/></button>
             </div>
           </div>
@@ -272,34 +323,49 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
         </div>
       </section>
 
-      {/* ══ 9. PARTIES & TIGER CLUB ══════════════════════════════════ */}
-      <section className="bg-navy py-20 px-6">
+      {/* ══ 9. THE TIGER ROOM + JOIN THE TIGER CLUB ══════════════════ */}
+      <section className="bg-navy py-24 px-6">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+
+          {/* Tiger Room */}
           <div className="border border-white/10 p-10">
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Private Events</p>
-            <h2 className="text-white font-black uppercase text-3xl mb-4 sc"><SmallCaps>Parties</SmallCaps></h2>
-            <p className="text-white/60 leading-relaxed mb-6 text-sm">
-              The Tiger Room runs the full width of the building. High ceilings, original woodwork,
-              its own bar and private entrance. Seats 60 for dinner or holds 80 for a standing reception.
+            <h2 className="text-white font-black uppercase text-3xl mb-6 sc"><SmallCaps>The Tiger Room</SmallCaps></h2>
+            <p className="text-white/60 leading-relaxed mb-4 text-sm">
+              The Tiger Room stretches the full width of the building and offers beautiful high ceilings and
+              original woodwork. It has its own bar and private entrance, making it ideal for groups. The room
+              comfortably seats 60 for dinner or holds up to 80 for a standing reception.
+            </p>
+            <p className="text-white/60 leading-relaxed mb-8 text-sm">
+              Whether you are planning a birthday, anniversary, or any gathering, we will help shape the
+              occasion to suit you perfectly.
             </p>
             <Link href="/parties" className="inline-block bg-gold text-navy font-black uppercase tracking-wider px-7 py-3 hover:bg-white transition-colors sc text-xs">
               Enquire Now
             </Link>
           </div>
-          {/* Tiger Club — cream panel so card sits naturally */}
+
+          {/* Tiger Club */}
           <div className="bg-cream p-10 flex flex-col">
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Membership</p>
-            <h2 className="text-navy font-black uppercase text-3xl mb-4 sc"><SmallCaps>The Tiger Club</SmallCaps></h2>
-            <p className="text-navy/60 leading-relaxed mb-6 text-sm">
-              Stay up to date with pub news and be first to hear about special events. Our team will always remember your personal needs and preferences. Every 5th time you visit as a party of 4 or more, your main course or a bottle of wine for the table is on us.
+            <h2 className="text-navy font-black uppercase text-3xl mb-6 sc"><SmallCaps>Join the Tiger Club</SmallCaps></h2>
+            <p className="text-navy/60 leading-relaxed mb-4 text-sm">
+              Join the Tiger Club to stay connected with everything happening at the pub. You will receive
+              early notice of special events and new menus, along with thoughtful touches such as a glass of
+              bubbly on your birthday.
             </p>
-            <div className="flex justify-center my-4 flex-1 items-center">
+            <p className="text-navy/60 leading-relaxed mb-6 text-sm">
+              Every fifth visit with a party of four or more brings a complimentary main course or bottle of
+              wine for the table. We look forward to getting to know you and making every visit feel personal.
+            </p>
+            <div className="flex justify-center my-2 flex-1 items-center">
               <img src="/tiger-club-card-cream.png" alt="Tiger Club membership card" className="w-72 drop-shadow-lg" />
             </div>
             <Link href="/community" className="inline-block border-2 border-navy text-navy font-black uppercase tracking-wider px-7 py-3 hover:bg-navy hover:text-gold transition-colors sc text-xs text-center">
               Find Out More
             </Link>
           </div>
+
         </div>
       </section>
 
@@ -311,8 +377,8 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
           </div>
           <h2 className="text-navy font-black uppercase text-2xl md:text-3xl mb-4 sc"><SmallCaps>Had a Good Time?</SmallCaps></h2>
           <p className="text-navy/60 mb-8 leading-relaxed">
-            Reviews help other people in Lee Green find us. If you enjoyed your visit, 
-            we'd love to hear about it.
+            Reviews help other people in Lee Green find us. If you enjoyed your visit,
+            we&apos;d love to hear about it.
           </p>
           <a href="https://search.google.com/local/writereview?placeid=ChIJf3aSzYkCdkgRQVYZ6Q3s7qA" target="_blank" rel="noopener noreferrer"
             className="inline-block bg-navy text-gold font-black uppercase tracking-[0.2em] px-10 py-4 hover:bg-gold hover:text-navy transition-colors sc text-sm">

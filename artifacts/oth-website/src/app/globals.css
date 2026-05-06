@@ -54,6 +54,12 @@
   letter-spacing: 0.08em;
 }
 
+/* Hero carousel Ken Burns zoom */
+@keyframes kenburns {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1.0); }
+}
+
 @utility scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
