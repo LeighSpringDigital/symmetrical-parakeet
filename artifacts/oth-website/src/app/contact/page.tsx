@@ -14,7 +14,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
         <div className="max-w-5xl mx-auto">
           <p className="text-gold/60 text-xs font-black tracking-[0.4em] uppercase mb-2">The Old Tiger&apos;s Head</p>
           <h1 className="text-4xl md:text-6xl font-black uppercase text-white" style={{letterSpacing:"0.05em"}}>Get In Touch</h1>
-          <p className="text-white/40 mt-3 text-sm">We&apos;ll get back to you as soon as we can — usually the same day.</p>
+          <p className="text-white/40 mt-3 text-sm">We will get back to you the same day.</p>
         </div>
       </div>
       <section className="py-16 px-6">

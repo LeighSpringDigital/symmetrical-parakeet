@@ -41,7 +41,7 @@ export default function FindUs() {
               <h2 className="text-navy font-black uppercase text-sm tracking-widest mb-4 sc">Address</h2>
               <p className="text-navy/70 leading-relaxed text-sm">
                 351 Lee High Road<br />London SE12 8RU<br /><br />
-                At the Lee Green crossroads — junction of the A20, A205, and A4000.
+                At the Lee Green crossroads, junction of the A20, A205, and A4000.
               </p>
             </div>
             <div>

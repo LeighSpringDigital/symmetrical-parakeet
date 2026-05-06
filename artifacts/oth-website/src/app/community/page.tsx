@@ -29,10 +29,10 @@ export default function Community() {
               {[
                 "A complimentary glass of bubbly on your birthday",
                 "Every fifth visit as a party of 4 or more: your main course or a bottle of wine for the table, on us",
-                "Personalised service at every visit — we will know your name and your order",
+                "Personalised service at every visit. We will know your name and your order",
                 "Members supper clubs and coffee mornings",
                 "Early access to new menus and seasonal announcements",
-                "The Tiger's Letter — our monthly members newsletter",
+                "The Tiger's Letter, our monthly members newsletter",
               ].map(b => (
                 <li key={b} className="flex items-start gap-3 text-navy/60 text-sm">
                   <span className="text-gold mt-1.5 flex-shrink-0 text-xs">—</span>{b}

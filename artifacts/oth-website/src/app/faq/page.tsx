@@ -21,7 +21,7 @@ const faqs = [
       },
       {
         q: "Can I book for large groups?",
-        a: "For groups of 10 or more, please call us directly on 020 4568 0111. For private events, the Tiger Room can accommodate up to 60 seated or 80 standing — visit our Private Hire page for details.",
+        a: "For groups of 10 or more, please call us directly on 020 4568 0111. For private events, the Tiger Room can accommodate up to 60 seated or 80 standing. Visit our Private Hire page for details.",
       },
       {
         q: "What is your cancellation policy?",
@@ -38,15 +38,15 @@ const faqs = [
       },
       {
         q: "Do you have high chairs?",
-        a: "Yes — we have high chairs available. If you need one, mention it when you book and we'll make sure one is ready at your table.",
+        a: "Yes, we have high chairs available. If you need one, mention it when you book and we'll make sure one is ready at your table.",
       },
       {
         q: "Is there a children's menu?",
-        a: "Yes. The children's menu includes smaller versions of our main dishes — burger, fish goujons, pasta, and a children's Sunday roast on Sundays. It's on the menu page.",
+        a: "Yes. The children's menu includes smaller versions of our main dishes: burger, fish goujons, pasta, and a children's Sunday roast on Sundays. It's on the menu page.",
       },
       {
         q: "Is there space for a pram or pushchair?",
-        a: "Yes. The pub is on one level (ground floor) and has enough space for pushchairs. If you're coming with a pram, the beer garden is often the easiest spot — plenty of room and a relaxed atmosphere.",
+        a: "Yes. The pub is on one level (ground floor) and has enough space for pushchairs. If you're coming with a pram, the beer garden is often the easiest spot, with plenty of room and a relaxed atmosphere.",
       },
     ],
   },
@@ -93,15 +93,15 @@ const faqs = [
       },
       {
         q: "Do you have vegetarian and vegan options?",
-        a: "Yes — there are vegetarian options across all menus, including a nut roast on Sundays. Vegan options are available on request. Ask your server and they'll guide you through what we can do.",
+        a: "Yes, there are vegetarian options across all menus, including a nut roast on Sundays. Vegan options are available on request. Ask your server and they'll guide you through what we can do.",
       },
       {
         q: "What time does the kitchen close?",
-        a: "The kitchen serves lunch 12:00–16:00 and dinner 17:00–21:00 daily. On Sundays the roast is served 12:00–17:00 or until sold out — which often happens before 5pm.",
+        a: "The kitchen serves lunch 12:00–16:00 and dinner 17:00–21:00 daily. On Sundays the roast is served 12:00–17:00 or until sold out, which often happens before 5pm.",
       },
       {
         q: "Can I see the menu before I visit?",
-        a: "Yes — the full menu is on our website, including the Sunday menu and children's menu. You can also print it from the menu page.",
+        a: "Yes, the full menu is on our website, including the Sunday menu and children's menu. You can also print it from the menu page.",
       },
     ],
   },

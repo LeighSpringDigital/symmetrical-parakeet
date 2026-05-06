@@ -36,7 +36,7 @@ export default function PrivateHire() {
               </h2>
               <div className="space-y-5 text-white/70 leading-relaxed">
                 <p>
-                  The Tiger Room runs the full width of the building — high ceilings, original woodwork, 
+                  The Tiger Room runs the full width of the building, with high ceilings, original woodwork, 
                   and the kind of atmosphere that a modern events venue can spend a million pounds 
                   trying to replicate. It seats up to 60 for a dinner, or stands 80 for a drinks reception.
                 </p>

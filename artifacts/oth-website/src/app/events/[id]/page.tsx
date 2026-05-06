@@ -5,21 +5,13 @@ import Link from "next/link";
 import { Calendar, Clock, Ticket, Share2, Facebook, Instagram, Twitter, ChevronLeft } from "lucide-react";
 
 const eventsData: Record<string, any> = {
-  "1": {
-    title: "Friday Night Jazz",
-    date: "Every Friday",
-    time: "20:00 - Late",
-    price: "Free Entry",
-    img: "/jazz.jpg",
-    description: "Experience the finest local jazz musicians in the heart of Lee. Our Friday night sessions have become a staple of the local music scene, offering a perfect blend of classic standards and contemporary improvisation. No booking required, just show up, soak in the atmosphere, and enjoy a pint of our finest ale while the music takes over.",
-  },
   "2": {
     title: "Sunday Roast",
     date: "Every Sunday",
-    time: "12:00 - 17:00",
+    time: "12:00 – 17:00",
     price: "From £16.50",
     img: "/sunday-roast.jpg",
-    description: "Our Sunday roast is served from noon until 5pm. We source our cuts from local butchers, served with hand-made Yorkshire puddings, honey-glazed carrots, parsnips, seasonal greens, and our signature 48-hour gravy. Book ahead — it sells out most weeks.",
+    description: "Our Sunday roasts bring everyone together. Choose from slow-roasted pork belly, roast rump of beef, leg of lamb, or half roast chicken, all served with golden Yorkshire puddings, cauliflower cheese, roast potatoes, and rich gravy made fresh in our kitchen. Finish with comforting puddings such as berry crumble or lemon meringue pie. Book your table and make the day your own.",
   },
   "3": {
     title: "Quiz Night",
@@ -35,7 +27,7 @@ const eventsData: Record<string, any> = {
     time: "20:00 - 22:30",
     price: "£10 Tickets",
     img: "/comedy.jpg",
-    description: "A monthly showcase of the best rising talent and established acts from the London comedy circuit. Intimate, hilarious, and always a sell-out. Grab your tickets early and come down for a night of laughs and great drinks.",
+    description: "A monthly showcase of the best rising talent and established acts from the London comedy circuit. Tables book up early. Come for the laughs, stay for the drinks.",
   },
   "5": {
     title: "Live Rugby",
@@ -43,7 +35,7 @@ const eventsData: Record<string, any> = {
     time: "Various",
     price: "Free Entry",
     img: "/sport.jpg",
-    description: "Watch the big games in the right atmosphere. We show all major international and premiership rugby matches on our large screens. There is no better place in Lee to cheer on your team with a crowd of fellow fans.",
+    description: "Watch the big games in the right atmosphere. We show all major international and premiership rugby matches on our large screens. We show all major fixtures on our large screens in a warm, engaged atmosphere. Good sport deserves good company.",
   },
 };
 

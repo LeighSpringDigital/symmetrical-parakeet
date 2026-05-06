@@ -14,7 +14,7 @@ const HERO_IMAGES = [
 ];
 
 const EVENTS = [
-  { id: 2, title: "Sunday Roast",  date: "Every Sunday",     sub: "Last sitting 5pm — book ahead",    img: "/food-roast-beef-new.png" },
+  { id: 2, title: "Sunday Roast",  date: "Every Sunday",     sub: "Last sitting 5pm, book ahead",    img: "/food-roast-beef-new.png" },
   { id: 1, title: "Garden BBQ",    date: "Every Thursday",   sub: "From 6pm · No booking needed",     img: "/garden-festoon.png" },
   { id: 3, title: "Quiz Night",    date: "Every Sunday",     sub: "7:30pm · Free entry",               img: "/quiz.jpg" },
   { id: 4, title: "Comedy Night",  date: "First Thursday",   sub: "8pm · Tiger Room",                  img: "/comedy.jpg" },
@@ -139,7 +139,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
             Est. 1750 · Lee Green, London
           </p>
           <p className="text-white/70 text-base md:text-lg mt-4 mb-10 max-w-lg mx-auto leading-relaxed" style={{fontStyle:"italic"}}>
-            A pub worth crossing London for — and a five-minute walk for the lucky ones.
+            A pub worth crossing London for. A five-minute walk for the lucky ones.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link href="/contact" className="inline-block bg-gold text-navy font-black uppercase tracking-[0.2em] px-10 py-4 hover:bg-white transition-colors sc text-sm">
@@ -279,8 +279,8 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Open Daily from Noon</p>
             <h2 className="text-white font-black uppercase text-4xl md:text-5xl mb-6 sc"><SmallCaps>The Garden</SmallCaps></h2>
             <p className="text-white/70 leading-relaxed mb-4">
-              Our sheltered and sunny beer garden is a true hidden gem in Lee Green. With plenty of space,
-              heating when the evenings cool, and a relaxed atmosphere, it is the perfect spot for long
+              Our sheltered and sunny garden is tucked behind the pub, with its own bar, beach huts, and
+              plenty of space to settle in. Heating when the evenings cool off. Dogs are warmly welcomed.
               afternoons. Dogs are warmly welcomed.
             </p>
             <p className="text-white/70 leading-relaxed mb-8">

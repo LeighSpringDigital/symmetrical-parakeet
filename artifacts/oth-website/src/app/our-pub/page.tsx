@@ -44,7 +44,7 @@ export default function OurPub() {
               <h3 className="text-2xl font-black uppercase text-gold mb-1 sc">The Building</h3>
               <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-4">Grade II Listed, Est. 1750</p>
               <p className="text-navy/70 text-sm leading-relaxed">
-                The Victorian bar, the original woodwork and the high ceilings are all exactly as they were. What has changed is everything behind them — the kitchen, the cellar, and the standards. A building this good deserved a team to match.
+                The Victorian bar, the original woodwork and the high ceilings are all exactly as they were. What has changed is everything behind them: the kitchen, the cellar, and the standards. A building this good deserved a team to match.
               </p>
             </div>
           </div>
