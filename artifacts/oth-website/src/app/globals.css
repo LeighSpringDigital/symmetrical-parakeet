@@ -70,3 +70,28 @@
   nav, footer, .no-print { display: none !important; }
   body { background: white !important; color: black !important; }
 }
+
+/* ─── SECTION OVERLAP & SOFTNESS ─────────────────────────────────────────
+ * Sections that use -mt-20 overlap the photo divider above them.
+ * The box-shadow gives a subtle depth so they feel lifted off the page
+ * rather than just stacked. No skew, no clip-path — just quiet depth.
+ */
+.section-lift {
+  box-shadow: 0 -8px 40px 0 rgba(0, 41, 66, 0.18);
+}
+
+/* Photo dividers get a diagonal bottom edge via a pseudo-element */
+.photo-divider {
+  position: relative;
+}
+.photo-divider::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: inherit;
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  pointer-events: none;
+}

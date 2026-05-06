@@ -172,7 +172,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
       </section>
 
       {/* ══ 3. FOOD PHOTO DIVIDER — roast beef ═══════════════════════ */}
-      <div className="w-full overflow-hidden relative" style={{height:"55vh"}}>
+      <div className="w-full overflow-hidden relative photo-divider" style={{height:"55vh"}}>
         <img src="/food-roast-beef-new.png" alt="Sunday roast at The Old Tiger's Head"
           className="w-full h-full object-cover" style={{objectPosition:"center 30%"}} />
         {/* Soft gradient bleed into next section */}
@@ -180,7 +180,7 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
       </div>
 
       {/* ══ 4. OUR SUNDAY TABLE — Navy ═══════════════════════════════ */}
-      <section className="bg-navy py-24 px-6 -mt-20 relative z-10">
+      <section className="bg-navy py-24 px-6 -mt-20 relative z-10 section-lift">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Every Sunday</p>
@@ -201,13 +201,13 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="overflow-hidden" style={{height:"200px"}}>
-              <img src="/food-roast-yorkshire.png" alt="Yorkshire puddings" className="w-full h-full object-cover" style={{objectPosition:"center 20%"}} />
+              <img src="/food-yorkshire.webp" alt="Yorkshire puddings" className="w-full h-full object-cover" style={{objectPosition:"center 20%"}} />
             </div>
             <div className="overflow-hidden" style={{height:"200px"}}>
-              <img src="/food-roast-chicken-new.png" alt="Roast chicken" className="w-full h-full object-cover" style={{objectPosition:"center 25%"}} />
+              <img src="/food-plating.jpg" alt="Food being plated in the kitchen" className="w-full h-full object-cover" style={{objectPosition:"center 40%"}} />
             </div>
             <div className="overflow-hidden col-span-2" style={{height:"180px"}}>
-              <img src="/food-crumble-new.png" alt="Berry crumble" className="w-full h-full object-cover" style={{objectPosition:"center 40%"}} />
+              <img src="/food-crumble.jpg" alt="Berry crumble with ice cream" className="w-full h-full object-cover" style={{objectPosition:"center 40%"}} />
             </div>
           </div>
         </div>
@@ -262,18 +262,18 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
       </section>
 
       {/* ══ 6. FISH & CHIPS PHOTO DIVIDER ════════════════════════════ */}
-      <div className="w-full overflow-hidden relative" style={{height:"50vh"}}>
-        <img src="/food-fish-chips-single.png" alt="Beer battered haddock"
+      <div className="w-full overflow-hidden relative photo-divider" style={{height:"50vh"}}>
+        <img src="/food-fish-chips.jpg" alt="Beer battered haddock"
           className="w-full h-full object-cover" style={{objectPosition:"center 35%"}} />
         <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent to-navy pointer-events-none" />
       </div>
 
       {/* ══ 7. THE GARDEN — Navy ═════════════════════════════════════ */}
-      <section className="bg-navy py-24 px-6 -mt-20 relative z-10">
+      <section className="bg-navy py-24 px-6 -mt-20 relative z-10 section-lift">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div className="overflow-hidden order-2 md:order-1" style={{height:"380px"}}>
-            <img src="/garden-festoon.png" alt="The beer garden at The Old Tiger's Head"
-              className="w-full h-full object-cover" style={{objectPosition:"center center"}} />
+            <img src="/dog-party.jpg" alt="Dogs welcome at The Old Tiger's Head"
+              className="w-full h-full object-cover" style={{objectPosition:"center 30%"}} />
           </div>
           <div className="order-1 md:order-2">
             <p className="text-gold text-xs font-black tracking-[0.4em] uppercase mb-3">Open Daily from Noon</p>
@@ -281,10 +281,9 @@ export default function HomeClient({ initialEvents, settings }: { initialEvents:
             <p className="text-white/70 leading-relaxed mb-4">
               Our sheltered and sunny garden is tucked behind the pub, with its own bar, beach huts, and
               plenty of space to settle in. Heating when the evenings cool off. Dogs are warmly welcomed.
-              afternoons. Dogs are warmly welcomed.
             </p>
             <p className="text-white/70 leading-relaxed mb-8">
-              This summer we are excited to fire up the barbecue every Thursday. Come and enjoy good food,
+              This summer we are firing up the barbecue every Thursday. Come and enjoy good food,
               cool drinks, and easy company in the open air.
             </p>
             <Link href="/contact" className="inline-block border-2 border-gold text-gold font-black uppercase tracking-[0.2em] px-8 py-3.5 hover:bg-gold hover:text-navy transition-colors sc text-sm">
